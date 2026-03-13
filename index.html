@@ -275,7 +275,7 @@ footer{border-top:1px solid var(--edge);padding:13px 32px;display:flex;align-ite
 
 <!-- HEADER -->
 <header>
-  <div class="wm">DELPHI <em>financial intelligence</em></div>
+  <div class="wm">METRON <em>financial intelligence</em></div>
   <div class="hdr-r">
     <span class="eye" onclick="toggleKey()" id="eyeBtn" title="Show/hide key">&#9673;</span>
     <input class="ki" type="password" id="keyInp" placeholder="Anthropic API key — saved locally" oninput="saveKey()">
@@ -864,7 +864,7 @@ function go(id, btn) {
   document.querySelectorAll('.nb').forEach(b => b.classList.remove('on'));
   document.getElementById('p-'+id).classList.add('on');
   btn.classList.add('on');
-  document.title = 'DELPHI — ' + panelTitles[id];
+  document.title = 'METRON — ' + panelTitles[id];
 }
 function sv(section, sub, btn) {
   const prefix = section + '-';
@@ -957,7 +957,7 @@ async function runBrain() {
   msgs.appendChild(loading);
   loading.scrollIntoView({ behavior: 'smooth' });
 
-  const sys = `You are DELPHI — a senior financial analyst and research partner. Your user is Thakur, a final-year engineering student targeting MFE programs (CMU, UChicago, Columbia) with internship experience at ICICI Bank and EY Strategy. He is analytical, framework-driven, and wants sharp, direct insights — not hedging.
+  const sys = `You are METRON — a senior financial analyst and research partner. Your user is Thakur, a final-year engineering student targeting MFE programs (CMU, UChicago, Columbia) with internship experience at ICICI Bank and EY Strategy. He is analytical, framework-driven, and wants sharp, direct insights — not hedging.
 
 Respond like a senior analyst briefing a partner: lead with the headline finding, use frameworks by name, be specific with numbers, give clear recommendations. No generic filler.${libCtx()}`;
 
