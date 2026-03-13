@@ -1,1632 +1,1503 @@
 <!DOCTYPE html>
+<!-- DEPLOY: Push as index.html → GitHub repo → Settings → Pages → main branch → Save -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AGENT — Financial Intelligence Platform</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>DELPHI</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg0: #030407;
-  --bg1: #07080f;
-  --bg2: #0c0e1a;
-  --bg3: #111425;
-  --bg4: #161830;
-  --g: #00e5a0;
-  --g2: #00b87a;
-  --b: #3b82f6;
-  --b2: #60a5fa;
-  --p: #a855f7;
-  --p2: #c084fc;
-  --y: #f59e0b;
-  --y2: #fbbf24;
-  --r: #ef4444;
-  --r2: #f87171;
-  --c: #06b6d4;
-  --c2: #22d3ee;
-  --text: #e2e8f0;
-  --text2: #94a3b8;
-  --text3: #4b5563;
-  --border: rgba(255,255,255,0.05);
-  --border2: rgba(255,255,255,0.10);
-  --glow: 0 0 20px rgba(0,229,160,0.15);
-  --glow-b: 0 0 20px rgba(59,130,246,0.2);
-  --sidebar: 72px;
+:root{
+  --ink:#161718;--paper:#1c1d1e;--card:#222324;--raised:#292a2c;
+  --edge:#333537;--edge2:#4a4c50;
+  --tx:#dcd8d0;--tx2:#9a9590;--tx3:#5c5a57;
+  --moss:#7da080;--moss2:#5c7a5f;
+  --slate:#6e8fa6;--slate2:#4d6d82;
+  --terra:#e07840;--terra2:#c46028;
+  --ash:#c2b9ae;
+  --r:8px;--rsm:5px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:13px;scroll-behavior:smooth}
+html{font-size:13.5px;-webkit-text-size-adjust:100%}
 body{
-  font-family:'Space Grotesk',sans-serif;
-  background:var(--bg0);
-  color:var(--text);
-  min-height:100vh;
-  overflow-x:hidden;
-  display:flex;
+  font-family:'DM Sans',sans-serif;
+  background:var(--ink);color:var(--tx);
+  min-height:100vh;line-height:1.6;overflow-x:hidden;
 }
-
-/* ─── ANIMATED BG ─── */
 body::before{
-  content:'';position:fixed;inset:0;z-index:0;
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
-    radial-gradient(ellipse 60% 40% at 20% 50%, rgba(0,229,160,0.04) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 60% at 80% 20%, rgba(59,130,246,0.05) 0%, transparent 60%),
-    radial-gradient(ellipse 30% 30% at 60% 80%, rgba(168,85,247,0.04) 0%, transparent 60%);
-  pointer-events:none;
-}
-body::after{
-  content:'';position:fixed;inset:0;z-index:0;
-  background-image:linear-gradient(rgba(0,229,160,0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,229,160,0.015) 1px, transparent 1px);
-  background-size:48px 48px;
-  pointer-events:none;
+    radial-gradient(ellipse 50% 35% at 15% 60%,rgba(122,160,128,.03) 0,transparent 65%),
+    radial-gradient(ellipse 40% 40% at 85% 20%,rgba(110,143,166,.03) 0,transparent 65%);
 }
 
-/* ─── SIDEBAR ─── */
-.sidebar{
-  position:fixed;left:0;top:0;bottom:0;
-  width:var(--sidebar);
-  background:rgba(7,8,15,0.95);
-  border-right:1px solid var(--border);
-  z-index:200;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding:16px 0;
-  gap:4px;
-  backdrop-filter:blur(20px);
-}
-.sb-logo{
-  width:40px;height:40px;
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:16px;
-  position:relative;
-}
-.sb-logo-inner{
-  width:32px;height:32px;
-  border:2px solid var(--g);
-  border-radius:8px;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'JetBrains Mono',monospace;
-  font-size:12px;font-weight:700;
-  color:var(--g);
-  position:relative;
-  box-shadow:0 0 15px rgba(0,229,160,0.4);
-  animation:logoPulse 3s ease-in-out infinite;
-}
-@keyframes logoPulse{0%,100%{box-shadow:0 0 15px rgba(0,229,160,0.4)}50%{box-shadow:0 0 25px rgba(0,229,160,0.7)}}
-.sb-btn{
-  width:48px;height:48px;
-  border-radius:10px;
-  background:none;
-  border:1px solid transparent;
-  color:var(--text3);
-  cursor:pointer;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  gap:3px;
-  transition:all 0.2s;
-  position:relative;
-  font-size:18px;
-}
-.sb-btn:hover{color:var(--text2);background:var(--bg3);border-color:var(--border)}
-.sb-btn.active{color:var(--g);background:rgba(0,229,160,0.08);border-color:rgba(0,229,160,0.2)}
-.sb-btn.active::before{
-  content:'';position:absolute;left:-1px;top:12px;bottom:12px;
-  width:2px;background:var(--g);border-radius:0 2px 2px 0;
-  box-shadow:0 0 6px var(--g);
-}
-.sb-lbl{font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:0.05em;line-height:1}
-.sb-divider{width:32px;height:1px;background:var(--border);margin:6px 0}
-.sb-group-lbl{font-family:'JetBrains Mono',monospace;font-size:7px;color:var(--text3);letter-spacing:0.1em;margin:4px 0 2px}
-
-/* ─── MAIN ─── */
-.main{
-  margin-left:var(--sidebar);
-  flex:1;
-  position:relative;z-index:1;
-  display:flex;
-  flex-direction:column;
-  min-height:100vh;
-}
-
-/* ─── TOPBAR ─── */
-.topbar{
-  height:52px;
-  background:rgba(7,8,15,0.9);
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;
-  padding:0 24px;
-  gap:12px;
-  backdrop-filter:blur(20px);
+/* HEADER */
+header{
   position:sticky;top:0;z-index:100;
-}
-.topbar-title{
-  font-family:'JetBrains Mono',monospace;
-  font-size:11px;font-weight:500;
-  color:var(--g);
-  letter-spacing:0.1em;
-  text-transform:uppercase;
-  flex:1;
-}
-.topbar-right{display:flex;align-items:center;gap:10px}
-.api-wrap{position:relative}
-.api-inp{
-  font-family:'JetBrains Mono',monospace;font-size:11px;
-  background:var(--bg2);
-  border:1px solid var(--border2);
-  border-radius:8px;padding:7px 14px;
-  color:var(--text);width:250px;outline:none;
-  transition:border-color 0.2s;
-}
-.api-inp:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(0,229,160,0.1)}
-.api-inp::placeholder{color:var(--text3)}
-.status{
-  font-family:'JetBrains Mono',monospace;font-size:9px;
-  padding:4px 10px;border-radius:4px;border:1px solid;
-  letter-spacing:0.05em;
-}
-.status.ok{color:var(--g);border-color:rgba(0,229,160,0.3);background:rgba(0,229,160,0.06)}
-.status.no{color:var(--text3);border-color:var(--border)}
-.live-dot{
-  width:6px;height:6px;border-radius:50%;background:var(--g);
-  box-shadow:0 0 6px var(--g);animation:logoPulse 1.5s ease-in-out infinite;
-}
-
-/* ─── PANELS ─── */
-.panel{display:none;padding:28px;animation:panelIn 0.3s ease}
-.panel.active{display:block}
-@keyframes panelIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
-/* ─── SECTION HEADERS ─── */
-.sec-hd{
-  display:flex;align-items:center;gap:14px;margin-bottom:24px;
-}
-.sec-hd-icon{
-  width:40px;height:40px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:18px;flex-shrink:0;
-}
-.sec-hd-text h2{font-size:16px;font-weight:600;line-height:1.2}
-.sec-hd-text p{font-size:11px;color:var(--text2);margin-top:2px;font-family:'JetBrains Mono',monospace}
-
-/* ─── CARDS ─── */
-.card{
-  background:var(--bg2);
-  border:1px solid var(--border);
-  border-radius:12px;
-  overflow:hidden;
-  transition:border-color 0.2s;
-}
-.card:hover{border-color:var(--border2)}
-.card.glow-g:hover{border-color:rgba(0,229,160,0.25);box-shadow:var(--glow)}
-.card.glow-b:hover{border-color:rgba(59,130,246,0.25);box-shadow:var(--glow-b)}
-.card-hd{
-  padding:14px 18px;
-  border-bottom:1px solid var(--border);
+  background:rgba(23,20,15,.97);
+  border-bottom:1px solid var(--edge);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  padding:0 32px;height:52px;
   display:flex;align-items:center;justify-content:space-between;
 }
-.card-hd-title{font-size:12px;font-weight:600;display:flex;align-items:center;gap:8px}
-.card-bd{padding:18px}
-
-/* ─── GRIDS ─── */
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
-.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-
-/* ─── FORM ─── */
-.field{margin-bottom:14px}
-.field label{
-  display:block;
-  font-family:'JetBrains Mono',monospace;font-size:9px;
-  color:var(--text3);letter-spacing:0.1em;text-transform:uppercase;
-  margin-bottom:6px;
+.wm{
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;font-weight:400;letter-spacing:.12em;color:var(--tx);
+  display:flex;align-items:baseline;gap:12px;
 }
-input[type=text],input[type=number],textarea,select{
-  width:100%;
-  background:var(--bg3);
-  border:1px solid var(--border2);
-  border-radius:8px;padding:9px 13px;
-  font-family:'Space Grotesk',sans-serif;font-size:12px;
-  color:var(--text);outline:none;
-  transition:border-color 0.2s,box-shadow 0.2s;
+.wm em{font-style:italic;font-weight:300;font-size:12px;color:var(--tx3);letter-spacing:.06em}
+.hdr-r{display:flex;align-items:center;gap:10px}
+.ki{
+  -webkit-appearance:none;appearance:none;
+  font-family:'Fira Code',monospace;font-size:11px;
+  background:var(--card);border:1px solid var(--edge);
+  border-radius:var(--rsm);padding:6px 12px;color:var(--tx);
+  width:230px;outline:none;transition:border-color .2s;
 }
-input[type=text]:focus,input[type=number]:focus,textarea:focus{
-  border-color:var(--g);box-shadow:0 0 0 3px rgba(0,229,160,0.08);
-}
-select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2394a3b8'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
-textarea{resize:vertical;line-height:1.7;min-height:80px}
-select:focus{border-color:var(--b);box-shadow:0 0 0 3px rgba(59,130,246,0.08)}
+.ki:focus{border-color:var(--moss)}
+.ki::placeholder{color:var(--tx3)}
+.kb{font-family:'Fira Code',monospace;font-size:9px;padding:3px 8px;border-radius:3px;border:1px solid;display:none;letter-spacing:.05em}
+.kb.ok{color:var(--moss);border-color:rgba(125,160,128,.35);background:rgba(125,160,128,.07);display:inline}
+.kb.bad{color:var(--tx3);border-color:var(--edge);display:inline}
+.eye{font-size:13px;color:var(--tx3);cursor:pointer;user-select:none;transition:color .2s;padding:4px}
+.eye:hover{color:var(--tx2)}
 
-/* ─── RANGE ─── */
-.range-row{display:grid;grid-template-columns:120px 1fr 58px;align-items:center;gap:14px;margin-bottom:10px}
-.range-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text2)}
+/* NAV */
+nav{
+  background:rgba(23,20,15,.97);
+  border-bottom:1px solid var(--edge);
+  padding:0 32px;display:flex;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+}
+nav::-webkit-scrollbar{display:none}
+.nb{
+  -webkit-appearance:none;appearance:none;
+  font-family:'DM Sans',sans-serif;
+  font-size:11.5px;font-weight:400;letter-spacing:.09em;text-transform:uppercase;
+  padding:0 22px;height:40px;
+  background:none;border:none;border-bottom:2px solid transparent;
+  color:var(--tx3);cursor:pointer;white-space:nowrap;
+  transition:color .15s,border-color .15s;
+  display:flex;align-items:center;gap:7px;
+}
+.nb:hover{color:var(--tx2)}
+.nb.on{color:var(--tx);border-bottom-color:var(--moss)}
+.nn{font-family:'Fira Code',monospace;font-size:9px;color:var(--tx3);opacity:.6}
+
+/* MAIN / PANELS */
+main{position:relative;z-index:1}
+.panel{display:none;max-width:1140px;margin:0 auto;padding:30px 32px}
+.panel.on{display:block;animation:rise .22s ease}
+@keyframes rise{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+
+/* PAGE HEADING */
+.ph{margin-bottom:26px;padding-bottom:16px;border-bottom:1px solid var(--edge);display:flex;align-items:flex-end;justify-content:space-between}
+.ph h2{font-family:'Cormorant Garamond',serif;font-size:25px;font-weight:400;letter-spacing:.04em}
+.ph p{font-family:'Fira Code',monospace;font-size:10.5px;color:var(--tx3);margin-top:3px}
+.ph-r{display:flex;gap:8px}
+
+/* SUB-TABS */
+.snav{display:flex;gap:0;border-bottom:1px solid var(--edge);margin-bottom:22px}
+.snb{
+  -webkit-appearance:none;appearance:none;
+  font-family:'Fira Code',monospace;font-size:10px;letter-spacing:.08em;
+  padding:8px 18px;background:none;border:none;
+  border-bottom:1px solid transparent;color:var(--tx3);
+  cursor:pointer;margin-bottom:-1px;transition:all .15s;
+}
+.snb:hover{color:var(--tx2)}
+.snb.on{color:var(--tx);border-bottom-color:var(--terra)}
+.sp2{display:none}
+.sp2.on{display:block;animation:rise .18s ease}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--edge);border-radius:var(--r)}
+.chd{padding:12px 17px;border-bottom:1px solid var(--edge);display:flex;align-items:center;justify-content:space-between}
+.chdt{font-family:'Fira Code',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx2)}
+.cbd{padding:17px}
+
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}
+
+/* FORM */
+.field{margin-bottom:13px}
+.field label{display:block;font-family:'Fira Code',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);margin-bottom:5px}
+input[type=text],input[type=number],input[type=password],textarea,select{
+  -webkit-appearance:none;appearance:none;
+  width:100%;background:var(--raised);border:1px solid var(--edge);
+  border-radius:var(--rsm);padding:9px 12px;
+  font-family:'DM Sans',sans-serif;font-size:12.5px;
+  color:var(--tx);outline:none;transition:border-color .2s;
+}
+input[type=text]:focus,input[type=number]:focus,textarea:focus{border-color:var(--moss)}
+select:focus{border-color:var(--slate)}
+select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%235c5248'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 11px center;
+  padding-right:30px;cursor:pointer;
+}
+textarea{resize:vertical;min-height:78px;line-height:1.65}
+::placeholder{color:var(--tx3)}
+
+/* RANGE — full webkit */
 input[type=range]{
-  -webkit-appearance:none;width:100%;height:3px;
-  background:var(--bg4);border-radius:2px;outline:none;cursor:pointer;
+  -webkit-appearance:none;appearance:none;
+  width:100%;height:2px;background:var(--edge);
+  border-radius:1px;outline:none;cursor:pointer;border:none;padding:0;
 }
 input[type=range]::-webkit-slider-thumb{
-  -webkit-appearance:none;width:14px;height:14px;
-  border-radius:50%;background:var(--g);cursor:pointer;
-  box-shadow:0 0 8px rgba(0,229,160,0.6);
-  transition:transform 0.15s;
+  -webkit-appearance:none;appearance:none;
+  width:13px;height:13px;border-radius:50%;
+  background:var(--moss);cursor:pointer;
+  border:2px solid var(--paper);
+  box-shadow:0 0 0 1px var(--moss2);
+  transition:transform .12s;
 }
 input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
-.range-val{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--g);text-align:right;font-weight:500}
+input[type=range]::-moz-range-thumb{
+  width:13px;height:13px;border-radius:50%;
+  background:var(--moss);cursor:pointer;border:2px solid var(--paper);
+}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:var(--edge);border-radius:1px}
+input[type=range]::-moz-range-track{height:2px;background:var(--edge);border-radius:1px}
 
-/* ─── BUTTONS ─── */
+.rrow{display:grid;grid-template-columns:130px 1fr 56px;align-items:center;gap:13px;margin-bottom:9px}
+.rlbl{font-family:'Fira Code',monospace;font-size:10px;color:var(--tx2)}
+.rval{font-family:'Fira Code',monospace;font-size:11px;color:var(--moss);text-align:right;font-weight:500}
+
+/* BUTTONS */
 .btn{
-  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;
-  letter-spacing:0.06em;padding:9px 20px;border-radius:8px;
-  border:1px solid var(--border2);background:transparent;color:var(--text);
-  cursor:pointer;transition:all 0.15s;
+  -webkit-appearance:none;appearance:none;
+  font-family:'Fira Code',monospace;font-size:11px;letter-spacing:.06em;
+  padding:9px 20px;border-radius:var(--rsm);
+  border:1px solid var(--edge2);background:transparent;color:var(--tx2);
+  cursor:pointer;transition:all .15s;
   display:inline-flex;align-items:center;gap:8px;
 }
-.btn:hover{background:var(--bg3);border-color:var(--border2);transform:translateY(-1px)}
-.btn:active{transform:translateY(0)}
-.btn.g{background:var(--g);border-color:var(--g);color:#000;font-weight:600}
-.btn.g:hover{background:var(--g2);border-color:var(--g2);box-shadow:0 4px 15px rgba(0,229,160,0.3)}
-.btn.b{background:var(--b);border-color:var(--b);color:#fff}
-.btn.b:hover{background:#2563eb;box-shadow:0 4px 15px rgba(59,130,246,0.3)}
-.btn.p{background:var(--p);border-color:var(--p);color:#fff}
-.btn.danger{background:var(--r);border-color:var(--r);color:#fff}
-.btn:disabled{opacity:0.35;cursor:not-allowed;transform:none}
-.btn-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:4px}
+.btn:hover{background:var(--raised);color:var(--tx);border-color:var(--edge2)}
+.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.3;cursor:not-allowed;transform:none}
+.btn.moss{background:var(--moss);border-color:var(--moss);color:#111;font-weight:500}
+.btn.moss:hover{background:var(--moss2);border-color:var(--moss2)}
+.btn.slate{background:var(--slate);border-color:var(--slate);color:#fff}
+.btn.slate:hover{background:var(--slate2);border-color:var(--slate2)}
+.btn.terra{background:var(--terra);border-color:var(--terra);color:#fff}
+.btn.terra:hover{background:var(--terra2);border-color:var(--terra2)}
+.btn.sm{padding:6px 13px;font-size:10px}
+.brow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:4px}
 
-/* ─── OUTPUT ─── */
+/* OUTPUT */
 .out{
-  background:var(--bg1);border:1px solid var(--border);border-radius:10px;
-  padding:18px;font-family:'JetBrains Mono',monospace;font-size:11.5px;
-  line-height:1.85;color:var(--text);white-space:pre-wrap;
-  min-height:100px;max-height:640px;overflow-y:auto;margin-top:16px;
-  position:relative;transition:border-color 0.3s;
+  background:var(--ink);border:1px solid var(--edge);border-radius:var(--r);
+  padding:17px 19px;font-family:'Fira Code',monospace;
+  font-size:11.5px;line-height:1.85;color:var(--tx);
+  white-space:pre-wrap;min-height:90px;max-height:580px;
+  overflow-y:auto;margin-top:15px;transition:border-color .3s;
 }
-.out.empty{color:var(--text3);font-style:italic}
-.out.loading{border-color:rgba(0,229,160,0.2)}
-.out.done{border-color:rgba(0,229,160,0.15)}
+.out.empty{color:var(--tx3);font-style:italic}
+.out.run{border-color:rgba(125,160,128,.22)}
 .out::-webkit-scrollbar{width:4px}
-.out::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:2px}
+.out::-webkit-scrollbar-thumb{background:var(--edge2);border-radius:2px}
 
-/* ─── SPINNER ─── */
-.spin{
-  display:inline-block;width:13px;height:13px;
-  border:2px solid var(--border2);border-top-color:var(--g);
-  border-radius:50%;animation:spin 0.6s linear infinite;
-}
+/* SPINNER */
+.sp{display:none;width:12px;height:12px;border:1.5px solid var(--edge2);border-top-color:var(--moss);border-radius:50%;animation:spin .65s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* ─── METRIC TILES ─── */
-.metric-tile{
-  background:var(--bg3);border:1px solid var(--border);
-  border-radius:10px;padding:14px 16px;
-  transition:all 0.2s;cursor:default;
-}
-.metric-tile:hover{border-color:var(--border2);transform:translateY(-2px)}
-.m-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px}
-.m-val{font-size:22px;font-weight:700;line-height:1}
-.m-sub{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);margin-top:4px}
-.m-delta{font-family:'JetBrains Mono',monospace;font-size:10px;margin-top:3px}
-.m-delta.up{color:var(--g)}
-.m-delta.dn{color:var(--r)}
+/* METRIC TILES */
+.tile{background:var(--raised);border:1px solid var(--edge);border-radius:var(--r);padding:14px 16px;transition:border-color .2s}
+.tile:hover{border-color:var(--edge2)}
+.tlbl{font-family:'Fira Code',monospace;font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:7px}
+.tval{font-family:'Cormorant Garamond',serif;font-size:27px;font-weight:500;line-height:1;color:var(--tx)}
+.tsub{font-family:'Fira Code',monospace;font-size:9.5px;color:var(--tx3);margin-top:5px}
+.tval.m{color:var(--moss)}.tval.s{color:var(--slate)}.tval.t{color:var(--terra)}
 
-/* ─── TAGS ─── */
-.tag{
-  display:inline-block;font-family:'JetBrains Mono',monospace;
-  font-size:9px;padding:3px 8px;border-radius:4px;
-  letter-spacing:0.05em;font-weight:500;
-}
-.tag.g{background:rgba(0,229,160,0.1);color:var(--g);border:1px solid rgba(0,229,160,0.2)}
-.tag.b{background:rgba(59,130,246,0.1);color:var(--b2);border:1px solid rgba(59,130,246,0.2)}
-.tag.p{background:rgba(168,85,247,0.1);color:var(--p2);border:1px solid rgba(168,85,247,0.2)}
-.tag.y{background:rgba(245,158,11,0.1);color:var(--y2);border:1px solid rgba(245,158,11,0.2)}
-.tag.r{background:rgba(239,68,68,0.1);color:var(--r2);border:1px solid rgba(239,68,68,0.2)}
-.tag.c{background:rgba(6,182,212,0.1);color:var(--c2);border:1px solid rgba(6,182,212,0.2)}
+/* TAGS */
+.tag{display:inline-block;font-family:'Fira Code',monospace;font-size:9px;letter-spacing:.05em;padding:3px 8px;border-radius:3px;border:1px solid;vertical-align:middle}
+.tag.m{color:var(--moss);border-color:rgba(125,160,128,.3);background:rgba(125,160,128,.07)}
+.tag.s{color:var(--slate);border-color:rgba(110,143,166,.3);background:rgba(110,143,166,.07)}
+.tag.t{color:var(--terra);border-color:rgba(176,122,88,.3);background:rgba(176,122,88,.07)}
+.tag.a{color:var(--tx2);border-color:var(--edge);background:var(--raised)}
 
-/* ─── CHAT ─── */
-.chat-wrap{display:flex;flex-direction:column;gap:14px}
-.msg-u{
-  background:rgba(59,130,246,0.07);border:1px solid rgba(59,130,246,0.15);
-  border-radius:10px;padding:14px 16px;font-size:13px;
-  animation:panelIn 0.2s ease;
-}
-.msg-a{
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:10px;padding:16px;
-  font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.85;
-  white-space:pre-wrap;animation:panelIn 0.2s ease;
-}
-.msg-lbl{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.msg-u .msg-lbl{color:var(--b2)}
-.msg-a .msg-lbl{color:var(--g)}
+/* CHAT */
+.cwrap{display:flex;flex-direction:column;gap:13px}
+.mu{background:rgba(110,143,166,.06);border:1px solid rgba(110,143,166,.13);border-radius:var(--r);padding:14px 16px;font-size:13px;animation:rise .2s ease}
+.ma{background:var(--card);border:1px solid var(--edge);border-radius:var(--r);padding:17px 19px;font-family:'Fira Code',monospace;font-size:11.5px;line-height:1.85;white-space:pre-wrap;animation:rise .2s ease}
+.mlbl{font-family:'Fira Code',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--tx3);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.mu .mlbl{color:var(--slate)}.ma .mlbl{color:var(--moss2)}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--moss);animation:beat 1.4s ease-in-out infinite}
+@keyframes beat{0%,100%{opacity:1}50%{opacity:.3}}
 
-/* ─── MONTE CARLO CANVAS ─── */
-#mcCanvas{width:100%;height:140px;border-radius:8px;background:var(--bg1);border:1px solid var(--border)}
+/* PORTFOLIO TABLE */
+.phdr,.prow{display:grid;grid-template-columns:1.5fr .9fr .9fr .8fr .7fr 64px;gap:8px;padding:10px 15px;align-items:center;font-size:12px;border-bottom:1px solid var(--edge)}
+.phdr{background:var(--paper);font-family:'Fira Code',monospace;font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em}
+.prow:last-child{border-bottom:none}
+.prow:hover{background:var(--paper)}
+.dbtn{-webkit-appearance:none;appearance:none;background:none;border:none;color:var(--tx3);cursor:pointer;font-size:14px;padding:3px 7px;border-radius:4px;transition:all .15s}
+.dbtn:hover{color:var(--terra);background:rgba(176,122,88,.09)}
 
-/* ─── VAULT ENTRY ─── */
-.vault-row{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:10px 14px;border-bottom:1px solid var(--border);
-}
-.vault-row:last-child{border-bottom:none}
-.vr-left .vr-name{font-size:12px;font-weight:500}
-.vr-left .vr-meta{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);margin-top:2px}
-.del{background:none;border:none;color:var(--text3);cursor:pointer;font-size:15px;padding:4px 8px;border-radius:5px;transition:all 0.15s}
-.del:hover{color:var(--r);background:rgba(239,68,68,0.1)}
+/* LIBRARY ENTRIES (Compose) */
+.le{padding:11px 14px;border-bottom:1px solid var(--edge);cursor:pointer;transition:background .15s}
+.le:last-child{border-bottom:none}
+.le:hover{background:var(--paper)}
+.le.sel{background:var(--raised);border-left:2px solid var(--moss)}
+.len{font-size:12.5px;font-weight:500}
+.lem{font-family:'Fira Code',monospace;font-size:9.5px;color:var(--tx3);margin-top:2px}
 
-/* ─── PORTFOLIO TRACKER ─── */
-.port-row{
-  display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr 80px;
-  gap:8px;padding:10px 14px;border-bottom:1px solid var(--border);
-  align-items:center;font-size:12px;transition:background 0.15s;
-}
-.port-row:hover{background:var(--bg3)}
-.port-row:last-child{border-bottom:none}
-.port-hd{background:var(--bg3);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase}
+/* RESEARCH NOTES */
+.nc{background:var(--raised);border:1px solid var(--edge);border-radius:var(--r);padding:14px 16px;margin-bottom:10px;animation:rise .2s ease;transition:border-color .2s}
+.nc:hover{border-color:var(--edge2)}
+.nct{font-size:13px;font-weight:500;margin-bottom:4px}
+.ncm{font-family:'Fira Code',monospace;font-size:9.5px;color:var(--tx3);margin-bottom:7px;display:flex;gap:10px;flex-wrap:wrap}
+.ncb{font-size:12px;color:var(--tx2);line-height:1.7;white-space:pre-wrap}
+.nca{display:flex;gap:8px;margin-top:10px;justify-content:flex-end}
 
-/* ─── STARTUP CARD ─── */
-.startup-card{
-  background:var(--bg3);border:1px solid var(--border);border-radius:10px;
-  padding:16px;cursor:pointer;transition:all 0.2s;
-}
-.startup-card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.3)}
-.sc-stage{font-family:'JetBrains Mono',monospace;font-size:9px;margin-bottom:8px}
-.sc-name{font-size:14px;font-weight:700;margin-bottom:4px}
-.sc-desc{font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:10px}
+/* CANVAS */
+#mcCanvas{width:100%;height:120px;border-radius:var(--rsm);display:block}
 
-/* ─── SCORE METER ─── */
-.score-bar{height:4px;background:var(--bg4);border-radius:2px;overflow:hidden;margin-top:8px}
-.score-fill{height:100%;border-radius:2px;transition:width 0.6s ease}
-
-/* ─── PROGRESS ─── */
-.progress-ring{position:relative;display:inline-flex;align-items:center;justify-content:center}
-
-/* ─── GLOW ACCENTS ─── */
-.accent-g{color:var(--g)}
-.accent-b{color:var(--b2)}
-.accent-p{color:var(--p2)}
-.accent-y{color:var(--y2)}
-.accent-r{color:var(--r2)}
-.accent-c{color:var(--c2)}
-
-/* ─── SCROLLBAR ─── */
+/* SCROLLBAR */
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
+::-webkit-scrollbar-thumb{background:var(--edge2);border-radius:3px}
 
-/* ─── DIVIDER ─── */
-hr{border:none;border-top:1px solid var(--border);margin:18px 0}
+/* MISC */
+hr{border:none;border-top:1px solid var(--edge);margin:15px 0}
+.mt{margin-top:15px}.mb{margin-bottom:15px}
+.muted{color:var(--tx3);font-family:'Fira Code',monospace;font-size:10px}
+.full{width:100%;justify-content:center}
 
-/* ─── KB SHORTCUT ─── */
-.kbd{
-  display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;
-  background:var(--bg3);border:1px solid var(--border2);border-radius:3px;
-  padding:1px 5px;color:var(--text3);
-}
+/* FOOTER */
+footer{border-top:1px solid var(--edge);padding:13px 32px;display:flex;align-items:center;justify-content:space-between;font-family:'Fira Code',monospace;font-size:9.5px;color:var(--tx3)}
 </style>
 </head>
 <body>
 
-<!-- ════════════════ SIDEBAR ════════════════ -->
-<aside class="sidebar">
-  <div class="sb-logo"><div class="sb-logo-inner">AG</div></div>
+<!-- HEADER -->
+<header>
+  <div class="wm">DELPHI <em>financial intelligence</em></div>
+  <div class="hdr-r">
+    <span class="eye" onclick="toggleKey()" id="eyeBtn" title="Show/hide key">&#9673;</span>
+    <input class="ki" type="password" id="keyInp" placeholder="Anthropic API key — saved locally" oninput="saveKey()">
+    <span class="kb" id="keyBadge"></span>
+  </div>
+</header>
 
-  <div class="sb-group-lbl">CORE</div>
-  <button class="sb-btn active" onclick="go('orch',this)" title="Orchestrator">
-    <span>⚡</span><span class="sb-lbl">BRAIN</span>
-  </button>
-  <button class="sb-btn" onclick="go('comps',this)" title="Comps">
-    <span>⊞</span><span class="sb-lbl">COMPS</span>
-  </button>
-  <button class="sb-btn" onclick="go('dcf',this)" title="DCF + Monte Carlo">
-    <span>◈</span><span class="sb-lbl">DCF</span>
-  </button>
-  <button class="sb-btn" onclick="go('sentiment',this)" title="Sentiment">
-    <span>◎</span><span class="sb-lbl">SIGNAL</span>
-  </button>
+<!-- NAV -->
+<nav>
+  <button class="nb on" onclick="go('brain',this)"><span class="nn">01</span>Brain</button>
+  <button class="nb" onclick="go('val',this)"><span class="nn">02</span>Valuation</button>
+  <button class="nb" onclick="go('port',this)"><span class="nn">03</span>Portfolio</button>
+  <button class="nb" onclick="go('compose',this)"><span class="nn">04</span>Compose</button>
+  <button class="nb" onclick="go('research',this)"><span class="nn">05</span>Research</button>
+</nav>
 
-  <div class="sb-divider"></div>
-  <div class="sb-group-lbl">DEALS</div>
-  <button class="sb-btn" onclick="go('deals',this)" title="Deal Sourcing">
-    <span>🔍</span><span class="sb-lbl">DEALS</span>
-  </button>
-  <button class="sb-btn" onclick="go('dd',this)" title="Due Diligence">
-    <span>🔬</span><span class="sb-lbl">DD</span>
-  </button>
-  <button class="sb-btn" onclick="go('port',this)" title="Portfolio">
-    <span>📊</span><span class="sb-lbl">PORT</span>
-  </button>
+<main>
 
-  <div class="sb-divider"></div>
-  <div class="sb-group-lbl">RESEARCH</div>
-  <button class="sb-btn" onclick="go('market',this)" title="Market Research">
-    <span>🌐</span><span class="sb-lbl">MARKET</span>
-  </button>
-  <button class="sb-btn" onclick="go('macro',this)" title="Macro">
-    <span>📡</span><span class="sb-lbl">MACRO</span>
-  </button>
-  <button class="sb-btn" onclick="go('vault',this)" title="Knowledge Vault">
-    <span>🧠</span><span class="sb-lbl">VAULT</span>
-  </button>
-
-  <div class="sb-divider"></div>
-  <div class="sb-group-lbl">WRITE</div>
-  <button class="sb-btn" onclick="go('quill',this)" title="Quill Writer">
-    <span>✦</span><span class="sb-lbl">QUILL</span>
-  </button>
-  <button class="sb-btn" onclick="go('consult',this)" title="Consulting">
-    <span>◆</span><span class="sb-lbl">FRAME</span>
-  </button>
-</aside>
-
-<!-- ════════════════ MAIN ════════════════ -->
-<div class="main">
-
-  <!-- TOPBAR -->
-  <div class="topbar">
-    <div class="topbar-title" id="topTitle">ORCHESTRATOR — MASTER INTELLIGENCE</div>
-    <div class="topbar-right">
-      <div class="live-dot"></div>
-      <input type="password" class="api-inp" id="apiKey" placeholder="sk-ant-api03-..." oninput="checkKey()">
-      <div class="status no" id="keyStatus">NO KEY</div>
-    </div>
+<!-- ══════════════════ 01 BRAIN ══════════════════ -->
+<div id="p-brain" class="panel on">
+  <div class="ph">
+    <div><h2>Brain</h2><p>Natural language · Routes across all modules · Context-aware</p></div>
+    <div class="ph-r"><button class="btn sm" onclick="clearBrain()">Clear history</button></div>
   </div>
 
-  <!-- ═══ ORCHESTRATOR ═══ -->
-  <div id="p-orch" class="panel active">
-    <div class="sec-hd">
-      <div class="sec-hd-icon" style="background:rgba(0,229,160,0.1);color:var(--g)">⚡</div>
-      <div class="sec-hd-text">
-        <h2>Master Intelligence — Ask Anything</h2>
-        <p>Routes to the right agent · Synthesizes across all modules · Remembers context</p>
+  <div class="card mb">
+    <div class="cbd">
+      <div class="field">
+        <label>Ask anything &nbsp;·&nbsp; &#8984;&#x23CE; or Ctrl+Enter to send</label>
+        <textarea id="brainQ" rows="3" placeholder="e.g. Deep dive HDFC Bank — run comps vs ICICI, build a 5yr DCF at 10% WACC, and give me a verdict&#10;e.g. What framework should I apply to assess whether HDFC Bank's P/B premium is structurally justified?&#10;e.g. Help me structure an IC memo for a PE buyout of Zomato"></textarea>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <button class="btn moss" onclick="runBrain()"><span class="sp" id="brainSp"></span>Send</button>
+        <div id="brainTags" style="display:flex;gap:6px;flex-wrap:wrap"></div>
       </div>
     </div>
+  </div>
+  <div id="brainMsgs" class="cwrap"></div>
+</div>
 
-    <div class="card glow-g" style="margin-bottom:20px">
-      <div class="card-bd">
-        <div class="field">
-          <label>Query <span class="kbd">⌘↵</span> to send</label>
-          <textarea id="orchQ" rows="3" placeholder="e.g. Deep dive HDFC Bank — run comps vs ICICI/Axis, DCF at 10% WACC, flag sentiment red flags, and give me a final buy/hold/sell
-e.g. Find me 3 Series A fintech startups in India worth diligencing
-e.g. I'm writing an IB pitch for a PE buyout of Zomato — structure the financial story"></textarea>
-        </div>
-        <div style="display:flex;align-items:center;gap:12px">
-          <button class="btn g" onclick="runOrch()"><span id="orchSpin" style="display:none" class="spin"></span>RUN ANALYSIS</button>
-          <div id="orchTags"></div>
-          <button class="btn" onclick="clearChat()" style="margin-left:auto;font-size:10px">CLEAR</button>
-        </div>
-      </div>
-    </div>
-    <div id="orchMsgs" class="chat-wrap"></div>
+<!-- ══════════════════ 02 VALUATION ══════════════════ -->
+<div id="p-val" class="panel">
+  <div class="ph"><div><h2>Valuation</h2><p>Comparables · DCF · Monte Carlo · LBO</p></div></div>
+  <div class="snav">
+    <button class="snb on" onclick="sv('val','comps',this)">Comparables</button>
+    <button class="snb" onclick="sv('val','dcf',this)">DCF + Sensitivity</button>
+    <button class="snb" onclick="sv('val','mc',this)">Monte Carlo</button>
+    <button class="snb" onclick="sv('val','lbo',this)">LBO</button>
   </div>
 
-  <!-- ═══ COMPS ═══ -->
-  <div id="p-comps" class="panel">
-    <div class="sec-hd">
-      <div class="sec-hd-icon" style="background:rgba(59,130,246,0.1);color:var(--b2)">⊞</div>
-      <div class="sec-hd-text"><h2>Comparable Companies Analysis</h2><p>Peer selection · Trading multiples · Premium/discount analysis · Implied value</p></div>
-    </div>
-    <div class="g2" style="margin-bottom:16px">
-      <div class="card glow-b">
-        <div class="card-hd"><span class="card-hd-title"><span class="accent-b">◎</span> Target</span></div>
-        <div class="card-bd">
-          <div class="field"><label>Ticker / Company</label><input type="text" id="cmpTicker" placeholder="AAPL / HDFCBANK.NS / Zomato"></div>
-          <div class="field"><label>Sector / Sub-sector</label><input type="text" id="cmpSector" placeholder="Indian Private Banking · US SaaS · EV Battery"></div>
-          <div class="field"><label>Geography Preference</label>
-            <select id="cmpGeo">
-              <option>Global best comparables</option><option>India only (NSE/BSE)</option>
-              <option>US only (NYSE/NASDAQ)</option><option>India + US cross-border</option>
-            </select>
+  <!-- COMPS -->
+  <div id="val-comps" class="sp2 on">
+    <div class="g2">
+      <div class="card">
+        <div class="chd"><span class="chdt">Target Company</span></div>
+        <div class="cbd">
+          <div class="field"><label>Ticker or Company Name</label><input type="text" id="cTick" placeholder="HDFCBANK.NS · AAPL · Zomato"></div>
+          <div class="field"><label>Sector</label><input type="text" id="cSec" placeholder="Indian Private Banking · US SaaS · FMCG"></div>
+          <div class="field"><label>Geography</label>
+            <select id="cGeo"><option>Global best comparables</option><option>India only</option><option>US only</option><option>India + US cross-border</option></select>
           </div>
-          <div class="field"><label>Additional Context</label><textarea id="cmpCtx" rows="2" placeholder="e.g. focus on growth-stage peers, exclude state-owned banks"></textarea></div>
-          <div class="field"><label>Paste Raw Financials (optional)</label><textarea id="cmpData" rows="3" placeholder="Revenue: ₹2,10,000 Cr · NII: ₹28,000 Cr · ROE: 17% · GNPA: 1.2%..."></textarea></div>
-          <button class="btn g" onclick="runComps()"><span id="cmpSpin" style="display:none" class="spin"></span>RUN COMPS</button>
+          <div class="field"><label>Paste Financials (optional)</label><textarea id="cFin" rows="3" placeholder="Revenue, EBITDA, ROE, GNPA, Net Profit, Market Cap..."></textarea></div>
+          <div class="field"><label>Additional Context</label><textarea id="cCtx" rows="2" placeholder="e.g. exclude state-owned banks, focus on growth-stage peers"></textarea></div>
+          <div class="brow">
+            <button class="btn moss" onclick="runComps()"><span class="sp" id="cSp"></span>Run Comps</button>
+          </div>
         </div>
       </div>
       <div class="card">
-        <div class="card-hd"><span class="card-hd-title"><span class="accent-y">◈</span> Key Multiples to Focus</span></div>
-        <div class="card-bd">
+        <div class="chd"><span class="chdt">Settings</span></div>
+        <div class="cbd">
           <div class="field"><label>Primary Multiple</label>
-            <select id="cmpPrimary">
-              <option>Auto-select by sector</option><option>EV/EBITDA</option><option>P/E (Trailing)</option>
-              <option>P/E (Forward)</option><option>EV/Revenue</option><option>P/B (Price-to-Book)</option>
-              <option>P/AUM</option><option>EV/EBIT</option><option>P/FCF</option>
-            </select>
+            <select id="cMult"><option>Auto-select by sector</option><option>EV/EBITDA</option><option>P/E Trailing</option><option>P/E Forward</option><option>EV/Revenue</option><option>Price / Book</option><option>P/FCF</option><option>P/AUM</option></select>
           </div>
-          <div class="field"><label>Valuation Output Format</label>
-            <select id="cmpFormat">
-              <option>Full analyst report with table</option><option>Quick verdict only</option>
-              <option>Bull / Bear case framing</option><option>IB pitch deck format</option>
-            </select>
+          <div class="field"><label>Output Format</label>
+            <select id="cFmt"><option>Full analyst report + multiples table</option><option>Quick verdict only</option><option>Bull / Bear framing</option><option>IB pitch deck format</option></select>
           </div>
-          <div style="background:var(--bg3);border-radius:8px;padding:14px;margin-top:8px">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);margin-bottom:10px;letter-spacing:0.05em">QUICK SECTOR PRESETS</div>
-            <div style="display:flex;flex-wrap:wrap;gap:6px">
-              <button class="btn" style="font-size:9px;padding:5px 10px" onclick="setCompsPreset('Indian Private Banking','P/B, P/E, ROE spread')">🏦 IN Banks</button>
-              <button class="btn" style="font-size:9px;padding:5px 10px" onclick="setCompsPreset('Indian IT Services','P/E fwd, EV/EBITDA, revenue growth')">💻 IN IT</button>
-              <button class="btn" style="font-size:9px;padding:5px 10px" onclick="setCompsPreset('US SaaS Growth','EV/NTM Rev, Rule of 40, NRR')">☁ SaaS</button>
-              <button class="btn" style="font-size:9px;padding:5px 10px" onclick="setCompsPreset('Indian Consumer FMCG','P/E, EV/EBITDA, volume growth')">🛒 FMCG</button>
-              <button class="btn" style="font-size:9px;padding:5px 10px" onclick="setCompsPreset('Indian Pharma','P/E, EV/EBITDA, ANDA pipeline')">💊 Pharma</button>
-              <button class="btn" style="font-size:9px;padding:5px 10px" onclick="setCompsPreset('Global EV / Mobility','EV/Rev, delivery growth, GM%')">⚡ EV</button>
+          <hr>
+          <div class="field"><label>Sector Presets</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:6px">
+              <button class="btn sm" onclick="setPreset('Indian Private Banking')">IN Banks</button>
+              <button class="btn sm" onclick="setPreset('Indian IT Services')">IN IT</button>
+              <button class="btn sm" onclick="setPreset('US SaaS Growth')">US SaaS</button>
+              <button class="btn sm" onclick="setPreset('Indian Consumer FMCG')">FMCG</button>
+              <button class="btn sm" onclick="setPreset('Indian Pharma')">Pharma</button>
+              <button class="btn sm" onclick="setPreset('EV and Clean Energy')">EV / Energy</button>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="out empty" id="cmpOut">Comps analysis will appear here...</div>
+    <div class="out empty" id="cOut">Comps analysis will appear here...</div>
   </div>
 
-  <!-- ═══ DCF + MONTE CARLO ═══ -->
-  <div id="p-dcf" class="panel">
-    <div class="sec-hd">
-      <div class="sec-hd-icon" style="background:rgba(168,85,247,0.1);color:var(--p2)">◈</div>
-      <div class="sec-hd-text"><h2>DCF Engine + Monte Carlo Simulation</h2><p>Discounted cash flow · LBO · Monte Carlo with 10,000 paths · Sensitivity analysis</p></div>
-    </div>
-    <div class="g2" style="margin-bottom:16px">
+  <!-- DCF -->
+  <div id="val-dcf" class="sp2">
+    <div class="g2">
       <div class="card">
-        <div class="card-hd"><span class="card-hd-title"><span class="accent-g">●</span> Company & Financials</span></div>
-        <div class="card-bd">
-          <div class="field"><label>Company Name</label><input type="text" id="dcfCo" placeholder="e.g. HDFC Bank, Tesla, Reliance"></div>
-          <div class="field"><label>Base Revenue / NII / AUM</label><input type="text" id="dcfRev" placeholder="e.g. ₹2,10,000 Cr or $385Bn"></div>
+        <div class="chd"><span class="chdt">Company Inputs</span></div>
+        <div class="cbd">
+          <div class="field"><label>Company</label><input type="text" id="dCo" placeholder="HDFC Bank · Tesla · Reliance Industries"></div>
+          <div class="field"><label>Base Revenue / Key Metric</label><input type="text" id="dRev" placeholder="₹2,10,000 Cr NII or $385Bn revenue"></div>
           <div class="field"><label>Valuation Method</label>
-            <select id="dcfMethod">
-              <option>DCF — Free Cash Flow to Firm</option><option>DDM — Dividend Discount Model</option>
-              <option>LBO — Leveraged Buyout</option><option>Bank Valuation — P/B + RoE/CoE</option>
-              <option>Sum of Parts</option><option>EV/EBITDA Exit Multiple</option>
-            </select>
+            <select id="dMeth"><option>DCF — Free Cash Flow to Firm</option><option>DDM — Dividend Discount Model</option><option>Bank Valuation — P/B + RoE/CoE spread</option><option>Sum of Parts</option><option>EV/EBITDA Exit Multiple</option></select>
           </div>
-          <div class="field"><label>Raw Financials (paste anything)</label><textarea id="dcfFin" rows="4" placeholder="Revenue, EBITDA, FCF, CapEx, D&A, net debt, shares outstanding..."></textarea></div>
+          <div class="field"><label>Paste Financials</label><textarea id="dFin" rows="5" placeholder="Revenue, EBITDA, FCF, CapEx, D&A, net debt, shares outstanding, tax rate..."></textarea></div>
         </div>
       </div>
-
       <div class="card">
-        <div class="card-hd"><span class="card-hd-title"><span class="accent-p">●</span> Assumptions Engine</span></div>
-        <div class="card-bd">
-          <div class="range-row"><span class="range-lbl">Revenue Growth</span><input type="range" min="0" max="40" value="12" step="0.5" oninput="rv('RG',this.value,'%')"><span class="range-val" id="vRG">12%</span></div>
-          <div class="range-row"><span class="range-lbl">WACC</span><input type="range" min="4" max="22" value="10" step="0.25" oninput="rv('WC',this.value,'%')"><span class="range-val" id="vWC">10%</span></div>
-          <div class="range-row"><span class="range-lbl">Terminal Growth</span><input type="range" min="1" max="8" value="3" step="0.25" oninput="rv('TG',this.value,'%')"><span class="range-val" id="vTG">3%</span></div>
-          <div class="range-row"><span class="range-lbl">EBITDA Margin</span><input type="range" min="5" max="65" value="25" step="1" oninput="rv('EM',this.value,'%')"><span class="range-val" id="vEM">25%</span></div>
-          <div class="range-row"><span class="range-lbl">CapEx % Rev</span><input type="range" min="1" max="30" value="6" step="0.5" oninput="rv('CX',this.value,'%')"><span class="range-val" id="vCX">6%</span></div>
-          <div class="range-row"><span class="range-lbl">Forecast Years</span><input type="range" min="3" max="10" value="5" step="1" oninput="rv('YR',this.value,'yr')"><span class="range-val" id="vYR">5yr</span></div>
+        <div class="chd"><span class="chdt">Assumptions</span></div>
+        <div class="cbd">
+          <div class="rrow"><span class="rlbl">Revenue Growth</span><input type="range" id="dRGr" min="0" max="40" value="12" step="0.5" oninput="setR('dRG',this.value,'%')"><span class="rval" id="dRG">12%</span></div>
+          <div class="rrow"><span class="rlbl">WACC</span><input type="range" id="dWCr" min="4" max="22" value="10" step="0.25" oninput="setR('dWC',this.value,'%')"><span class="rval" id="dWC">10%</span></div>
+          <div class="rrow"><span class="rlbl">Terminal Growth</span><input type="range" id="dTGr" min="1" max="8" value="3" step="0.25" oninput="setR('dTG',this.value,'%')"><span class="rval" id="dTG">3%</span></div>
+          <div class="rrow"><span class="rlbl">EBITDA Margin</span><input type="range" id="dEMr" min="5" max="65" value="25" step="1" oninput="setR('dEM',this.value,'%')"><span class="rval" id="dEM">25%</span></div>
+          <div class="rrow"><span class="rlbl">CapEx % Revenue</span><input type="range" id="dCXr" min="1" max="30" value="6" step="0.5" oninput="setR('dCX',this.value,'%')"><span class="rval" id="dCX">6%</span></div>
+          <div class="rrow"><span class="rlbl">Forecast Years</span><input type="range" id="dYRr" min="3" max="10" value="5" step="1" oninput="setR('dYR',this.value,' yr')"><span class="rval" id="dYR">5 yr</span></div>
           <hr>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);margin-bottom:10px;letter-spacing:0.06em">MONTE CARLO SETTINGS</div>
-          <div class="range-row"><span class="range-lbl">Simulations</span><input type="range" min="1000" max="50000" value="10000" step="1000" oninput="rv('MC',this.value,'')"><span class="range-val" id="vMC">10000</span></div>
-          <div class="range-row"><span class="range-lbl">Growth Volatility</span><input type="range" min="1" max="20" value="5" step="0.5" oninput="rv('MV',this.value,'%')"><span class="range-val" id="vMV">5%</span></div>
-          <div class="range-row"><span class="range-lbl">Margin Volatility</span><input type="range" min="1" max="15" value="3" step="0.5" oninput="rv('MM',this.value,'%')"><span class="range-val" id="vMM">3%</span></div>
+          <div class="brow">
+            <button class="btn moss" onclick="runDCF()"><span class="sp" id="dSp"></span>Run DCF + Sensitivity</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="out empty" id="dOut">DCF output and sensitivity table will appear here...</div>
+  </div>
+
+  <!-- MONTE CARLO -->
+  <div id="val-mc" class="sp2">
+    <div class="g2 mb">
+      <div class="card">
+        <div class="chd"><span class="chdt">Company</span></div>
+        <div class="cbd">
+          <div class="field"><label>Company (for narrative framing)</label><input type="text" id="mcCo" placeholder="e.g. HDFC Bank"></div>
+          <div class="field"><label>Base Revenue / Value Estimate</label><input type="text" id="mcBase" placeholder="e.g. ₹2,10,000 Cr or $385Bn (used for scaling output)"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="chd"><span class="chdt">Simulation Settings</span></div>
+        <div class="cbd">
+          <div class="rrow"><span class="rlbl">Simulations</span><input type="range" id="mcNr" min="1000" max="50000" value="10000" step="1000" oninput="setR('mcN',this.value,'')"><span class="rval" id="mcN">10000</span></div>
+          <div class="rrow"><span class="rlbl">Revenue Growth</span><input type="range" id="mcRGr" min="0" max="40" value="12" step="0.5" oninput="setR('mcRG',this.value,'%')"><span class="rval" id="mcRG">12%</span></div>
+          <div class="rrow"><span class="rlbl">Growth Volatility</span><input type="range" id="mcGVr" min="1" max="20" value="5" step="0.5" oninput="setR('mcGV',this.value,'%')"><span class="rval" id="mcGV">5%</span></div>
+          <div class="rrow"><span class="rlbl">WACC</span><input type="range" id="mcWCr" min="4" max="22" value="10" step="0.25" oninput="setR('mcWC',this.value,'%')"><span class="rval" id="mcWC">10%</span></div>
+          <div class="rrow"><span class="rlbl">EBITDA Margin</span><input type="range" id="mcEMr" min="5" max="65" value="25" step="1" oninput="setR('mcEM',this.value,'%')"><span class="rval" id="mcEM">25%</span></div>
+          <div class="rrow"><span class="rlbl">Margin Volatility</span><input type="range" id="mcMVr" min="1" max="15" value="3" step="0.5" oninput="setR('mcMV',this.value,'%')"><span class="rval" id="mcMV">3%</span></div>
+          <div class="rrow"><span class="rlbl">Terminal Growth</span><input type="range" id="mcTGr" min="1" max="8" value="3" step="0.25" oninput="setR('mcTG',this.value,'%')"><span class="rval" id="mcTG">3%</span></div>
         </div>
       </div>
     </div>
 
-    <div class="card" style="margin-bottom:16px">
-      <div class="card-hd"><span class="card-hd-title"><span class="accent-c">◎</span> Monte Carlo Distribution</span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3)" id="mcStats"></span></div>
-      <div class="card-bd" style="padding:14px">
+    <div class="card mb">
+      <div class="chd"><span class="chdt">Distribution of Outcomes</span><span class="muted" id="mcStat"></span></div>
+      <div class="cbd" style="padding:14px">
         <canvas id="mcCanvas"></canvas>
-        <div class="g4" style="margin-top:12px" id="mcTiles">
-          <div class="metric-tile"><div class="m-lbl">P10 (Bear)</div><div class="m-val accent-r" id="mcP10">—</div></div>
-          <div class="metric-tile"><div class="m-lbl">P50 (Base)</div><div class="m-val accent-g" id="mcP50">—</div></div>
-          <div class="metric-tile"><div class="m-lbl">P90 (Bull)</div><div class="m-val accent-b" id="mcP90">—</div></div>
-          <div class="metric-tile"><div class="m-lbl">Std Dev</div><div class="m-val accent-y" id="mcStd">—</div></div>
+        <div class="g4 mt">
+          <div class="tile"><div class="tlbl">P10 Bear</div><div class="tval t" id="mcP10">—</div><div class="tsub">10th percentile</div></div>
+          <div class="tile"><div class="tlbl">P50 Base</div><div class="tval m" id="mcP50">—</div><div class="tsub">median outcome</div></div>
+          <div class="tile"><div class="tlbl">P90 Bull</div><div class="tval s" id="mcP90">—</div><div class="tsub">90th percentile</div></div>
+          <div class="tile"><div class="tlbl">Std Deviation</div><div class="tval" id="mcSd">—</div><div class="tsub">value uncertainty</div></div>
         </div>
       </div>
     </div>
 
-    <div class="btn-row">
-      <button class="btn g" onclick="runDCF()"><span id="dcfSpin" style="display:none" class="spin"></span>RUN DCF + SENSITIVITY</button>
-      <button class="btn b" onclick="runMonteCarlo()"><span id="mcSpin" style="display:none" class="spin"></span>RUN MONTE CARLO</button>
+    <div class="brow">
+      <button class="btn moss" onclick="runMC()"><span class="sp" id="mcSp"></span>Run Simulation</button>
+      <button class="btn" onclick="runMCInterpret()"><span class="sp" id="mciSp"></span>Interpret Results</button>
     </div>
-    <div class="out empty" id="dcfOut">Valuation output appears here...</div>
+    <div class="out empty" id="mcOut">Monte Carlo interpretation will appear here after running the simulation...</div>
   </div>
 
-  <!-- ═══ SENTIMENT ═══ -->
-  <div id="p-sentiment" class="panel">
-    <div class="sec-hd">
-      <div class="sec-hd-icon" style="background:rgba(245,158,11,0.1);color:var(--y2)">◎</div>
-      <div class="sec-hd-text"><h2>Sentiment Radar</h2><p>News alpha · Management tone decoding · Short thesis · Contrarian signals</p></div>
-    </div>
-    <div class="g2" style="margin-bottom:16px">
+  <!-- LBO -->
+  <div id="val-lbo" class="sp2">
+    <div class="g2">
       <div class="card">
-        <div class="card-hd"><span class="card-hd-title"><span class="accent-y">●</span> News Signal Analyzer</span></div>
-        <div class="card-bd">
-          <div class="field"><label>Company / Asset</label><input type="text" id="sentCo" placeholder="e.g. Zomato, HDFC Bank, Adani Ports"></div>
-          <div class="field"><label>Role Lens</label>
-            <select id="sentLens">
-              <option>Long-term investor (5yr+ horizon)</option><option>Short-seller (bear case)</option>
-              <option>Activist investor</option><option>PE acquirer lens</option>
-              <option>Sell-side analyst</option><option>HF — momentum trader</option>
-            </select>
-          </div>
-          <div class="field"><label>Headlines (one per line)</label><textarea id="sentNews" rows="7" placeholder="Paste recent headlines:&#10;HDFC Bank Q3 PAT ₹16,736 Cr, beats est by 4%&#10;NIM stable at 3.46% despite rate pressure&#10;GNPA improves to 1.26%&#10;Management guides flat loan growth for Q4..."></textarea></div>
-          <button class="btn g" onclick="runSent()"><span id="sentSpin" style="display:none" class="spin"></span>ANALYZE SIGNAL</button>
+        <div class="chd"><span class="chdt">Deal Parameters</span></div>
+        <div class="cbd">
+          <div class="field"><label>Target Company</label><input type="text" id="lCo" placeholder="e.g. Zomato, HDFC ERGO, D-Mart"></div>
+          <div class="field"><label>Entry EV / Purchase Price</label><input type="text" id="lEV" placeholder="e.g. ₹1,200 Cr or $800M"></div>
+          <div class="field"><label>Entry Multiple Paid</label><input type="text" id="lEntry" placeholder="e.g. 12x EV/EBITDA or 3x EV/Revenue"></div>
+          <div class="field"><label>Financial Data</label><textarea id="lFin" rows="4" placeholder="EBITDA, Revenue, FCF, existing debt, tax rate..."></textarea></div>
         </div>
       </div>
       <div class="card">
-        <div class="card-hd"><span class="card-hd-title"><span class="accent-r">●</span> Management Tone Decoder</span></div>
-        <div class="card-bd">
-          <div class="field"><label>Earnings Call / MD&A Excerpt</label><textarea id="sentMgmt" rows="8" placeholder="Paste earnings call transcript, annual report MD&A, or any management commentary here...&#10;&#10;The model detects: sandbagging, overconfidence, defensiveness, risk obfuscation, guidance patterns."></textarea></div>
-          <div class="field"><label>Analysis Mode</label>
-            <select id="sentMgmtMode">
-              <option>Full tone analysis with quote decoding</option><option>Guidance quality only (beat/miss setup)</option>
-              <option>Risk language extraction</option><option>Commitment vs hedge ratio</option>
-            </select>
-          </div>
-          <button class="btn" style="border-color:rgba(239,68,68,0.3);color:var(--r2)" onclick="runMgmt()"><span id="mgmtSpin" style="display:none" class="spin"></span>DECODE MANAGEMENT TONE</button>
-        </div>
-      </div>
-    </div>
-    <div class="out empty" id="sentOut">Sentiment analysis appears here...</div>
-  </div>
-
-  <!-- ═══ DEAL SOURCING ═══ -->
-  <div id="p-deals" class="panel">
-    <div class="sec-hd">
-      <div class="sec-hd-icon" style="background:rgba(6,182,212,0.1);color:var(--c2)">🔍</div>
-      <div class="sec-hd-text"><h2>Deal Sourcing & Startup Screening</h2><p>VC deal flow · PE target identification · Founder assessment · Investment thesis builder</p></div>
-    </div>
-    <div class="g2" style="margin-bottom:16px">
-      <div class="card">
-        <div class="card-hd"><span class="card-hd-title"><span class="accent-c">●</span> Deal Screener</span></div>
-        <div class="card-bd">
-          <div class="field"><label>Investment Mandate</label>
-            <select id="dealMandate">
-              <option>Early Stage VC (Seed–Series A)</option><option>Growth Stage VC (Series B–C)</option>
-              <option>PE Buyout (control acquisition)</option><option>PE Growth (minority stake)</option>
-              <option>Distressed / Special Situations</option><option>Public Market — Long Only</option>
-              <option>HF — Long/Short Equity</option>
-            </select>
-          </div>
-          <div class="field"><label>Target Sector / Theme</label><input type="text" id="dealSector" placeholder="e.g. Indian B2B SaaS, EV infrastructure, Climate tech, Fintech lending"></div>
-          <div class="field"><label>Geography</label><input type="text" id="dealGeo" placeholder="e.g. India, Southeast Asia, US + India cross-border"></div>
-          <div class="field"><label>Ticket Size / Check Size</label><input type="text" id="dealSize" placeholder="e.g. $500K–$2M seed, ₹200–500 Cr PE growth"></div>
-          <div class="field"><label>Describe a Target or Paste a Pitch</label><textarea id="dealDesc" rows="4" placeholder="Paste startup pitch, company description, or describe what you're looking for..."></textarea></div>
-          <button class="btn g" onclick="runDeals()"><span id="dealSpin" style="display:none" class="spin"></span>SCREEN DEAL</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-hd"><span class="card-hd-title"><span class="accent-b">●</span> Founder & Team Assessment</span></div>
-        <div class="card-bd">
-          <div class="field"><label>Founder Background / LinkedIn Bio / Pitch</label><textarea id="founderBg" rows="6" placeholder="Paste founder bio, team description, or LinkedIn profiles...&#10;&#10;e.g. Ex-Flipkart VP Product (7 yrs), IIT Delhi CS, prev built FinTech startup (acquired 2021), co-founder has Goldman Sachs + McKinsey background..."></textarea></div>
-          <div class="field"><label>Assessment Framework</label>
-            <select id="founderFramework">
-              <option>Full founder-market fit assessment</option><option>Domain expertise depth</option>
-              <option>Execution track record</option><option>Network & fundraising leverage</option>
-              <option>Red flags check</option>
-            </select>
-          </div>
-          <button class="btn b" onclick="runFounder()"><span id="founderSpin" style="display:none" class="spin"></span>ASSESS FOUNDER</button>
-        </div>
-      </div>
-    </div>
-    <div class="out empty" id="dealOut">Deal analysis will appear here...</div>
-  </div>
-
-  <!-- ═══ DUE DILIGENCE ═══ -->
-  <div id="p-dd" class="panel">
-    <div class="sec-hd">
-      <div class="sec-hd-icon" style="background:rgba(239,68,68,0.1);color:var(--r2)">🔬</div>
-      <div class="sec-hd-text"><h2>Due Diligence Engine</h2><p>Financial DD · Commercial DD · Red flag scanner · Management assessment · Risk matrix</p></div>
-    </div>
-    <div class="g2" style="margin-bottom:16px">
-      <div class="card">
-        <div class="card-hd"><span class="card-hd-title"><span class="accent-r">●</span> DD Input</span></div>
-        <div class="card-bd">
-          <div class="field"><label>Company / Target Name</label><input type="text" id="ddCo" placeholder="e.g. Razorpay, Swiggy, HDFC ERGO"></div>
-          <div class="field"><label>DD Type</label>
-            <select id="ddType">
-              <option>Full DD (Financial + Commercial + Management)</option>
-              <option>Financial DD only — P&L, Balance Sheet, Cash Flow</option>
-              <option>Commercial DD — market position, moat, competition</option>
-              <option>Management & Governance DD</option>
-              <option>Red Flag Scanner — find the catch</option>
-              <option>Legal & Regulatory Risk Assessment</option>
-              <option>ESG & Reputational DD</option>
-            </select>
-          </div>
-          <div class="field"><label>Transaction Context</label>
-            <select id="ddContext">
-              <option>PE buyout / control acquisition</option><option>VC minority investment</option>
-              <option>M&A strategic acquisition</option><option>IPO readiness assessment</option>
-              <option>Credit / lending decision</option><option>Public market research</option>
-            </select>
-          </div>
-          <div class="field"><label>Paste Available Information</label><textarea id="ddData" rows="7" placeholder="Paste financial statements, pitch deck data, news, management bios, anything available...&#10;&#10;The more you give, the deeper the DD. Even partial data works — the agent will flag what's missing."></textarea></div>
-          <button class="btn" style="background:var(--r);border-color:var(--r);color:#fff" onclick="runDD()"><span id="ddSpin" style="display:none" class="spin"></span>RUN DUE DILIGENCE</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-hd"><span class="card-hd-title"><span class="accent-y">●</span> DD Checklist Generator</span></div>
-        <div class="card-bd">
-          <div class="field"><label>Generate bespoke DD checklist for</label><input type="text" id="ddCheckCo" placeholder="e.g. Series B SaaS company, Indian NBFC, consumer brand"></div>
-          <div class="field"><label>Investor Type</label>
-            <select id="ddInvType">
-              <option>VC — early stage</option><option>PE — growth</option><option>PE — buyout</option>
-              <option>Strategic acquirer</option><option>Public markets analyst</option>
-            </select>
-          </div>
-          <button class="btn b" onclick="runDDChecklist()" style="margin-bottom:14px"><span id="ddcSpin" style="display:none" class="spin"></span>GENERATE CHECKLIST</button>
+        <div class="chd"><span class="chdt">LBO Assumptions</span></div>
+        <div class="cbd">
+          <div class="rrow"><span class="rlbl">Debt / EBITDA</span><input type="range" id="lDEr" min="1" max="8" value="4" step="0.25" oninput="setR('lDE',this.value,'x')"><span class="rval" id="lDE">4x</span></div>
+          <div class="rrow"><span class="rlbl">Debt Interest Rate</span><input type="range" id="lIRr" min="4" max="18" value="9" step="0.25" oninput="setR('lIR',this.value,'%')"><span class="rval" id="lIR">9%</span></div>
+          <div class="rrow"><span class="rlbl">Revenue Growth</span><input type="range" id="lRGr" min="0" max="30" value="10" step="0.5" oninput="setR('lRG',this.value,'%')"><span class="rval" id="lRG">10%</span></div>
+          <div class="rrow"><span class="rlbl">Margin Improvement</span><input type="range" id="lMIr" min="0" max="10" value="2" step="0.25" oninput="setR('lMI',this.value,'%')"><span class="rval" id="lMI">2%</span></div>
+          <div class="rrow"><span class="rlbl">Hold Period</span><input type="range" id="lHPr" min="3" max="8" value="5" step="1" oninput="setR('lHP',this.value,' yr')"><span class="rval" id="lHP">5 yr</span></div>
+          <div class="rrow"><span class="rlbl">Exit Multiple</span><input type="range" id="lEXr" min="5" max="20" value="10" step="0.5" oninput="setR('lEX',this.value,'x')"><span class="rval" id="lEX">10x</span></div>
           <hr>
-          <div class="field" style="margin-top:14px"><label>M&A Synergy Estimator</label><textarea id="ddSynergy" rows="3" placeholder="Acquirer: [company]  Target: [company]&#10;Paste financials of both — get revenue synergies, cost synergies, integration risks"></textarea></div>
-          <button class="btn" onclick="runSynergy()"><span id="synSpin" style="display:none" class="spin"></span>ESTIMATE SYNERGIES</button>
+          <div class="brow">
+            <button class="btn moss" onclick="runLBO()"><span class="sp" id="lSp"></span>Run LBO Analysis</button>
+          </div>
         </div>
       </div>
     </div>
-    <div class="out empty" id="ddOut">Due diligence report will appear here...</div>
+    <div class="out empty" id="lOut">LBO model — IRR, MOIC, debt schedule, exit scenarios will appear here...</div>
+  </div>
+</div>
+
+<!-- ══════════════════ 03 PORTFOLIO ══════════════════ -->
+<div id="p-port" class="panel">
+  <div class="ph">
+    <div><h2>Portfolio</h2><p>Position tracker · MOIC / IRR · KPI monitoring · Comparative analysis</p></div>
+    <button class="btn slate" onclick="analyzePort()">Analyze Portfolio</button>
   </div>
 
-  <!-- ═══ PORTFOLIO ═══ -->
-  <div id="p-port" class="panel">
-    <div class="sec-hd">
-      <div class="sec-hd-icon" style="background:rgba(0,229,160,0.1);color:var(--g)">📊</div>
-      <div class="sec-hd-text"><h2>Portfolio Monitoring</h2><p>Track investments · KPI dashboards · Intervention signals · Performance attribution</p></div>
-    </div>
-    <div class="g3" style="margin-bottom:20px" id="portMetrics">
-      <div class="metric-tile"><div class="m-lbl">Total Portfolio</div><div class="m-val accent-g" id="portTotal">—</div><div class="m-sub">across all positions</div></div>
-      <div class="metric-tile"><div class="m-lbl">Avg MOIC</div><div class="m-val accent-b" id="portMOIC">—</div><div class="m-sub">blended</div></div>
-      <div class="metric-tile"><div class="m-lbl">Portfolio IRR</div><div class="m-val accent-p" id="portIRR">—</div><div class="m-sub">since inception</div></div>
-    </div>
+  <div class="g3 mb">
+    <div class="tile"><div class="tlbl">Total Positions</div><div class="tval" id="ptTotal">0</div><div class="tsub">tracked investments</div></div>
+    <div class="tile"><div class="tlbl">Avg MOIC (est)</div><div class="tval m" id="ptMoic">—</div><div class="tsub">blended portfolio</div></div>
+    <div class="tile"><div class="tlbl">Top Performer</div><div class="tval t" id="ptTop">—</div><div class="tsub">highest current value</div></div>
+  </div>
 
-    <div class="g2" style="margin-bottom:16px">
-      <div class="card">
-        <div class="card-hd"><span class="card-hd-title"><span class="accent-g">●</span> Add / Update Position</span></div>
-        <div class="card-bd">
-          <div class="field"><label>Company Name</label><input type="text" id="portCo" placeholder="e.g. Razorpay, HDFC Bank, Tesla"></div>
-          <div class="g2">
-            <div class="field"><label>Entry Value / Cost</label><input type="text" id="portEntry" placeholder="₹100 Cr / $2M"></div>
-            <div class="field"><label>Current Value (est)</label><input type="text" id="portCurr" placeholder="₹180 Cr / $4.2M"></div>
+  <div class="g2 mb">
+    <div class="card">
+      <div class="chd"><span class="chdt">Add Position</span></div>
+      <div class="cbd">
+        <div class="field"><label>Company Name</label><input type="text" id="pCo" placeholder="e.g. Razorpay, HDFC Bank, Tesla"></div>
+        <div class="g2">
+          <div class="field"><label>Entry Cost</label><input type="text" id="pEnt" placeholder="₹100 Cr or $2M"></div>
+          <div class="field"><label>Current Value (est)</label><input type="text" id="pCur" placeholder="₹180 Cr or $4.2M"></div>
+        </div>
+        <div class="g2">
+          <div class="field"><label>Investment Date</label><input type="text" id="pDate" placeholder="Jan 2023"></div>
+          <div class="field"><label>Stage</label>
+            <select id="pStage"><option>Seed</option><option>Series A</option><option>Series B</option><option>Growth PE</option><option>Buyout</option><option>Public Equity</option><option>Debt / Credit</option></select>
           </div>
+        </div>
+        <div class="field"><label>KPIs / Latest Update</label><textarea id="pKPI" rows="3" placeholder="Revenue: ₹220 Cr (+35% YoY) · EBITDA: ₹28 Cr · ARR: $8M · Churn: 4% · NPS: 62..."></textarea></div>
+        <button class="btn moss" onclick="addPos()">Add Position</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="chd"><span class="chdt">Positions</span><span class="muted" id="posCount">0 entries</span></div>
+      <div id="portList" style="max-height:340px;overflow-y:auto">
+        <div style="padding:32px;text-align:center;font-family:'Fira Code',monospace;font-size:11px;color:var(--tx3)">No positions yet.</div>
+      </div>
+    </div>
+  </div>
+  <div class="out empty" id="portOut">Portfolio analysis will appear here...</div>
+</div>
+
+<!-- ══════════════════ 04 COMPOSE ══════════════════ -->
+<div id="p-compose" class="panel">
+  <div class="ph"><div><h2>Compose</h2><p>Framework application · Writing in your voice · Persistent knowledge library</p></div></div>
+  <div class="snav">
+    <button class="snb on" onclick="sv('compose','fw',this)">Frameworks</button>
+    <button class="snb" onclick="sv('compose','write',this)">Writing</button>
+    <button class="snb" onclick="sv('compose','lib',this)">Library</button>
+  </div>
+
+  <!-- FRAMEWORKS -->
+  <div id="compose-fw" class="sp2 on">
+    <div class="g2">
+      <div class="card">
+        <div class="chd"><span class="chdt">Problem or Situation</span></div>
+        <div class="cbd">
+          <div class="field"><label>Describe the Problem / Situation</label><textarea id="fwProb" rows="4" placeholder="e.g. HDFC Bank's NIM is compressing 15bps while credit costs improve. Is this a structural shift or cyclical?&#10;&#10;e.g. A B2B SaaS has 125% NRR but new logo growth fell from 40 to 18. What's the core strategic issue?"></textarea></div>
+          <div class="field"><label>Framework to Apply</label>
+            <select id="fwFr">
+              <option>Auto-select best framework</option>
+              <option>Porter's Five Forces</option>
+              <option>Hamilton Helmer — 7 Powers</option>
+              <option>McKinsey 7-S Framework</option>
+              <option>MECE Issue Tree</option>
+              <option>Hypothesis Tree</option>
+              <option>Roger Martin — Strategy Cascade</option>
+              <option>First Principles Decomposition</option>
+              <option>Value Chain Analysis</option>
+              <option>Jobs-to-be-Done</option>
+              <option>BCG Growth-Share Matrix</option>
+              <option>Platform Business Model Analysis</option>
+              <option>SWOT + Strategic Priorities</option>
+            </select>
+          </div>
+          <div class="field"><label>Output Format</label>
+            <select id="fwFmt">
+              <option>Full structured analysis with sub-issues</option>
+              <option>Consulting slide narrative (pyramid principle)</option>
+              <option>Hypothesis tree with diagnostic tests</option>
+              <option>Executive summary only</option>
+            </select>
+          </div>
+          <div class="brow">
+            <button class="btn moss" onclick="runFW()"><span class="sp" id="fwSp"></span>Apply Framework</button>
+            <button class="btn sm" onclick="saveToLib('framework')">Save to Library</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="chd"><span class="chdt">Quick Tools</span></div>
+        <div class="cbd">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
+            <button class="btn sm" style="justify-content:center" onclick="qt('Exit scenarios — model M&A, IPO, strategic sale exits at multiple ranges')">Exit Scenarios</button>
+            <button class="btn sm" style="justify-content:center" onclick="qt('Analyze this term sheet clause by clause — identify investor-friendly vs founder-friendly terms')">Term Sheet</button>
+            <button class="btn sm" style="justify-content:center" onclick="qt('Calculate cap table dilution across funding rounds, show ownership % pre and post each round')">Cap Table</button>
+            <button class="btn sm" style="justify-content:center" onclick="qt('Calculate runway, burn rate, months to zero, and fundraising timeline recommendations')">Runway Calc</button>
+            <button class="btn sm" style="justify-content:center" onclick="qt('Map the competitive landscape — direct, indirect, potential entrants, substitutes')">Competitor Map</button>
+            <button class="btn sm" style="justify-content:center" onclick="qt('Draft a structured IC / investment committee memo with Executive Summary, Opportunity, Risks, Financials, Recommendation')">IC Memo Draft</button>
+            <button class="btn sm" style="justify-content:center" onclick="qt('Draft a board-ready memo — KPI dashboard, operational update, key decisions required, risks')">Board Memo</button>
+            <button class="btn sm" style="justify-content:center" onclick="qt('Write a credit memo — borrower profile, financial analysis, collateral, key covenants, credit rating, recommendation')">Credit Memo</button>
+          </div>
+          <div class="field"><label>Input for selected tool</label><textarea id="qtInp" rows="4" placeholder="Paste relevant data for the quick tool above..."></textarea></div>
+        </div>
+      </div>
+    </div>
+    <div class="out empty" id="fwOut">Framework analysis appears here...</div>
+  </div>
+
+  <!-- WRITING -->
+  <div id="compose-write" class="sp2">
+    <div class="g2">
+      <div class="card">
+        <div class="chd"><span class="chdt">Writing Brief</span></div>
+        <div class="cbd">
+          <div class="field"><label>Topic or Title</label><input type="text" id="wTopic" placeholder="e.g. Why HDFC Bank's P/B premium is structurally justified"></div>
           <div class="g2">
-            <div class="field"><label>Investment Date</label><input type="text" id="portDate" placeholder="Jan 2023"></div>
-            <div class="field"><label>Stage / Type</label>
-              <select id="portStage">
-                <option>Series A</option><option>Series B</option><option>Growth PE</option>
-                <option>Buyout</option><option>Public Equity</option><option>Debt</option>
+            <div class="field"><label>Document Type</label>
+              <select id="wType">
+                <option>Investment Memo (IC format)</option><option>Research Note</option>
+                <option>Deal Brief (PE/VC)</option><option>Sector Analysis</option>
+                <option>VC Thesis / LP Update</option><option>LinkedIn Post</option>
+                <option>Whitepaper Section</option><option>Consulting Narrative</option>
+              </select>
+            </div>
+            <div class="field"><label>Tone</label>
+              <select id="wTone">
+                <option>Sharp and direct</option><option>Formal (IC committee)</option>
+                <option>Engaging (public readership)</option><option>Academic</option>
               </select>
             </div>
           </div>
-          <div class="field"><label>KPIs / Latest Update (paste anything)</label><textarea id="portKPIs" rows="3" placeholder="Revenue: ₹220 Cr (↑35% YoY) · EBITDA: ₹28 Cr · ARR: $8M · Churn: 4% · NPS: 62..."></textarea></div>
-          <button class="btn g" onclick="addPortPosition()">ADD POSITION</button>
+          <div class="field"><label>Key Arguments to Make</label><textarea id="wPts" rows="3" placeholder="- Lead with the ROE vs COE spread argument&#10;- Address NIM compression risk directly&#10;- Close with a relative valuation case"></textarea></div>
+          <div class="field"><label>Source Material</label><textarea id="wSrc" rows="3" placeholder="Paste data, earnings, research notes to draw from..."></textarea></div>
+          <div class="brow">
+            <button class="btn moss" onclick="runWrite()"><span class="sp" id="wSp"></span>Draft</button>
+            <button class="btn sm" onclick="saveToLib('writing')">Save Draft to Library</button>
+          </div>
         </div>
       </div>
       <div class="card">
-        <div class="card-hd"><span class="card-hd-title"><span class="accent-b">●</span> Portfolio Positions</span><button class="btn" style="font-size:9px;padding:4px 10px" onclick="analyzePortfolio()">ANALYZE ALL</button></div>
-        <div id="portList" style="max-height:280px;overflow-y:auto">
-          <div style="padding:40px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3)">No positions added yet.</div>
+        <div class="chd"><span class="chdt">Your Style Profile</span></div>
+        <div class="cbd">
+          <div class="field"><label>Paste 1–3 samples of your writing</label><textarea id="wStyle" rows="11" placeholder="The model learns your rhythm, vocabulary, how you open, your analogy style, framework preferences.&#10;&#10;Example:&#10;'The HDFC Bank thesis is simple: when a bank's ROE consistently exceeds its cost of equity by 600bps over a decade, the P/B premium isn't overvaluation — it's measuring franchise value that a DCF can't fully capture...'"></textarea></div>
+          <div style="background:var(--paper);border-radius:var(--rsm);padding:11px;font-family:'Fira Code',monospace;font-size:10px;color:var(--tx3);line-height:1.7">
+            Style is remembered in your browser. The more samples you add, the better the match.
+          </div>
         </div>
       </div>
     </div>
-    <div class="out empty" id="portOut">Portfolio analysis will appear here...</div>
+    <div class="out empty" id="wOut">Your draft appears here...</div>
   </div>
 
-  <!-- ═══ MARKET RESEARCH ═══ -->
-  <div id="p-market" class="panel">
-    <div class="sec-hd">
-      <div class="sec-hd-icon" style="background:rgba(59,130,246,0.1);color:var(--b2)">🌐</div>
-      <div class="sec-hd-text"><h2>Market Research</h2><p>TAM/SAM/SOM · Industry analysis · Competitive landscape · Thesis builder</p></div>
-    </div>
-    <div class="g2" style="margin-bottom:16px">
+  <!-- LIBRARY -->
+  <div id="compose-lib" class="sp2">
+    <div class="g2">
       <div class="card">
-        <div class="card-hd"><span class="card-hd-title"><span class="accent-b">●</span> Market Sizing & Analysis</span></div>
-        <div class="card-bd">
-          <div class="field"><label>Market / Industry</label><input type="text" id="mktIndustry" placeholder="e.g. Indian Digital Lending, Global EV Battery, B2B SaaS for SMEs in India"></div>
+        <div class="chd"><span class="chdt">Add to Library</span></div>
+        <div class="cbd">
+          <div class="field"><label>Title</label><input type="text" id="libTitle" placeholder="e.g. Helmer 7 Powers, Damodaran WACC Notes, HDFC Thesis 2024"></div>
+          <div class="g2">
+            <div class="field"><label>Category</label>
+              <select id="libCat">
+                <option>Strategy Framework</option><option>Valuation Method</option>
+                <option>Mental Model</option><option>Sector Notes</option>
+                <option>Macro Framework</option><option>Investment Thesis</option>
+                <option>Deal Learning</option><option>Writing Sample</option><option>Other</option>
+              </select>
+            </div>
+            <div class="field"><label>Priority</label>
+              <select id="libPri"><option>High</option><option>Medium</option><option>Low</option></select>
+            </div>
+          </div>
+          <div class="field"><label>Content</label><textarea id="libCont" rows="7" placeholder="Paste frameworks, notes, mental models, writing samples, research...&#10;&#10;Everything in the library is available to Brain and Framework modules automatically."></textarea></div>
+          <button class="btn moss" onclick="addLib()">Save to Library</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="chd"><span class="chdt">Saved Entries</span><span class="muted" id="libCount">0 entries</span></div>
+        <div id="libList" style="max-height:380px;overflow-y:auto">
+          <div style="padding:32px;text-align:center;font-family:'Fira Code',monospace;font-size:11px;color:var(--tx3)">Library is empty. Add your frameworks above.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card mt">
+      <div class="chd"><span class="chdt">Query Library</span></div>
+      <div class="cbd">
+        <div style="display:flex;gap:10px">
+          <input type="text" id="libQ" placeholder="Which frameworks apply to evaluating a bank with improving asset quality but compressing NIMs?" style="flex:1">
+          <button class="btn moss" onclick="queryLib()"><span class="sp" id="libQSp"></span>Retrieve</button>
+        </div>
+        <div class="out empty" id="libQOut" style="margin-top:12px">Relevant entries surface here...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ 05 RESEARCH ══════════════════ -->
+<div id="p-research" class="panel">
+  <div class="ph"><div><h2>Research</h2><p>Market sizing · Macro analysis · Saved articles · Research notes</p></div></div>
+  <div class="snav">
+    <button class="snb on" onclick="sv('research','mkt',this)">Market Sizing</button>
+    <button class="snb" onclick="sv('research','macro',this)">Macro</button>
+    <button class="snb" onclick="sv('research','notes',this)">Research Notes</button>
+  </div>
+
+  <!-- MARKET SIZING -->
+  <div id="research-mkt" class="sp2 on">
+    <div class="g2">
+      <div class="card">
+        <div class="chd"><span class="chdt">Market Analysis</span></div>
+        <div class="cbd">
+          <div class="field"><label>Market / Industry</label><input type="text" id="mktInd" placeholder="e.g. Indian Digital Lending, EV Battery Supply Chain, B2B SaaS for Indian SMEs"></div>
           <div class="field"><label>Analysis Type</label>
             <select id="mktType">
-              <option>Full market analysis (TAM/SAM/SOM + competitive landscape)</option>
-              <option>TAM sizing — top-down + bottom-up</option>
+              <option>Full analysis — TAM/SAM/SOM + competitive landscape + thesis</option>
+              <option>TAM sizing only — top-down and bottom-up</option>
               <option>Competitive landscape mapping</option>
-              <option>Porter's Five Forces analysis</option>
+              <option>Porter's Five Forces</option>
               <option>Industry value chain breakdown</option>
               <option>Disruption risk assessment</option>
-              <option>Regulatory environment scan</option>
             </select>
           </div>
           <div class="field"><label>Investment Lens</label>
             <select id="mktLens">
-              <option>VC — finding the best startup bets</option><option>PE — identifying platform acquisitions</option>
-              <option>IB — M&A advisory context</option><option>Public markets — sector allocation</option>
+              <option>VC — finding the best startup bets</option>
+              <option>PE — identifying platform acquisitions</option>
+              <option>IB — M&A advisory context</option>
+              <option>Public markets — sector allocation</option>
               <option>Strategic — expansion planning</option>
             </select>
           </div>
-          <div class="field"><label>Context / Data to Include</label><textarea id="mktData" rows="3" placeholder="Paste any market data, reports, or company info you have..."></textarea></div>
-          <button class="btn g" onclick="runMarket()"><span id="mktSpin" style="display:none" class="spin"></span>ANALYZE MARKET</button>
+          <div class="field"><label>Paste Available Data</label><textarea id="mktData" rows="3" placeholder="Market reports, company data, news, numbers you already have..."></textarea></div>
+          <div class="brow">
+            <button class="btn moss" onclick="runMkt()"><span class="sp" id="mktSp"></span>Analyze Market</button>
+            <button class="btn sm" onclick="saveMktToNotes()">Save to Notes</button>
+          </div>
         </div>
       </div>
       <div class="card">
-        <div class="card-hd"><span class="card-hd-title"><span class="accent-p">●</span> Investment Thesis Builder</span></div>
-        <div class="card-bd">
-          <div class="field"><label>Thesis Topic</label><input type="text" id="thesisTopic" placeholder="e.g. India's digital lending boom, EV battery localization, AI in B2B SaaS"></div>
-          <div class="field"><label>Time Horizon</label>
-            <select id="thesisHorizon">
-              <option>3–6 months (tactical)</option><option>1–2 years (cyclical)</option>
-              <option>3–5 years (structural)</option><option>10+ years (secular)</option>
-            </select>
-          </div>
-          <div class="field"><label>Frame it for</label>
-            <select id="thesisFrame">
-              <option>LP presentation (VC fund)</option><option>IC memo (PE deal)</option>
-              <option>Research note (public markets)</option><option>Strategy paper (consulting)</option>
-            </select>
-          </div>
-          <button class="btn p" onclick="runThesis()"><span id="thesisSpin" style="display:none" class="spin"></span>BUILD THESIS</button>
-        </div>
-      </div>
-    </div>
-    <div class="out empty" id="mktOut">Market research will appear here...</div>
-  </div>
-
-  <!-- ═══ MACRO ═══ -->
-  <div id="p-macro" class="panel">
-    <div class="sec-hd">
-      <div class="sec-hd-icon" style="background:rgba(245,158,11,0.1);color:var(--y2)">📡</div>
-      <div class="sec-hd-text"><h2>Macro Lens</h2><p>Economic cycle mapping · Rate impact · Sector rotation · Cross-asset signals</p></div>
-    </div>
-    <div class="g2" style="margin-bottom:16px">
-      <div class="card">
-        <div class="card-hd"><span class="card-hd-title"><span class="accent-y">●</span> Macro Query</span></div>
-        <div class="card-bd">
-          <div class="field"><label>Sector / Asset Class</label><input type="text" id="macroCo" placeholder="e.g. Indian banks, US tech, INR FX, India real estate"></div>
+        <div class="chd"><span class="chdt">Thesis Builder</span></div>
+        <div class="cbd">
+          <div class="field"><label>Thesis Topic</label><input type="text" id="thTopic" placeholder="e.g. India's digital credit boom, EV battery localization, AI in B2B SaaS"></div>
           <div class="g2">
             <div class="field"><label>Time Horizon</label>
-              <select id="macroH"><option>3–6 months</option><option>12–18 months</option><option>3–5 years</option></select>
+              <select id="thH"><option>3–6 months</option><option>1–2 years</option><option>3–5 years</option><option>10+ years</option></select>
             </div>
-            <div class="field"><label>Analysis Focus</label>
-              <select id="macroFocus">
-                <option>Rate cycle impact</option><option>Inflation & margin pressure</option>
-                <option>Currency / FX impact</option><option>Sector rotation signal</option>
+            <div class="field"><label>Format for</label>
+              <select id="thFmt"><option>LP presentation</option><option>IC memo</option><option>Research note</option><option>Strategy paper</option></select>
+            </div>
+          </div>
+          <button class="btn terra" onclick="runThesis()"><span class="sp" id="thSp"></span>Build Thesis</button>
+        </div>
+      </div>
+    </div>
+    <div class="out empty" id="mktOut">Market analysis and thesis will appear here...</div>
+  </div>
+
+  <!-- MACRO -->
+  <div id="research-macro" class="sp2">
+    <div class="g2">
+      <div class="card">
+        <div class="chd"><span class="chdt">Macro Query</span></div>
+        <div class="cbd">
+          <div class="field"><label>Sector / Asset Class</label><input type="text" id="macSec" placeholder="e.g. Indian banks, US technology, INR FX, Indian real estate"></div>
+          <div class="g2">
+            <div class="field"><label>Time Horizon</label>
+              <select id="macH"><option>3–6 months</option><option>12–18 months</option><option>3–5 years</option></select>
+            </div>
+            <div class="field"><label>Focus</label>
+              <select id="macFoc">
                 <option>Full macro regime assessment</option>
+                <option>Rate cycle impact</option>
+                <option>Currency / FX impact</option>
+                <option>Inflation and margin pressure</option>
+                <option>Sector rotation signals</option>
               </select>
             </div>
           </div>
-          <div class="field"><label>Paste Current Macro Data</label><textarea id="macroData" rows="5" placeholder="India CPI: 4.9% · RBI Repo: 6.25% · GDP: 7.2% FY25E · 10Y G-Sec: 6.78%&#10;USD/INR: 84.2 · Credit Growth: 14% YoY · PMI Mfg: 57.5&#10;Oil: $82/bbl · US Fed Funds: 4.50%..."></textarea></div>
-          <button class="btn g" onclick="runMacro()"><span id="macroSpin" style="display:none" class="spin"></span>RUN MACRO ANALYSIS</button>
+          <div class="field"><label>Paste Current Data</label><textarea id="macData" rows="5" placeholder="India CPI: 4.9% · RBI Repo: 6.25% · GDP: 7.2% FY25E · 10Y G-Sec: 6.78%&#10;USD/INR: 84.2 · Credit Growth: 14% YoY · PMI Mfg: 57.5&#10;Oil: $82/bbl · US Fed Funds: 4.50% · VIX: 18..."></textarea></div>
+          <div class="field"><label>Specific Question</label><textarea id="macQ" rows="2" placeholder="e.g. If RBI cuts 50bps in 2026, which bank sub-segments benefit most?"></textarea></div>
+          <div class="brow">
+            <button class="btn moss" onclick="runMacro()"><span class="sp" id="macSp"></span>Run Macro Analysis</button>
+            <button class="btn sm" onclick="saveMacroToNotes()">Save to Notes</button>
+          </div>
         </div>
       </div>
       <div class="card">
-        <div class="card-hd"><span class="card-hd-title"><span class="accent-c">●</span> Key Macro Relationships</span></div>
-        <div class="card-bd" style="font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.9">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-            <div style="background:var(--bg3);border-radius:6px;padding:10px">
-              <div style="color:var(--text3);font-size:9px;letter-spacing:0.08em;margin-bottom:5px">INDIA</div>
-              <div><span class="tag b">Repo↓</span> → NIMs squeeze</div>
-              <div style="margin-top:4px"><span class="tag g">Credit growth</span> → NBFC/banks</div>
-              <div style="margin-top:4px"><span class="tag y">INR weak</span> → IT outperform</div>
-              <div style="margin-top:4px"><span class="tag p">GDP 7%+</span> → consumption</div>
+        <div class="chd"><span class="chdt">Key Macro Relationships</span></div>
+        <div class="cbd" style="font-family:'Fira Code',monospace;font-size:10.5px;line-height:2">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div style="background:var(--paper);border-radius:var(--rsm);padding:12px">
+              <div style="font-size:9px;color:var(--tx3);letter-spacing:.1em;margin-bottom:8px;text-transform:uppercase">India</div>
+              <div><span class="tag m">Repo ↓</span> → NIM squeeze</div>
+              <div style="margin-top:5px"><span class="tag m">Credit growth</span> → NBFC / banks</div>
+              <div style="margin-top:5px"><span class="tag t">INR weak</span> → IT outperforms</div>
+              <div style="margin-top:5px"><span class="tag s">GDP 7%+</span> → consumption</div>
             </div>
-            <div style="background:var(--bg3);border-radius:6px;padding:10px">
-              <div style="color:var(--text3);font-size:9px;letter-spacing:0.08em;margin-bottom:5px">GLOBAL</div>
-              <div><span class="tag r">Fed hike</span> → EM outflows</div>
-              <div style="margin-top:4px"><span class="tag c">Oil spike</span> → current account</div>
-              <div style="margin-top:4px"><span class="tag b">UST 10Y</span> → valuation multiple</div>
-              <div style="margin-top:4px"><span class="tag y">VIX</span> → risk-on/off signal</div>
+            <div style="background:var(--paper);border-radius:var(--rsm);padding:12px">
+              <div style="font-size:9px;color:var(--tx3);letter-spacing:.1em;margin-bottom:8px;text-transform:uppercase">Global</div>
+              <div><span class="tag t">Fed hike</span> → EM outflows</div>
+              <div style="margin-top:5px"><span class="tag t">Oil spike</span> → current account</div>
+              <div style="margin-top:5px"><span class="tag s">UST 10Y ↑</span> → multiple compression</div>
+              <div style="margin-top:5px"><span class="tag a">VIX</span> → risk-on / off</div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="out empty" id="macroOut">Macro analysis will appear here...</div>
+    <div class="out empty" id="macOut">Macro analysis appears here...</div>
   </div>
 
-  <!-- ═══ KNOWLEDGE VAULT ═══ -->
-  <div id="p-vault" class="panel">
-    <div class="sec-hd">
-      <div class="sec-hd-icon" style="background:rgba(168,85,247,0.1);color:var(--p2)">🧠</div>
-      <div class="sec-hd-text"><h2>Knowledge Vault</h2><p>Your personal RAG — feed it your frameworks, notes, mental models · Query anything</p></div>
-    </div>
-    <div class="g2" style="margin-bottom:16px">
-      <div class="card">
-        <div class="card-hd"><span class="card-hd-title"><span class="accent-p">●</span> Add to Vault</span></div>
-        <div class="card-bd">
-          <div class="field"><label>Title</label><input type="text" id="vTitle" placeholder="e.g. Helmer's 7 Powers, Damodaran WACC Notes, HDFC Bank Thesis"></div>
-          <div class="g2">
-            <div class="field"><label>Category</label>
-              <select id="vCat">
-                <option>Strategy Frameworks</option><option>Valuation Methods</option>
-                <option>Mental Models</option><option>Sector Notes</option>
-                <option>Macro Frameworks</option><option>Investment Thesis</option>
-                <option>Deal Learnings</option><option>Writing Samples</option>
-              </select>
-            </div>
-            <div class="field"><label>Priority</label>
-              <select id="vPri">
-                <option>High — use always</option><option>Medium — use when relevant</option><option>Low — archive</option>
-              </select>
-            </div>
+  <!-- RESEARCH NOTES -->
+  <div id="research-notes" class="sp2">
+    <div class="card mb">
+      <div class="chd"><span class="chdt">Add Research Note</span></div>
+      <div class="cbd">
+        <div class="g2">
+          <div class="field"><label>Title</label><input type="text" id="nTitle" placeholder="e.g. Q3 2025 India Banking Outlook, BofA India Digital Lending Report"></div>
+          <div class="field"><label>Category</label>
+            <select id="nCat"><option>Market Research</option><option>Macro Note</option><option>Sector Analysis</option><option>Company Analysis</option><option>News Article</option><option>Data Point</option><option>Other</option></select>
           </div>
-          <div class="field"><label>Content (paste your notes)</label><textarea id="vContent" rows="7" placeholder="Paste frameworks, notes, mental models, writing samples, past analyses...&#10;&#10;The richer your vault, the smarter every agent becomes."></textarea></div>
-          <button class="btn p" onclick="addVault()">ADD TO VAULT</button>
         </div>
-      </div>
-      <div class="card">
-        <div class="card-hd">
-          <span class="card-hd-title"><span class="accent-g">●</span> Vault Contents</span>
-          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3)" id="vCount">0 entries</span>
-        </div>
-        <div id="vList" style="max-height:300px;overflow-y:auto">
-          <div style="padding:40px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3)">Vault is empty.</div>
+        <div class="field"><label>Content / Summary</label><textarea id="nBody" rows="4" placeholder="Paste article, research, key data points, your own notes..."></textarea></div>
+        <div class="brow">
+          <button class="btn moss" onclick="addNote()">Save Note</button>
+          <button class="btn sm" onclick="searchNotes()"><span class="sp" id="nSrchSp"></span>Synthesize Saved Notes</button>
         </div>
       </div>
     </div>
-    <div class="card">
-      <div class="card-hd"><span class="card-hd-title"><span class="accent-c">●</span> Vault Query</span></div>
-      <div class="card-bd">
-        <div style="display:flex;gap:10px">
-          <input type="text" id="vQ" placeholder="Which framework applies to analyzing a bank with compressing NIMs but improving asset quality?" style="flex:1">
-          <button class="btn g" onclick="queryVault()"><span id="vSpin" style="display:none" class="spin"></span>RETRIEVE</button>
-        </div>
-        <div class="out empty" id="vOut" style="margin-top:12px">Relevant concepts surface here...</div>
-      </div>
-    </div>
+    <div id="notesList"></div>
+    <div style="padding:24px;text-align:center;font-family:'Fira Code',monospace;font-size:11px;color:var(--tx3)" id="notesEmpty">No research notes saved yet.</div>
   </div>
+</div>
 
-  <!-- ═══ QUILL WRITER ═══ -->
-  <div id="p-quill" class="panel">
-    <div class="sec-hd">
-      <div class="sec-hd-icon" style="background:rgba(0,229,160,0.1);color:var(--g)">✦</div>
-      <div class="sec-hd-text"><h2>Quill Writer</h2><p>Your voice, your style · Investment memos · Research notes · LinkedIn posts · Whitepapers</p></div>
-    </div>
-    <div class="g2" style="margin-bottom:16px">
-      <div class="card">
-        <div class="card-hd"><span class="card-hd-title"><span class="accent-g">●</span> Writing Brief</span></div>
-        <div class="card-bd">
-          <div class="field"><label>Topic / Title</label><input type="text" id="qTopic" placeholder="e.g. Why HDFC Bank deserves a structural premium vs peers"></div>
-          <div class="g2">
-            <div class="field"><label>Document Type</label>
-              <select id="qType">
-                <option>Investment Memo (IC format)</option><option>Research Note (sell-side)</option>
-                <option>Deal Brief (PE/VC)</option><option>Sector Analysis</option>
-                <option>VC Thesis / LP Update</option><option>LinkedIn Post</option>
-                <option>Whitepaper Section</option><option>Consulting Slide Narrative</option>
-              </select>
-            </div>
-            <div class="field"><label>Tone</label>
-              <select id="qTone">
-                <option>Sharp & direct (analyst)</option><option>Formal (IC committee)</option>
-                <option>Engaging (public readership)</option><option>Academic (research paper)</option>
-              </select>
-            </div>
-          </div>
-          <div class="field"><label>Key Arguments to Make</label><textarea id="qPoints" rows="3" placeholder="- Lead with the ROE vs COE spread argument&#10;- Address the NIM compression risk head-on&#10;- Close with a relative valuation case"></textarea></div>
-          <div class="field"><label>Source Material</label><textarea id="qSrc" rows="3" placeholder="Paste data, earnings, research, numbers to draw from..."></textarea></div>
-          <button class="btn g" onclick="runQuill()"><span id="qSpin" style="display:none" class="spin"></span>DRAFT IN YOUR STYLE</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-hd"><span class="card-hd-title"><span class="accent-p">●</span> Your Style Profile</span></div>
-        <div class="card-bd">
-          <div class="field"><label>Paste 1–3 samples of your writing</label><textarea id="qStyle" rows="10" placeholder="The model learns your sentence rhythm, how you open, your vocabulary, analogy style, and framework preferences.&#10;&#10;Example of your past writing:&#10;'The HDFC Bank thesis is simple: when a bank's ROE consistently exceeds its cost of equity by 600bps over a decade, the P/B premium isn't overvaluation — it's measuring franchise value that a DCF can't capture...'"></textarea></div>
-          <div style="background:var(--bg3);border-radius:8px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);line-height:1.7">
-            💡 The more samples you paste, the more it sounds like you. Even 1 paragraph helps.
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="out empty" id="qOut">Your draft appears here...</div>
-  </div>
+</main>
 
-  <!-- ═══ CONSULTING / FRAMEWORKS ═══ -->
-  <div id="p-consult" class="panel">
-    <div class="sec-hd">
-      <div class="sec-hd-icon" style="background:rgba(168,85,247,0.1);color:var(--p2)">◆</div>
-      <div class="sec-hd-text"><h2>Consulting & Frameworks</h2><p>Issue trees · Hypothesis testing · Framework application · Slide narratives · Case structuring</p></div>
-    </div>
-    <div class="g2" style="margin-bottom:16px">
-      <div class="card">
-        <div class="card-hd"><span class="card-hd-title"><span class="accent-p">●</span> Framework Engine</span></div>
-        <div class="card-bd">
-          <div class="field"><label>Problem / Situation</label><textarea id="cProblem" rows="3" placeholder="e.g. HDFC Bank's NIM is compressing. Should a PE fund acquiring a stake be worried?&#10;e.g. A SaaS company has 120% NRR but slowing new logo growth. What's the strategic issue?"></textarea></div>
-          <div class="field"><label>Framework to Apply</label>
-            <select id="cFramework">
-              <option>Auto-select best framework</option>
-              <option>Porter's Five Forces</option><option>7 Powers (Hamilton Helmer)</option>
-              <option>McKinsey 7-S</option><option>Issue Tree (MECE)</option>
-              <option>Hypothesis Tree</option><option>Jobs-to-be-Done</option>
-              <option>BCG Growth-Share Matrix</option><option>Roger Martin — Strategy Cascade</option>
-              <option>First Principles Decomposition</option><option>SWOT + Strategic Priorities</option>
-              <option>Value Chain Analysis</option><option>Platform Business Model Analysis</option>
-            </select>
-          </div>
-          <div class="field"><label>Output Format</label>
-            <select id="cOutput">
-              <option>Full structured analysis with sub-issues</option>
-              <option>Consulting slide narrative (pyramid principle)</option>
-              <option>Hypothesis tree with tests</option><option>Executive summary only</option>
-            </select>
-          </div>
-          <button class="btn p" onclick="runConsult()"><span id="cSpin" style="display:none" class="spin"></span>APPLY FRAMEWORK</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-hd"><span class="card-hd-title"><span class="accent-b">●</span> IB / PE Special Tools</span></div>
-        <div class="card-bd" style="display:flex;flex-direction:column;gap:10px">
-          <div style="background:var(--bg3);border-radius:8px;padding:14px">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);margin-bottom:10px">QUICK TOOLS</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-              <button class="btn" style="font-size:10px;padding:8px 12px;justify-content:center" onclick="quickTool('pitch_narrative')">📊 Pitch Narrative</button>
-              <button class="btn" style="font-size:10px;padding:8px 12px;justify-content:center" onclick="quickTool('term_sheet')">📄 Term Sheet Analyzer</button>
-              <button class="btn" style="font-size:10px;padding:8px 12px;justify-content:center" onclick="quickTool('cap_table')">🧮 Cap Table Dilution</button>
-              <button class="btn" style="font-size:10px;padding:8px 12px;justify-content:center" onclick="quickTool('runway')">⏱ Runway Calculator</button>
-              <button class="btn" style="font-size:10px;padding:8px 12px;justify-content:center" onclick="quickTool('competitor_map')">🗺 Competitor Map</button>
-              <button class="btn" style="font-size:10px;padding:8px 12px;justify-content:center" onclick="quickTool('exit_scenarios')">🚀 Exit Scenarios</button>
-              <button class="btn" style="font-size:10px;padding:8px 12px;justify-content:center" onclick="quickTool('board_memo')">📋 Board Memo Draft</button>
-              <button class="btn" style="font-size:10px;padding:8px 12px;justify-content:center" onclick="quickTool('credit_memo')">🏦 Credit Memo</button>
-            </div>
-          </div>
-          <div class="field"><label>Quick Tool Input</label><textarea id="qtInput" rows="4" placeholder="Input for the selected quick tool above — paste relevant data or describe what you need..."></textarea></div>
-        </div>
-      </div>
-    </div>
-    <div class="out empty" id="cOut">Framework analysis will appear here...</div>
-  </div>
-
-</div><!-- end main -->
+<footer>
+  <span>DELPHI · personal financial intelligence</span>
+  <span>Data stored locally in your browser · <a href="https://github.com" target="_blank" style="color:var(--slate);text-decoration:none">Deploy to GitHub Pages</a> · API key never leaves your device</span>
+</footer>
 
 <script>
-// ════ STATE ════
-const vault = [];
-const portfolio = [];
-let mcResults = [];
-
-// ════ KEY MANAGEMENT ════
-function checkKey(){
-  const k=document.getElementById('apiKey').value.trim();
-  const el=document.getElementById('keyStatus');
-  if(k.startsWith('sk-ant')){el.className='status ok';el.textContent='KEY OK'}
-  else if(k.length>0){el.className='status no';el.textContent='INVALID'}
-  else{el.className='status no';el.textContent='NO KEY'}
-}
-
-// ════ NAVIGATION ════
-const titles={
-  orch:'ORCHESTRATOR — MASTER INTELLIGENCE',
-  comps:'COMPS ANALYSIS — COMPARABLE COMPANIES',
-  dcf:'DCF ENGINE — VALUATION + MONTE CARLO',
-  sentiment:'SENTIMENT RADAR — SIGNAL INTELLIGENCE',
-  deals:'DEAL SOURCING — STARTUP & PE SCREENING',
-  dd:'DUE DILIGENCE — DEEP ANALYSIS ENGINE',
-  port:'PORTFOLIO MONITORING — POSITION TRACKER',
-  market:'MARKET RESEARCH — INDUSTRY INTELLIGENCE',
-  macro:'MACRO LENS — ECONOMIC PARAMETERS',
-  vault:'KNOWLEDGE VAULT — PERSONAL RAG',
-  quill:'QUILL WRITER — YOUR VOICE, YOUR STYLE',
-  consult:'FRAMEWORKS — CONSULTING & IB TOOLS'
+// ═══════════════════════════════════════
+// STORAGE HELPERS
+// ═══════════════════════════════════════
+const S = {
+  get: k => { try { return JSON.parse(localStorage.getItem('delphi_'+k)) } catch(e) { return null } },
+  set: (k,v) => { try { localStorage.setItem('delphi_'+k, JSON.stringify(v)) } catch(e) {} },
+  del: k => localStorage.removeItem('delphi_'+k)
 };
-function go(id,btn){
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.sb-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('p-'+id).classList.add('active');
-  btn.classList.add('active');
-  document.getElementById('topTitle').textContent=titles[id]||id.toUpperCase();
+
+// ═══════════════════════════════════════
+// API KEY
+// ═══════════════════════════════════════
+function saveKey() {
+  const v = document.getElementById('keyInp').value.trim();
+  if (v) { S.set('key', v); updateBadge(v); }
+  else { S.del('key'); updateBadge(''); }
+}
+function updateBadge(k) {
+  const b = document.getElementById('keyBadge');
+  if (k.startsWith('sk-ant')) { b.className = 'kb ok'; b.textContent = 'SAVED'; }
+  else if (k.length > 0) { b.className = 'kb bad'; b.textContent = 'INVALID'; }
+  else { b.className = 'kb'; b.style.display = 'none'; }
+}
+function toggleKey() {
+  const el = document.getElementById('keyInp');
+  const eye = document.getElementById('eyeBtn');
+  if (el.type === 'password') { el.type = 'text'; eye.textContent = '⊙'; }
+  else { el.type = 'password'; eye.textContent = '⊙'; }
+}
+function getKey() {
+  return document.getElementById('keyInp').value.trim() || S.get('key') || '';
 }
 
-// ════ HELPERS ════
-function getKey(){return document.getElementById('apiKey').value.trim()}
-function rv(id,val,unit){document.getElementById('v'+id).textContent=val+unit}
-function getRng(selector){
-  const el=document.querySelector(`input[oninput*="('${selector}'"]`);
-  return el?parseFloat(el.value):0;
+// ═══════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════
+const panelTitles = { brain:'Brain', val:'Valuation', port:'Portfolio', compose:'Compose', research:'Research' };
+function go(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b => b.classList.remove('on'));
+  document.getElementById('p-'+id).classList.add('on');
+  btn.classList.add('on');
+  document.title = 'DELPHI — ' + panelTitles[id];
 }
-function setOut(id,txt,state='done'){
-  const el=document.getElementById(id);
-  el.textContent=txt;el.className='out '+state;
-}
-function spin(id,on){const el=document.getElementById(id);if(el)el.style.display=on?'inline-block':'none'}
-
-async function claude(sys,msg,tokens=4000){
-  const key=getKey();
-  if(!key)return'⚠ Enter your Anthropic API key in the top right corner first.';
-  const r=await fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:tokens,system:sys,messages:[{role:'user',content:msg}]})
-  });
-  const d=await r.json();
-  if(d.error)return'API ERROR: '+d.error.message;
-  return d.content[0].text;
+function sv(section, sub, btn) {
+  const prefix = section + '-';
+  document.querySelectorAll('[id^="'+prefix+'"]').forEach(p => p.classList.remove('on'));
+  btn.parentElement.querySelectorAll('.snb').forEach(b => b.classList.remove('on'));
+  document.getElementById(prefix+sub).classList.add('on');
+  btn.classList.add('on');
 }
 
-function vaultContext(){
-  if(!vault.length)return'';
-  return'\n\n━━━ PERSONAL KNOWLEDGE VAULT ━━━\n'+
-    vault.map(e=>`[${e.cat}] ${e.title}:\n${e.content}`).join('\n\n---\n\n');
+// ═══════════════════════════════════════
+// RANGE VALUES
+// ═══════════════════════════════════════
+function setR(id, val, unit) { document.getElementById(id).textContent = val + unit; }
+function getRng(elId) { return parseFloat(document.getElementById(elId).value); }
+
+// ═══════════════════════════════════════
+// OUTPUT HELPERS
+// ═══════════════════════════════════════
+function setOut(id, txt, cls='done') {
+  const el = document.getElementById(id);
+  el.textContent = txt;
+  el.className = 'out ' + cls;
+}
+function startOut(id) { setOut(id, 'Working...', 'empty run'); }
+function spin(id, on) { const el = document.getElementById(id); if(el) el.style.display = on ? 'inline-block' : 'none'; }
+
+// ═══════════════════════════════════════
+// CLAUDE API
+// ═══════════════════════════════════════
+async function ask(sys, msg, tokens=4000) {
+  const key = getKey();
+  if (!key) return '⚠  Please enter your Anthropic API key in the header above. It saves locally and stays on your device.';
+  try {
+    const r = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: tokens,
+        system: sys,
+        messages: [{ role: 'user', content: msg }]
+      })
+    });
+    const d = await r.json();
+    if (d.error) return 'API Error: ' + d.error.message;
+    return d.content[0].text;
+  } catch(e) { return 'Network error: ' + e.message; }
 }
 
-// ════ ORCHESTRATOR ════
-async function runOrch(){
-  const q=document.getElementById('orchQ').value.trim();if(!q)return;
-  spin('orchSpin',true);
-  const tagsEl=document.getElementById('orchTags');
-  const msgs=document.getElementById('orchMsgs');
+function libCtx() {
+  const lib = S.get('library') || [];
+  if (!lib.length) return '';
+  return '\n\n━━ PERSONAL KNOWLEDGE LIBRARY ━━\n' +
+    lib.map(e => '['+e.cat+'] '+e.title+':\n'+e.content).join('\n\n---\n\n');
+}
+function styleCtx() {
+  const style = document.getElementById('wStyle')?.value?.trim();
+  return style ? '\n\nYOUR WRITING STYLE EXAMPLES:\n' + style + '\n\nWrite in exactly this voice — internalize the sentence length, vocabulary, opening style, analogy use, confidence level. Sound like this person, not an AI.' : '';
+}
 
-  const uDiv=document.createElement('div');
-  uDiv.className='msg-u';
-  uDiv.innerHTML=`<div class="msg-lbl">YOU</div>${q}`;
+// ═══════════════════════════════════════
+// 01 BRAIN
+// ═══════════════════════════════════════
+async function runBrain() {
+  const q = document.getElementById('brainQ').value.trim();
+  if (!q) return;
+  spin('brainSp', true);
+  const msgs = document.getElementById('brainMsgs');
+
+  const uDiv = document.createElement('div');
+  uDiv.className = 'mu';
+  uDiv.innerHTML = '<div class="mlbl">You</div>' + q;
   msgs.appendChild(uDiv);
-  document.getElementById('orchQ').value='';
+  document.getElementById('brainQ').value = '';
 
-  // Tag routing
-  const tags=[];
-  if(/comps|peer|multiple|benchmark|comparable/i.test(q))tags.push({l:'COMPS',c:'b'});
-  if(/dcf|valuation|intrinsic|wacc|terminal|lbo|irr/i.test(q))tags.push({l:'DCF',c:'p'});
-  if(/sentiment|news|tone|management|headline/i.test(q))tags.push({l:'SIGNAL',c:'y'});
-  if(/macro|rate|rbi|fed|inflation|gdp|cycle/i.test(q))tags.push({l:'MACRO',c:'y'});
-  if(/write|draft|memo|note|article|linkedin/i.test(q))tags.push({l:'QUILL',c:'g'});
-  if(/startup|deal|founder|series|vc|funding/i.test(q))tags.push({l:'DEALS',c:'c'});
-  if(/due diligence|dd|risk|red flag/i.test(q))tags.push({l:'DD',c:'r'});
-  if(!tags.length)tags.push({l:'RESEARCH',c:'g'});
-  tagsEl.innerHTML=tags.map(t=>`<span class="tag ${t.c}">${t.l}</span>`).join('');
+  // Route tags
+  const tags = [];
+  if (/comps|peer|multiple|comparable/i.test(q)) tags.push({l:'Comps',c:'s'});
+  if (/dcf|valuation|wacc|terminal|intrinsic/i.test(q)) tags.push({l:'DCF',c:'m'});
+  if (/lbo|buyout|irr|moic|leverage/i.test(q)) tags.push({l:'LBO',c:'t'});
+  if (/macro|rate|rbi|fed|inflation|cycle/i.test(q)) tags.push({l:'Macro',c:'s'});
+  if (/write|draft|memo|linkedin|note/i.test(q)) tags.push({l:'Write',c:'m'});
+  if (/framework|porter|7 powers|issue tree|hypothesis/i.test(q)) tags.push({l:'Framework',c:'t'});
+  if (!tags.length) tags.push({l:'Research',c:'a'});
+  document.getElementById('brainTags').innerHTML = tags.map(t=>`<span class="tag ${t.c}">${t.l}</span>`).join('');
 
-  const sys=`You are AGENT — a senior VC/PE analyst and financial intelligence platform. 
-Your user is Thakur: final-year EEE at Mahindra University, ICICI Bank + EY internship experience, targeting MFE programs (CMU, UChicago, Columbia) and careers in PE/VC/consulting. He thinks in systems, is framework-aggressive, wants sharp direct analysis.
+  const loading = document.createElement('div');
+  loading.className = 'ma';
+  loading.innerHTML = '<div class="mlbl"><span class="dot"></span>Thinking</div>';
+  msgs.appendChild(loading);
+  loading.scrollIntoView({ behavior: 'smooth' });
 
-Respond like a senior analyst briefing a partner: lead with the headline finding, use frameworks by name, be specific with numbers, give a clear recommendation.
-${vaultContext()}`;
+  const sys = `You are DELPHI — a senior financial analyst and research partner. Your user is Thakur, a final-year engineering student targeting MFE programs (CMU, UChicago, Columbia) with internship experience at ICICI Bank and EY Strategy. He is analytical, framework-driven, and wants sharp, direct insights — not hedging.
 
-  const aDiv=document.createElement('div');
-  aDiv.className='msg-a';
-  aDiv.innerHTML=`<div class="msg-lbl"><span class="live-dot" style="width:5px;height:5px"></span>AGENT — ANALYZING...</div>`;
-  msgs.appendChild(aDiv);
-  aDiv.scrollIntoView({behavior:'smooth'});
+Respond like a senior analyst briefing a partner: lead with the headline finding, use frameworks by name, be specific with numbers, give clear recommendations. No generic filler.${libCtx()}`;
 
-  const res=await claude(sys,q,4096);
-  aDiv.innerHTML=`<div class="msg-lbl"><span style="color:var(--g)">●</span> AGENT</div>${res}`;
-  spin('orchSpin',false);
+  const res = await ask(sys, q, 4096);
+  loading.innerHTML = '<div class="mlbl"><span style="color:var(--moss)">●</span> Delphi</div>' + res;
+  spin('brainSp', false);
 }
-function clearChat(){document.getElementById('orchMsgs').innerHTML='';document.getElementById('orchTags').innerHTML=''}
+function clearBrain() {
+  document.getElementById('brainMsgs').innerHTML = '';
+  document.getElementById('brainTags').innerHTML = '';
+}
 
-// ════ COMPS ════
-async function runComps(){
-  const t=document.getElementById('cmpTicker').value.trim();if(!t)return;
-  spin('cmpSpin',true);setOut('cmpOut','Selecting peers and building multiples table...','loading');
-  const sys=`You are a senior equity research analyst. Build a full comparable companies analysis.${vaultContext()}`;
-  const msg=`Target: ${t} | Sector: ${document.getElementById('cmpSector').value} | Geography: ${document.getElementById('cmpGeo').value}
-Context: ${document.getElementById('cmpCtx').value}
-${document.getElementById('cmpData').value?'Financial Data:\n'+document.getElementById('cmpData').value:''}
-Primary Multiple Focus: ${document.getElementById('cmpPrimary').value}
-Format: ${document.getElementById('cmpFormat').value}
+// ═══════════════════════════════════════
+// 02 COMPS
+// ═══════════════════════════════════════
+async function runComps() {
+  const t = document.getElementById('cTick').value.trim(); if (!t) return;
+  spin('cSp', true); startOut('cOut');
+  const sys = `You are a senior equity research analyst. Produce rigorous, specific comparable company analyses.${libCtx()}`;
+  const msg = `Target: ${t}
+Sector: ${document.getElementById('cSec').value} | Geography: ${document.getElementById('cGeo').value}
+Primary multiple: ${document.getElementById('cMult').value}
+${document.getElementById('cFin').value ? 'Financial data:\n'+document.getElementById('cFin').value : ''}
+${document.getElementById('cCtx').value ? 'Context: '+document.getElementById('cCtx').value : ''}
+Format: ${document.getElementById('cFmt').value}
 
 Deliver:
-1. PEER SELECTION (5-7 companies, 1-line rationale each)
-2. TRADING MULTIPLES TABLE (use your knowledge of approximate current market multiples — be clear these are estimates)
-   Format clearly: Ticker | P/E TTM | P/E Fwd | EV/EBITDA | EV/Rev | P/B | Rev Growth | Gross Margin
-3. TARGET POSITIONING — cheap / expensive on each metric
-4. PREMIUM / DISCOUNT DRIVERS — what explains the delta?
-5. IMPLIED VALUE RANGE — applying peer medians
-6. VERDICT — Buy / Hold / Avoid + one conviction sentence`;
-  const r=await claude(sys,msg,3500);
-  setOut('cmpOut',r);spin('cmpSpin',false);
+1. PEER SELECTION — 5-7 companies, 1-line rationale each
+2. MULTIPLES TABLE — P/E TTM | P/E Fwd | EV/EBITDA | EV/Rev | P/B | Rev Growth | Gross Margin (use your knowledge of approximate current multiples; note these are estimates)
+3. TARGET POSITIONING — where does ${t} sit vs peer medians?
+4. PREMIUM / DISCOUNT DRIVERS — specific reasons for any delta
+5. IMPLIED VALUE RANGE — applying peer medians to ${t}
+6. VERDICT — Cheap / Fair / Expensive + conviction rationale`;
+  const r = await ask(sys, msg, 3500);
+  setOut('cOut', r); spin('cSp', false);
 }
-function setCompsPreset(sector,multiples){
-  document.getElementById('cmpSector').value=sector;
-  document.getElementById('cmpPrimary').value='Auto-select by sector';
-}
+function setPreset(sec) { document.getElementById('cSec').value = sec; }
 
-// ════ DCF + MONTE CARLO ════
-function getSliderVal(oninputStr){
-  const inputs=document.querySelectorAll('input[type=range]');
-  for(const inp of inputs){
-    if(inp.getAttribute('oninput')&&inp.getAttribute('oninput').includes(oninputStr))
-      return parseFloat(inp.value);
-  }return 0;
-}
-
-async function runDCF(){
-  const co=document.getElementById('dcfCo').value.trim();if(!co)return;
-  spin('dcfSpin',true);setOut('dcfOut','Building valuation model and sensitivity table...','loading');
-  const rg=getSliderVal("'RG'"),wacc=getSliderVal("'WC'"),tg=getSliderVal("'TG'"),
-        em=getSliderVal("'EM'"),cx=getSliderVal("'CX'"),yr=getSliderVal("'YR'");
-  const sys=`You are an expert valuation analyst trained in Damodaran frameworks, IB valuation, and PE deal structuring.${vaultContext()}`;
-  const msg=`Run a ${document.getElementById('dcfMethod').value} for ${co}.
-Base: ${document.getElementById('dcfRev').value||'estimate from knowledge'}
-Method: ${document.getElementById('dcfMethod').value}
-Assumptions: Revenue Growth ${rg}% | WACC ${wacc}% | Terminal Growth ${tg}% | EBITDA Margin ${em}% | CapEx ${cx}% | ${yr} yr forecast
-${document.getElementById('dcfFin').value?'Financials:\n'+document.getElementById('dcfFin').value:''}
+// ═══════════════════════════════════════
+// 02 DCF
+// ═══════════════════════════════════════
+async function runDCF() {
+  const co = document.getElementById('dCo').value.trim(); if (!co) return;
+  spin('dSp', true); startOut('dOut');
+  const rg = getRng('dRGr'), wacc = getRng('dWCr'), tg = getRng('dTGr'),
+        em = getRng('dEMr'), cx = getRng('dCXr'), yr = getRng('dYRr');
+  const sys = `You are an expert valuation analyst trained in Damodaran's frameworks and IB deal structuring.${libCtx()}`;
+  const msg = `Run a ${document.getElementById('dMeth').value} for ${co}.
+Base: ${document.getElementById('dRev').value || 'estimate from general knowledge'}
+Assumptions: Rev Growth ${rg}% · WACC ${wacc}% · Terminal Growth ${tg}% · EBITDA Margin ${em}% · CapEx ${cx}% · ${yr}-yr forecast
+${document.getElementById('dFin').value ? 'Financials:\n'+document.getElementById('dFin').value : ''}
 
 Deliver:
-1. YEAR-BY-YEAR PROJECTION TABLE (clean tabular format)
-2. TERMINAL VALUE CALC — show the math
-3. BRIDGE: EV → Equity Value (subtract net debt)
-4. INTRINSIC VALUE (total + per share if possible)
-5. SENSITIVITY TABLE — 3x3: WACC ±1.5% vs Terminal Growth ±0.75%
-6. KEY RISK: which single assumption has the most leverage?
-7. MARGIN OF SAFETY vs current market price (if known)
-8. VERDICT: CHEAP / FAIRLY VALUED / EXPENSIVE with conviction level`;
-  const r=await claude(sys,msg,4000);
-  setOut('dcfOut',r);spin('dcfSpin',false);
+1. PROJECTION TABLE — revenue, EBITDA, FCF per year (clean tabular format)
+2. TERMINAL VALUE — show the calculation explicitly
+3. EV → EQUITY BRIDGE — subtract net debt
+4. INTRINSIC VALUE (total + per share if data permits)
+5. SENSITIVITY TABLE — 3×3 grid: WACC ±1.5% vs Terminal Growth ±0.75%
+6. KEY LEVERAGE POINT — which assumption moves value most?
+7. VERDICT vs current market price (if known)`;
+  const r = await ask(sys, msg, 4000);
+  setOut('dOut', r); spin('dSp', false);
 }
 
-function runMonteCarlo(){
-  spin('mcSpin',true);
-  const rg=getSliderVal("'RG'")/100, wacc=getSliderVal("'WC'")/100,
-        tg=getSliderVal("'TG'")/100, em=getSliderVal("'EM'")/100,
-        cx=getSliderVal("'CX'")/100, yr=getSliderVal("'YR'"),
-        n=getSliderVal("'MC'"), gVol=getSliderVal("'MV'")/100,
-        mVol=getSliderVal("'MM'")/100;
+// ═══════════════════════════════════════
+// 02 MONTE CARLO
+// ═══════════════════════════════════════
+function runMC() {
+  spin('mcSp', true);
+  const n    = getRng('mcNr');
+  const rg   = getRng('mcRGr') / 100;
+  const gVol = getRng('mcGVr') / 100;
+  const wacc = getRng('mcWCr') / 100;
+  const em   = getRng('mcEMr') / 100;
+  const mVol = getRng('mcMVr') / 100;
+  const tg   = getRng('mcTGr') / 100;
 
-  const base=1000; // normalized to 1000 revenue units
-  const results=[];
-  for(let i=0;i<n;i++){
-    let rev=base, pv=0;
-    for(let y=1;y<=yr;y++){
-      const g=rg+gVol*(Math.random()*2-1)*1.65; // normal approx
-      const m=em+mVol*(Math.random()*2-1)*1.65;
-      rev*=(1+g);
-      const ebitda=rev*m, fcf=ebitda*(1-cx/em);
-      pv+=fcf/Math.pow(1+wacc,y);
+  const results = [];
+  for (let i = 0; i < n; i++) {
+    let rev = 1000, pv = 0;
+    for (let y = 1; y <= 5; y++) {
+      const g = rg + gVol * boxMuller();
+      const m = Math.max(0.01, em + mVol * boxMuller());
+      rev *= (1 + g);
+      const fcf = rev * m * 0.7;
+      pv += fcf / Math.pow(1 + wacc, y);
     }
-    const tv=(rev*em*(1-cx/em)*(1+tg))/(wacc-tg);
-    const tvPV=tv/Math.pow(1+wacc,yr);
-    results.push((pv+tvPV)/base);
+    const tv = (rev * em * 0.7 * (1 + tg)) / Math.max(0.001, wacc - tg);
+    results.push((pv + tv / Math.pow(1 + wacc, 5)) / 1000);
   }
-  results.sort((a,b)=>a-b);
-  mcResults=results;
+  results.sort((a, b) => a - b);
 
-  const p10=results[Math.floor(n*0.1)];
-  const p50=results[Math.floor(n*0.5)];
-  const p90=results[Math.floor(n*0.9)];
-  const mean=results.reduce((s,v)=>s+v,0)/n;
-  const std=Math.sqrt(results.reduce((s,v)=>s+(v-mean)**2,0)/n);
+  const p10 = results[Math.floor(n * 0.1)];
+  const p50 = results[Math.floor(n * 0.5)];
+  const p90 = results[Math.floor(n * 0.9)];
+  const mean = results.reduce((s, v) => s + v, 0) / n;
+  const std  = Math.sqrt(results.reduce((s, v) => s + (v - mean) ** 2, 0) / n);
 
-  document.getElementById('mcP10').textContent=p10.toFixed(2)+'×';
-  document.getElementById('mcP50').textContent=p50.toFixed(2)+'×';
-  document.getElementById('mcP90').textContent=p90.toFixed(2)+'×';
-  document.getElementById('mcStd').textContent='±'+std.toFixed(2);
-  document.getElementById('mcStats').textContent=`${Math.round(n).toLocaleString()} simulations · mean ${mean.toFixed(2)}×`;
-  drawHistogram(results,p10,p50,p90);
-  spin('mcSpin',false);
+  document.getElementById('mcP10').textContent = p10.toFixed(2) + '×';
+  document.getElementById('mcP50').textContent = p50.toFixed(2) + '×';
+  document.getElementById('mcP90').textContent = p90.toFixed(2) + '×';
+  document.getElementById('mcSd').textContent  = '±' + std.toFixed(2);
+  document.getElementById('mcStat').textContent = n.toLocaleString() + ' paths · mean ' + mean.toFixed(2) + '×';
+
+  drawHist(results, p10, p50, p90);
+  window._mcResults = { results, p10, p50, p90, mean, std };
+  spin('mcSp', false);
 }
 
-function drawHistogram(data,p10,p50,p90){
-  const canvas=document.getElementById('mcCanvas');
-  const ctx=canvas.getContext('2d');
-  canvas.width=canvas.offsetWidth*2;canvas.height=280;
-  ctx.scale(2,1);
-  const W=canvas.offsetWidth/2, H=140;
-  ctx.clearRect(0,0,W,H);
+function boxMuller() {
+  let u = 0, v = 0;
+  while (u === 0) u = Math.random();
+  while (v === 0) v = Math.random();
+  return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+}
 
-  const min=data[0],max=data[data.length-1],bins=60;
-  const bw=(max-min)/bins;
-  const counts=new Array(bins).fill(0);
-  data.forEach(v=>{const b=Math.min(Math.floor((v-min)/bw),bins-1);counts[b]++});
-  const maxC=Math.max(...counts);
-  const barW=W/bins;
+function drawHist(data, p10, p50, p90) {
+  const canvas = document.getElementById('mcCanvas');
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.parentElement.clientWidth - 34;
+  const H = 120;
+  canvas.width  = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width  = W + 'px';
+  canvas.style.height = H + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
 
-  counts.forEach((c,i)=>{
-    const x=i*barW, bh=(c/maxC)*(H-20), y=H-bh-10;
-    const val=min+i*bw;
-    if(val<p10)ctx.fillStyle='rgba(239,68,68,0.6)';
-    else if(val<p90)ctx.fillStyle='rgba(0,229,160,0.6)';
-    else ctx.fillStyle='rgba(59,130,246,0.6)';
-    ctx.fillRect(x+0.5,y,barW-1,bh);
+  const bins = 55, min = data[0], max = data[data.length - 1];
+  const bw = (max - min) / bins;
+  const counts = new Array(bins).fill(0);
+  data.forEach(v => { const b = Math.min(Math.floor((v - min) / bw), bins - 1); counts[b]++; });
+  const maxC = Math.max(...counts);
+  const barW = W / bins;
+
+  counts.forEach((c, i) => {
+    const x = i * barW;
+    const bh = (c / maxC) * (H - 22);
+    const val = min + i * bw;
+    if (val < p10)      ctx.fillStyle = 'rgba(176,122,88,.55)';
+    else if (val < p90) ctx.fillStyle = 'rgba(125,160,128,.55)';
+    else                ctx.fillStyle = 'rgba(110,143,166,.55)';
+    ctx.fillRect(x + 0.5, H - bh - 10, barW - 1, bh);
   });
 
   // P50 line
-  const p50x=((p50-min)/bw)*barW;
-  ctx.strokeStyle='rgba(0,229,160,0.9)';ctx.lineWidth=1.5;
-  ctx.setLineDash([4,3]);ctx.beginPath();
-  ctx.moveTo(p50x,10);ctx.lineTo(p50x,H-10);ctx.stroke();
+  const px50 = ((p50 - min) / bw) * barW;
+  ctx.strokeStyle = 'rgba(125,160,128,.8)';
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([4, 3]);
+  ctx.beginPath(); ctx.moveTo(px50, 8); ctx.lineTo(px50, H - 10); ctx.stroke();
   ctx.setLineDash([]);
-  ctx.fillStyle='rgba(0,229,160,0.9)';ctx.font='10px JetBrains Mono';
-  ctx.fillText('P50',p50x+3,20);
+  ctx.fillStyle = 'rgba(125,160,128,.9)';
+  ctx.font = '10px Fira Code, monospace';
+  ctx.fillText('P50', px50 + 4, 18);
 }
 
-// ════ SENTIMENT ════
-async function runSent(){
-  const co=document.getElementById('sentCo').value.trim();
-  const news=document.getElementById('sentNews').value.trim();
-  if(!co&&!news)return;
-  spin('sentSpin',true);setOut('sentOut','Reading market signals...','loading');
-  const sys=`You are an expert financial signal analyst. Think simultaneously like an activist investor, a short-seller, and a long-term compounder.
-Lens: ${document.getElementById('sentLens').value}${vaultContext()}`;
-  const msg=`Company: ${co||'see headlines'}
-Headlines:\n${news}
+async function runMCInterpret() {
+  const mc = window._mcResults;
+  if (!mc) { setOut('mcOut', 'Run the simulation first, then click Interpret.', 'empty'); return; }
+  spin('mciSp', true); startOut('mcOut');
+  const co = document.getElementById('mcCo').value || 'this company';
+  const sys = `You are a valuation expert explaining Monte Carlo simulation results to a sophisticated analyst.`;
+  const msg = `Interpret Monte Carlo valuation results for ${co}:
+P10 (Bear): ${mc.p10.toFixed(2)}× base value
+P50 (Base): ${mc.p50.toFixed(2)}× base value  
+P90 (Bull): ${mc.p90.toFixed(2)}× base value
+Mean: ${mc.mean.toFixed(2)}× | Std Dev: ${mc.std.toFixed(2)}
+
+Explain: what this distribution means for the investment decision, what drives the spread between bear and bull, and what this implies for position sizing and risk management.`;
+  const r = await ask(sys, msg, 1500);
+  setOut('mcOut', r); spin('mciSp', false);
+}
+
+// ═══════════════════════════════════════
+// 02 LBO
+// ═══════════════════════════════════════
+async function runLBO() {
+  const co = document.getElementById('lCo').value.trim(); if (!co) return;
+  spin('lSp', true); startOut('lOut');
+  const sys = `You are a senior PE analyst and LBO modeling expert trained in Rosenbaum & Pearl methodology.${libCtx()}`;
+  const msg = `LBO analysis for ${co}:
+Entry EV: ${document.getElementById('lEV').value}
+Entry Multiple: ${document.getElementById('lEntry').value}
+Debt/EBITDA: ${getRng('lDEr')}x · Interest Rate: ${getRng('lIRr')}% · Revenue Growth: ${getRng('lRGr')}%
+Margin Improvement: ${getRng('lMIr')}% · Hold Period: ${getRng('lHPr')} yrs · Exit Multiple: ${getRng('lEXr')}x
+${document.getElementById('lFin').value ? 'Financials:\n'+document.getElementById('lFin').value : ''}
 
 Deliver:
-MOMENTUM SCORE: X/10 — one sentence rationale
-DOMINANT NARRATIVE — what story is the market building?
-MANAGEMENT SIGNALS — tone, forward confidence, sandbagging?
-WHAT'S PRICED IN vs WHAT'S MISSED — the alpha gap
-RED FLAGS — 2-3 specific risks building under the surface
-OPPORTUNITY SIGNALS — positive catalysts forming
-CONTRARIAN READ — short-seller case vs long-term bull case
-SIGNAL STRENGTH: WEAK / MODERATE / STRONG`;
-  const r=await claude(sys,msg,2500);
-  setOut('sentOut',r);spin('sentSpin',false);
+1. SOURCES & USES TABLE — debt vs equity split, fees
+2. DEBT SCHEDULE — year-by-year principal paydown  
+3. EXIT ANALYSIS — EV at exit, debt remaining, equity proceeds
+4. RETURNS — IRR and MOIC at base case
+5. SENSITIVITY — IRR at exit multiples 8x/10x/12x vs hold periods 4/5/6 yrs
+6. KEY VALUE DRIVER — what creates the most return in this deal?
+7. CREDIT METRICS — peak leverage, minimum DSCR, covenant headroom`;
+  const r = await ask(sys, msg, 3500);
+  setOut('lOut', r); spin('lSp', false);
 }
 
-async function runMgmt(){
-  const txt=document.getElementById('sentMgmt').value.trim();if(!txt)return;
-  spin('mgmtSpin',true);setOut('sentOut','Decoding management communication...','loading');
-  const sys=`You are an expert at decoding management tone in earnings calls and corporate communications. You've analyzed thousands of earnings transcripts.`;
-  const msg=`Mode: ${document.getElementById('sentMgmtMode').value}
-\n${txt}\n
-Deliver:
-OVERALL TONE: [Confident/Cautious/Defensive/Sandbagging/Bullish/Evasive]
-LANGUAGE PATTERNS — specific phrases revealing the real view
-EMPHASIS vs DOWNPLAY — what they want you to focus on vs hide
-GUIDANCE QUALITY — setting up a beat or a miss?
-RISK LANGUAGE — dismissive, genuinely worried, or obfuscating?
-KEY QUOTE ANALYSIS — decode 2-3 specific quotes
-TRUST SCORE: X/10`;
-  const r=await claude(sys,msg,2000);
-  setOut('sentOut',r);spin('mgmtSpin',false);
-}
-
-// ════ DEAL SOURCING ════
-async function runDeals(){
-  const mandate=document.getElementById('dealMandate').value;
-  const sector=document.getElementById('dealSector').value.trim();
-  spin('dealSpin',true);setOut('dealOut','Screening deal opportunity...','loading');
-  const sys=`You are a senior deal sourcer and investment professional at a top VC/PE firm. You have deep knowledge of Indian and global startup ecosystems, deal structures, and investment mandates.${vaultContext()}`;
-  const msg=`Mandate: ${mandate}
-Sector: ${sector} | Geography: ${document.getElementById('dealGeo').value}
-Check Size: ${document.getElementById('dealSize').value}
-${document.getElementById('dealDesc').value?'Target/Pitch:\n'+document.getElementById('dealDesc').value:''}
-
-Deliver:
-1. INVESTMENT ATTRACTIVENESS SCORE: X/10
-2. THESIS FIT — how well does this fit the mandate? What's the strategic logic?
-3. MARKET OPPORTUNITY — size, growth, structural tailwinds
-4. COMPETITIVE POSITION — moat assessment, differentiation
-5. KEY VALUE DRIVERS — what creates returns here?
-6. RED FLAGS — top 3 risks that could kill the deal
-7. COMPARABLE DEALS — similar transactions, entry multiples
-8. QUESTIONS TO ASK FOUNDER — 5 specific diligence questions
-9. PRELIMINARY VERDICT: PASS / WATCH / PURSUE`;
-  const r=await claude(sys,msg,3000);
-  setOut('dealOut',r);spin('dealSpin',false);
-}
-
-async function runFounder(){
-  const bg=document.getElementById('founderBg').value.trim();if(!bg)return;
-  spin('founderSpin',true);setOut('dealOut','Assessing founder profile...','loading');
-  const sys=`You are a top-tier VC partner with 20 years of pattern-matching founder profiles across hundreds of deals. You can detect founder-market fit, execution risk, and hidden strengths.`;
-  const msg=`Framework: ${document.getElementById('founderFramework').value}
-Founder Info:\n${bg}
-
-Deliver:
-FOUNDER-MARKET FIT: X/10 — does their background uniquely qualify them?
-DOMAIN EXPERTISE — depth and relevance of experience
-EXECUTION SIGNAL — evidence of getting things done
-RESILIENCE INDICATORS — have they been tested? How?
-NETWORK LEVERAGE — access to customers, capital, talent
-FIRST-PRINCIPLES THINKING — do they understand their problem deeply?
-RED FLAGS — patterns that historically predict failure
-GREEN FLAGS — signals that predict outlier outcomes
-OVERALL FOUNDER SCORE: X/10 + conviction rationale`;
-  const r=await claude(sys,msg,2000);
-  setOut('dealOut',r);spin('founderSpin',false);
-}
-
-// ════ DUE DILIGENCE ════
-async function runDD(){
-  const co=document.getElementById('ddCo').value.trim();if(!co)return;
-  spin('ddSpin',true);setOut('ddOut','Running due diligence protocol...','loading');
-  const sys=`You are a senior DD analyst at a top PE/VC firm. You run rigorous, skeptical due diligence designed to find what others miss.${vaultContext()}`;
-  const msg=`Company: ${co} | DD Type: ${document.getElementById('ddType').value} | Context: ${document.getElementById('ddContext').value}
-${document.getElementById('ddData').value?'Available Data:\n'+document.getElementById('ddData').value:'(No data provided — use general knowledge for this type of company)'}
-
-Deliver based on DD type:
-EXECUTIVE SUMMARY — 3-sentence verdict
-STRENGTHS — what checks out, evidence-based
-RED FLAGS — numbered list, each with severity (HIGH/MED/LOW)
-FINANCIAL QUALITY — accounting red flags, cash conversion, EBITDA quality
-MARKET POSITION — is the moat real and defensible?
-MANAGEMENT ASSESSMENT — capability and integrity signals
-KEY RISKS — probability × impact matrix
-DATA REQUESTS — what information is MISSING and critical to get
-DEAL-BREAKERS — conditions that would make you walk away
-RECOMMENDATION: PROCEED / PROCEED WITH CONDITIONS / PASS`;
-  const r=await claude(sys,msg,4000);
-  setOut('ddOut',r);spin('ddSpin',false);
-}
-
-async function runDDChecklist(){
-  const co=document.getElementById('ddCheckCo').value.trim();if(!co)return;
-  spin('ddcSpin',true);
-  const sys=`You are a DD expert. Generate comprehensive, specific checklists — not generic templates.`;
-  const msg=`Generate a detailed DD checklist for: ${co}
-Investor type: ${document.getElementById('ddInvType').value}
-Format as numbered sections with specific, actionable checklist items. Include: Financial, Commercial, Legal, Management, Technical, ESG sections.`;
-  const r=await claude(sys,msg,3000);
-  setOut('ddOut',r);spin('ddcSpin',false);
-}
-
-async function runSynergy(){
-  const txt=document.getElementById('ddSynergy').value.trim();if(!txt)return;
-  spin('synSpin',true);
-  const sys=`You are an M&A synergy analyst. Quantify synergies rigorously with assumptions stated.`;
-  const r=await claude(sys,'Estimate M&A synergies for:\n'+txt+'\n\nDeliver: Revenue synergies, Cost synergies, One-time integration costs, Net synergy NPV, Payback period, Top 3 integration risks.',2500);
-  setOut('ddOut',r);spin('synSpin',false);
-}
-
-// ════ PORTFOLIO ════
-function addPortPosition(){
-  const co=document.getElementById('portCo').value.trim();if(!co)return;
-  const entry=document.getElementById('portEntry').value.trim();
-  const curr=document.getElementById('portCurr').value.trim();
-  portfolio.push({
-    co,entry,curr,
-    date:document.getElementById('portDate').value,
-    stage:document.getElementById('portStage').value,
-    kpis:document.getElementById('portKPIs').value,
-    id:Date.now()
+// ═══════════════════════════════════════
+// 03 PORTFOLIO
+// ═══════════════════════════════════════
+function addPos() {
+  const co = document.getElementById('pCo').value.trim(); if (!co) return;
+  const port = S.get('portfolio') || [];
+  port.push({
+    co, ent: document.getElementById('pEnt').value,
+    cur: document.getElementById('pCur').value,
+    date: document.getElementById('pDate').value,
+    stage: document.getElementById('pStage').value,
+    kpi: document.getElementById('pKPI').value,
+    id: Date.now()
   });
-  document.getElementById('portCo').value='';
-  document.getElementById('portEntry').value='';
-  document.getElementById('portCurr').value='';
-  document.getElementById('portKPIs').value='';
-  renderPortfolio();
+  S.set('portfolio', port);
+  document.getElementById('pCo').value = '';
+  document.getElementById('pEnt').value = '';
+  document.getElementById('pCur').value = '';
+  document.getElementById('pKPI').value = '';
+  renderPort();
 }
+function delPos(id) {
+  const port = (S.get('portfolio') || []).filter(p => p.id !== id);
+  S.set('portfolio', port); renderPort();
+}
+function renderPort() {
+  const port = S.get('portfolio') || [];
+  document.getElementById('posCount').textContent = port.length + ' entries';
+  document.getElementById('ptTotal').textContent = port.length;
 
-function renderPortfolio(){
-  const list=document.getElementById('portList');
-  if(!portfolio.length){
-    list.innerHTML='<div style="padding:30px;text-align:center;font-family:\'JetBrains Mono\',monospace;font-size:11px;color:var(--text3)">No positions yet.</div>';
+  // Naive top performer
+  let top = '—';
+  if (port.length) {
+    const sorted = [...port].filter(p => p.co).sort((a, b) => (b.cur||'').localeCompare(a.cur||''));
+    if (sorted.length) top = sorted[0].co;
+  }
+  document.getElementById('ptTop').textContent = top;
+
+  const list = document.getElementById('portList');
+  if (!port.length) {
+    list.innerHTML = '<div style="padding:28px;text-align:center;font-family:\'Fira Code\',monospace;font-size:11px;color:var(--tx3)">No positions yet.</div>';
+    document.getElementById('ptMoic').textContent = '—';
     return;
   }
-  list.innerHTML=`<div class="port-row port-hd"><span>Company</span><span>Entry</span><span>Current</span><span>Stage</span><span>Date</span><span></span></div>`
-    +portfolio.map(p=>`<div class="port-row">
-      <span style="font-weight:600">${p.co}</span>
-      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2)">${p.entry||'—'}</span>
-      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--g)">${p.curr||'—'}</span>
-      <span><span class="tag b" style="font-size:9px">${p.stage}</span></span>
-      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3)">${p.date||'—'}</span>
-      <button class="del" onclick="removePort(${p.id})">×</button>
+
+  // Rough MOIC estimate
+  let moicSum = 0, moicCount = 0;
+  port.forEach(p => {
+    const e = parseFloat((p.ent||'').replace(/[^0-9.]/g,''));
+    const c = parseFloat((p.cur||'').replace(/[^0-9.]/g,''));
+    if (e > 0 && c > 0) { moicSum += c/e; moicCount++; }
+  });
+  document.getElementById('ptMoic').textContent = moicCount ? (moicSum/moicCount).toFixed(2)+'×' : '—';
+
+  list.innerHTML =
+    '<div class="phdr"><span>Company</span><span>Entry</span><span>Current</span><span>Stage</span><span>Date</span><span></span></div>' +
+    port.map(p => `<div class="prow">
+      <span style="font-weight:500">${p.co}</span>
+      <span style="font-family:'Fira Code',monospace;font-size:11px;color:var(--tx2)">${p.ent||'—'}</span>
+      <span style="font-family:'Fira Code',monospace;font-size:11px;color:var(--moss)">${p.cur||'—'}</span>
+      <span><span class="tag s" style="font-size:9px">${p.stage}</span></span>
+      <span style="font-family:'Fira Code',monospace;font-size:10px;color:var(--tx3)">${p.date||'—'}</span>
+      <button class="dbtn" onclick="delPos(${p.id})">×</button>
     </div>`).join('');
 }
-
-function removePort(id){
-  const i=portfolio.findIndex(p=>p.id===id);
-  if(i>-1)portfolio.splice(i,1);renderPortfolio();
+async function analyzePort() {
+  const port = S.get('portfolio') || [];
+  if (!port.length) { setOut('portOut', 'Add some positions first.', 'empty'); return; }
+  startOut('portOut');
+  const sys = `You are a portfolio monitoring analyst at a PE/VC firm. Be specific and direct about what needs attention.`;
+  const data = port.map(p => `${p.co} (${p.stage}) — Entry: ${p.ent||'?'}, Current: ${p.cur||'?'}, KPIs: ${p.kpi||'none'}`).join('\n');
+  const r = await ask(sys, `Analyze this portfolio:\n${data}\n\nDeliver: Portfolio health summary, stars vs laggards, intervention alerts, estimated MOIC/IRR where calculable, concentration risks, recommended next actions per company.`, 2500);
+  setOut('portOut', r);
 }
 
-async function analyzePortfolio(){
-  if(!portfolio.length)return;
-  setOut('portOut','Analyzing portfolio...','loading');
-  const portData=portfolio.map(p=>`${p.co} (${p.stage}) — Entry: ${p.entry}, Current: ${p.curr}, KPIs: ${p.kpis}`).join('\n');
-  const sys=`You are a portfolio monitoring analyst at a PE/VC firm. Analyze portfolio health and identify action items.`;
-  const r=await claude(sys,`Portfolio:\n${portData}\n\nDeliver: Portfolio health summary, stars vs laggards, intervention alerts (companies needing attention), MOIC/IRR estimates where calculable, sector concentration risk, recommended next actions per company.`,3000);
-  setOut('portOut',r);
+// ═══════════════════════════════════════
+// 04 COMPOSE — FRAMEWORK
+// ═══════════════════════════════════════
+async function runFW() {
+  const prob = document.getElementById('fwProb').value.trim(); if (!prob) return;
+  spin('fwSp', true); startOut('fwOut');
+  const sys = `You are a McKinsey/BCG senior consultant. Apply frameworks with surgical precision. Be specific to this exact situation — not generic.${libCtx()}`;
+  const msg = `Problem: ${prob}
+Framework: ${document.getElementById('fwFr').value}
+Format: ${document.getElementById('fwFmt').value}
+
+Apply the framework precisely and specifically to this situation. Make it look like a real consulting deliverable — not a textbook summary.`;
+  const r = await ask(sys, msg, 3500);
+  setOut('fwOut', r); spin('fwSp', false);
+}
+async function qt(instruction) {
+  const inp = document.getElementById('qtInp').value.trim();
+  spin('fwSp', true); startOut('fwOut');
+  const sys = `You are a senior IB/PE analyst. Deliver professional-grade output.${libCtx()}`;
+  const r = await ask(sys, instruction + '\n\nInput: ' + (inp || '(generate a comprehensive template/example)'), 2500);
+  setOut('fwOut', r); spin('fwSp', false);
 }
 
-// ════ MARKET RESEARCH ════
-async function runMarket(){
-  const ind=document.getElementById('mktIndustry').value.trim();if(!ind)return;
-  spin('mktSpin',true);setOut('mktOut','Analyzing market...','loading');
-  const sys=`You are a top-tier market research analyst with deep expertise in Indian and global markets.${vaultContext()}`;
-  const msg=`Market: ${ind} | Type: ${document.getElementById('mktType').value} | Lens: ${document.getElementById('mktLens').value}
-${document.getElementById('mktData').value?'Context data:\n'+document.getElementById('mktData').value:''}
+// ═══════════════════════════════════════
+// 04 COMPOSE — WRITING
+// ═══════════════════════════════════════
+async function runWrite() {
+  const topic = document.getElementById('wTopic').value.trim(); if (!topic) return;
+  spin('wSp', true); startOut('wOut');
+  const sys = `You are a ghostwriter who has studied this person's writing deeply. Write in their exact voice — not AI output.${styleCtx()}${libCtx()}
+Do NOT sound like an AI. No "In conclusion", no "It is worth noting". Sound like the author.`;
+  const msg = `Write a ${document.getElementById('wType').value} with tone: ${document.getElementById('wTone').value}
+Topic: ${topic}
+Key points: ${document.getElementById('wPts').value || 'structure as you see fit'}
+${document.getElementById('wSrc').value ? 'Source material:\n'+document.getElementById('wSrc').value : ''}`;
+  const r = await ask(sys, msg, 3000);
+  setOut('wOut', r); spin('wSp', false);
+}
+
+// ═══════════════════════════════════════
+// 04 COMPOSE — LIBRARY
+// ═══════════════════════════════════════
+function addLib() {
+  const title = document.getElementById('libTitle').value.trim();
+  const cont  = document.getElementById('libCont').value.trim();
+  if (!title || !cont) return;
+  const lib = S.get('library') || [];
+  lib.push({ title, cat: document.getElementById('libCat').value, pri: document.getElementById('libPri').value, content: cont, id: Date.now() });
+  S.set('library', lib);
+  document.getElementById('libTitle').value = '';
+  document.getElementById('libCont').value = '';
+  renderLib();
+}
+function delLib(id) {
+  S.set('library', (S.get('library') || []).filter(e => e.id !== id));
+  renderLib();
+}
+function renderLib() {
+  const lib = S.get('library') || [];
+  document.getElementById('libCount').textContent = lib.length + ' entries';
+  const el = document.getElementById('libList');
+  if (!lib.length) {
+    el.innerHTML = '<div style="padding:28px;text-align:center;font-family:\'Fira Code\',monospace;font-size:11px;color:var(--tx3)">Library is empty.</div>';
+    return;
+  }
+  el.innerHTML = lib.map(e => `<div class="le">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+      <div>
+        <div class="len">${e.title}</div>
+        <div class="lem"><span class="tag a" style="font-size:8.5px">${e.cat}</span> <span class="tag m" style="font-size:8.5px">${e.pri}</span> · ${e.content.length} chars</div>
+      </div>
+      <button class="dbtn" onclick="delLib(${e.id})">×</button>
+    </div>
+  </div>`).join('');
+}
+async function queryLib() {
+  const q = document.getElementById('libQ').value.trim(); if (!q) return;
+  const lib = S.get('library') || [];
+  if (!lib.length) { setOut('libQOut', 'Library is empty. Add entries first.', 'empty'); return; }
+  spin('libQSp', true);
+  document.getElementById('libQOut').textContent = 'Searching...';
+  document.getElementById('libQOut').className = 'out empty run';
+  const vaultText = lib.map(e => '['+e.cat+'] '+e.title+':\n'+e.content).join('\n\n---\n\n');
+  const sys = `You surface relevant frameworks from a knowledge library. Explain HOW they apply to the specific situation — don't just summarize the framework.`;
+  const r = await ask(sys, `Query: ${q}\n\nLibrary:\n${vaultText}\n\nWhich entries are most relevant and HOW do they apply specifically?`, 2000);
+  setOut('libQOut', r); spin('libQSp', false);
+}
+function saveToLib(type) {
+  let title, content, cat;
+  if (type === 'framework') {
+    title = document.getElementById('fwProb').value.trim().substring(0, 60);
+    content = document.getElementById('fwOut').textContent;
+    cat = 'Strategy Framework';
+  } else {
+    title = document.getElementById('wTopic').value.trim().substring(0, 60);
+    content = document.getElementById('wOut').textContent;
+    cat = 'Writing Sample';
+  }
+  if (!title || !content || content.includes('appears here')) return;
+  const lib = S.get('library') || [];
+  lib.push({ title: title + ' (saved)', cat, pri: 'Medium', content, id: Date.now() });
+  S.set('library', lib);
+  renderLib();
+  alert('Saved to library.');
+}
+
+// ═══════════════════════════════════════
+// 05 RESEARCH — MARKET
+// ═══════════════════════════════════════
+async function runMkt() {
+  const ind = document.getElementById('mktInd').value.trim(); if (!ind) return;
+  spin('mktSp', true); startOut('mktOut');
+  const sys = `You are a top-tier market research analyst. Be specific with numbers and market data.${libCtx()}`;
+  const msg = `Market: ${ind}
+Analysis: ${document.getElementById('mktType').value}
+Lens: ${document.getElementById('mktLens').value}
+${document.getElementById('mktData').value ? 'Data:\n'+document.getElementById('mktData').value : ''}
 
 Deliver:
-1. TAM / SAM / SOM — size it using BOTH top-down and bottom-up approaches
-2. GROWTH DRIVERS — 3-5 structural tailwinds, quantified where possible
-3. COMPETITIVE LANDSCAPE — map the players: incumbents, challengers, potential disruptors
-4. PORTER'S FIVE FORCES — brief assessment of each force
-5. VALUE CHAIN — who captures the most value and why?
-6. ENTRY BARRIERS — what makes this hard to enter?
-7. KEY RISKS — regulatory, competitive, macro
-8. INVESTMENT OPPORTUNITIES — where is the best risk/reward?
-9. HEADLINE THESIS — 2-sentence investment narrative`;
-  const r=await claude(sys,msg,4000);
-  setOut('mktOut',r);spin('mktSpin',false);
+1. TAM / SAM / SOM — size using BOTH top-down and bottom-up approaches
+2. GROWTH DRIVERS — 3-5 structural tailwinds, quantified
+3. COMPETITIVE LANDSCAPE — incumbents, challengers, potential disruptors
+4. PORTER'S FIVE FORCES — concise assessment of each force
+5. VALUE CHAIN — who captures value and why?
+6. ENTRY BARRIERS — what makes this hard to crack?
+7. INVESTMENT OPPORTUNITIES — best risk/reward by segment
+8. HEADLINE THESIS — 2-sentence investment narrative`;
+  const r = await ask(sys, msg, 4000);
+  setOut('mktOut', r); spin('mktSp', false);
+}
+async function runThesis() {
+  const topic = document.getElementById('thTopic').value.trim(); if (!topic) return;
+  spin('thSp', true); startOut('mktOut');
+  const sys = `You are an investment thesis writer. Build conviction narratives that are bold, specific, and defensible.${libCtx()}`;
+  const r = await ask(sys, `Build an investment thesis on: ${topic}\nHorizon: ${document.getElementById('thH').value}\nFormat: ${document.getElementById('thFmt').value}\n\nStructure: Compelling hook → Market setup → The specific bet → Why now → Key risks → Conviction statement`, 3000);
+  setOut('mktOut', r); spin('thSp', false);
+}
+function saveMktToNotes() {
+  const out = document.getElementById('mktOut').textContent;
+  if (!out || out.includes('appear here')) return;
+  const notes = S.get('notes') || [];
+  notes.unshift({ title: (document.getElementById('mktInd').value || document.getElementById('thTopic').value || 'Market Analysis').substring(0,60), cat: 'Market Research', body: out, date: new Date().toLocaleDateString(), id: Date.now() });
+  S.set('notes', notes); renderNotes();
+  sv('research', 'notes', document.querySelector('[onclick*="research\',\'notes\'"]'));
 }
 
-async function runThesis(){
-  const topic=document.getElementById('thesisTopic').value.trim();if(!topic)return;
-  spin('thesisSpin',true);
-  const sys=`You are an expert investment thesis writer. Build conviction narratives that are specific, bold, and defensible.${vaultContext()}`;
-  const r=await claude(sys,`Build a full investment thesis on: ${topic}\nHorizon: ${document.getElementById('thesisHorizon').value}\nFormat for: ${document.getElementById('thesisFrame').value}\n\nStructure: Hook → Market setup → The specific bet → Why now → Key risks → Conviction statement`,3500);
-  setOut('mktOut',r);spin('thesisSpin',false);
-}
-
-// ════ MACRO ════
-async function runMacro(){
-  const sec=document.getElementById('macroCo').value.trim();if(!sec)return;
-  spin('macroSpin',true);setOut('macroOut','Running macro analysis...','loading');
-  const sys=`You are a macro research analyst with deep expertise in India and global markets, economic cycles, and sector dynamics.${vaultContext()}`;
-  const msg=`Sector: ${sec} | Horizon: ${document.getElementById('macroH').value} | Focus: ${document.getElementById('macroFocus').value}
-${document.getElementById('macroData').value?'Current macro data:\n'+document.getElementById('macroData').value:''}
-${document.getElementById('macroQuestion')?.value?'Specific Q: '+document.getElementById('macroQuestion').value:''}
+// ═══════════════════════════════════════
+// 05 RESEARCH — MACRO
+// ═══════════════════════════════════════
+async function runMacro() {
+  const sec = document.getElementById('macSec').value.trim(); if (!sec) return;
+  spin('macSp', true); startOut('macOut');
+  const sys = `You are a macro research analyst with deep expertise in India and global markets.${libCtx()}`;
+  const msg = `Sector: ${sec} · Horizon: ${document.getElementById('macH').value} · Focus: ${document.getElementById('macFoc').value}
+${document.getElementById('macData').value ? 'Macro data:\n'+document.getElementById('macData').value : ''}
+${document.getElementById('macQ').value ? 'Question: '+document.getElementById('macQ').value : ''}
 
 Deliver:
-1. MACRO REGIME — where are we in the cycle? (for this sector specifically)
-2. KEY PARAMETERS — which 3-4 macro variables dominate? Current readings and direction?
+1. MACRO REGIME — where are we in the cycle for this sector?
+2. KEY PARAMETERS — 3-4 variables that dominate; current readings and direction
 3. SECTOR IMPLICATIONS — earnings/valuation impact of current setup
 4. HISTORICAL PARALLELS — when has this macro setup appeared? What followed?
 5. TAIL RISKS — macro scenarios that break the thesis
-6. POSITIONING — which sub-segments / names benefit most?
+6. POSITIONING — which sub-segments benefit most?
 7. 12-MONTH BASE CASE — trajectory and key inflection points`;
-  const r=await claude(sys,msg,3500);
-  setOut('macroOut',r);spin('macroSpin',false);
+  const r = await ask(sys, msg, 3500);
+  setOut('macOut', r); spin('macSp', false);
+}
+function saveMacroToNotes() {
+  const out = document.getElementById('macOut').textContent;
+  if (!out || out.includes('appear here')) return;
+  const notes = S.get('notes') || [];
+  notes.unshift({ title: 'Macro: ' + (document.getElementById('macSec').value||'Analysis'), cat: 'Macro Note', body: out, date: new Date().toLocaleDateString(), id: Date.now() });
+  S.set('notes', notes); renderNotes();
 }
 
-// ════ KNOWLEDGE VAULT ════
-function addVault(){
-  const t=document.getElementById('vTitle').value.trim();
-  const c=document.getElementById('vContent').value.trim();
-  if(!t||!c)return;
-  vault.push({title:t,cat:document.getElementById('vCat').value,content:c,id:Date.now()});
-  document.getElementById('vTitle').value='';
-  document.getElementById('vContent').value='';
-  renderVault();
+// ═══════════════════════════════════════
+// 05 RESEARCH — NOTES
+// ═══════════════════════════════════════
+function addNote() {
+  const t = document.getElementById('nTitle').value.trim();
+  const b = document.getElementById('nBody').value.trim();
+  if (!t || !b) return;
+  const notes = S.get('notes') || [];
+  notes.unshift({ title: t, cat: document.getElementById('nCat').value, body: b, date: new Date().toLocaleDateString(), id: Date.now() });
+  S.set('notes', notes);
+  document.getElementById('nTitle').value = '';
+  document.getElementById('nBody').value = '';
+  renderNotes();
 }
-function removeVault(id){const i=vault.findIndex(v=>v.id===id);if(i>-1)vault.splice(i,1);renderVault()}
-function renderVault(){
-  const el=document.getElementById('vList');
-  document.getElementById('vCount').textContent=vault.length+' entries';
-  if(!vault.length){el.innerHTML='<div style="padding:30px;text-align:center;font-family:\'JetBrains Mono\',monospace;font-size:11px;color:var(--text3)">Vault is empty.</div>';return}
-  el.innerHTML=vault.map(v=>`<div class="vault-row">
-    <div class="vr-left"><div class="vr-name">${v.title}</div><div class="vr-meta">${v.cat} · ${v.content.length} chars</div></div>
-    <button class="del" onclick="removeVault(${v.id})">×</button>
+function delNote(id) {
+  S.set('notes', (S.get('notes') || []).filter(n => n.id !== id));
+  renderNotes();
+}
+function renderNotes() {
+  const notes = S.get('notes') || [];
+  const list = document.getElementById('notesList');
+  const empty = document.getElementById('notesEmpty');
+  if (!notes.length) { list.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  list.innerHTML = notes.map(n => `<div class="nc">
+    <div class="nct">${n.title}</div>
+    <div class="ncm"><span class="tag a" style="font-size:8.5px">${n.cat}</span><span>${n.date}</span></div>
+    <div class="ncb">${n.body.substring(0, 320)}${n.body.length > 320 ? '...' : ''}</div>
+    <div class="nca"><button class="btn sm" onclick="expandNote(${n.id})">Read full</button><button class="btn sm" style="color:var(--terra)" onclick="delNote(${n.id})">Delete</button></div>
   </div>`).join('');
 }
-async function queryVault(){
-  const q=document.getElementById('vQ').value.trim();if(!q)return;
-  if(!vault.length){setOut('vOut','Vault is empty. Add frameworks and notes first.','empty');return}
-  spin('vSpin',true);setOut('vOut','Searching...','loading');
-  const vaultText=vault.map(v=>`[${v.cat}] ${v.title}:\n${v.content}`).join('\n\n---\n\n');
-  const sys=`You surface relevant frameworks from a personal knowledge vault. Be specific about HOW each framework applies to the situation — don't just summarize it.`;
-  const r=await claude(sys,`QUERY: ${q}\n\nVAULT:\n${vaultText}\n\nWhich frameworks/concepts apply and HOW specifically?`,2000);
-  setOut('vOut',r);spin('vSpin',false);
+function expandNote(id) {
+  const notes = S.get('notes') || [];
+  const n = notes.find(x => x.id === id);
+  if (!n) return;
+  // Scroll to a temporary full view
+  const el = document.createElement('div');
+  el.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:999;overflow-y:auto;padding:40px;display:flex;justify-content:center;';
+  el.innerHTML = `<div style="max-width:760px;width:100%;background:var(--card);border:1px solid var(--edge);border-radius:var(--r);padding:28px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px">
+      <div>
+        <div style="font-size:16px;font-weight:500;margin-bottom:4px">${n.title}</div>
+        <div style="font-family:'Fira Code',monospace;font-size:9.5px;color:var(--tx3)">${n.cat} · ${n.date}</div>
+      </div>
+      <button class="btn sm" onclick="this.closest('[style*=fixed]').remove()">Close</button>
+    </div>
+    <div style="font-family:'Fira Code',monospace;font-size:11.5px;line-height:1.85;color:var(--tx);white-space:pre-wrap">${n.body}</div>
+  </div>`;
+  document.body.appendChild(el);
+}
+async function searchNotes() {
+  const notes = S.get('notes') || [];
+  if (!notes.length) return;
+  spin('nSrchSp', true);
+  const sys = `You synthesize a collection of research notes into a coherent picture.`;
+  const noteText = notes.map(n => `[${n.cat}] ${n.title}:\n${n.body}`).join('\n\n---\n\n');
+  const r = await ask(sys, `Synthesize these research notes into a coherent market narrative. Identify recurring themes, key data points, and what the collective picture suggests about investment opportunities.\n\nNotes:\n${noteText}`, 3000);
+  // Show in a note card
+  const notes2 = S.get('notes') || [];
+  notes2.unshift({ title: 'Synthesis — ' + new Date().toLocaleDateString(), cat: 'Synthesis', body: r, date: new Date().toLocaleDateString(), id: Date.now() });
+  S.set('notes', notes2); renderNotes();
+  spin('nSrchSp', false);
 }
 
-// ════ QUILL ════
-async function runQuill(){
-  const t=document.getElementById('qTopic').value.trim();if(!t)return;
-  spin('qSpin',true);setOut('qOut','Drafting...','loading');
-  const style=document.getElementById('qStyle').value.trim();
-  const sys=`You are a ghostwriter who has deeply studied this person's writing. Write in their exact voice.
-${style?'STYLE EXAMPLES:\n'+style+'\n\nInternalize: sentence length, vocabulary, how they open, analogy style, framework usage, confidence level.':'Write in a sharp, direct analytical voice. Short sentences for impact. Framework-heavy. No AI hedging.'}
-${vaultContext()}
-CRITICAL: Do NOT sound like an AI. Sound like the person who wrote those examples. No "In conclusion", no "It is worth noting".`;
-  const msg=`Write a ${document.getElementById('qType').value} in tone ${document.getElementById('qTone').value}:
-Topic: ${t}
-Points: ${document.getElementById('qPoints').value}
-${document.getElementById('qSrc').value?'Source data:\n'+document.getElementById('qSrc').value:''}`;
-  const r=await claude(sys,msg,3500);
-  setOut('qOut',r);spin('qSpin',false);
-}
+// ═══════════════════════════════════════
+// KEYBOARD SHORTCUTS
+// ═══════════════════════════════════════
+document.addEventListener('keydown', e => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+    const active = document.querySelector('.panel.on');
+    if (!active) return;
+    if (active.id === 'p-brain') runBrain();
+  }
+});
 
-// ════ CONSULTING ════
-async function runConsult(){
-  const p=document.getElementById('cProblem').value.trim();if(!p)return;
-  spin('cSpin',true);setOut('cOut','Applying framework...','loading');
-  const sys=`You are a McKinsey/BCG senior consultant. Apply frameworks with surgical precision. No generic outputs — be specific to this exact situation.${vaultContext()}`;
-  const msg=`Problem: ${p}\nFramework: ${document.getElementById('cFramework').value}\nFormat: ${document.getElementById('cOutput').value}
-Deliver: structured framework application with specific, actionable sub-issues. Make it look like a real consulting deliverable.`;
-  const r=await claude(sys,msg,3500);
-  setOut('cOut',r);spin('cSpin',false);
-}
-
-async function quickTool(tool){
-  const input=document.getElementById('qtInput').value.trim();
-  spin('cSpin',true);setOut('cOut','Running...','loading');
-  const prompts={
-    pitch_narrative:'Build a compelling investment pitch narrative. Structure: Problem → Solution → Market → Traction → Business Model → Team → Ask. Make it compelling and specific.',
-    term_sheet:'Analyze this term sheet or describe term sheet parameters. Identify investor-friendly vs founder-friendly terms, flag unusual clauses, explain implications of each major term.',
-    cap_table:'Analyze cap table dilution. Show ownership percentages pre/post round, identify major dilutive events, flag concentration risks.',
-    runway:'Calculate runway and burn rate. Show months to zero, key cost levers, scenarios at different burn rates, fundraising timeline recommendations.',
-    competitor_map:'Map the competitive landscape. Segment by: direct competitors, indirect, potential entrants, substitutes. Score each on key dimensions.',
-    exit_scenarios:'Model exit scenarios: M&A at 5x/8x/12x revenue, IPO at 15x/20x/25x NTM, strategic sale. Show return to each investor class.',
-    board_memo:'Draft a board memo with: Executive Summary, KPI Dashboard, Operational Update, Key Decisions Required, Risks & Mitigations.',
-    credit_memo:'Write a credit memo: Borrower profile, purpose of loan, financial analysis, collateral, key covenants, risk rating, recommendation.'
-  };
-  const sys=`You are an expert IB/PE/VC analyst. Deliver professional-grade output.${vaultContext()}`;
-  const msg=(prompts[tool]||'Help with: '+tool)+'\n\nInput: '+(input||'(Generate a template/example)');
-  const r=await claude(sys,msg,3000);
-  setOut('cOut',r);spin('cSpin',false);
-}
-
-// ════ KEY HANDLERS ════
-document.addEventListener('DOMContentLoaded',()=>{
-  document.getElementById('orchQ').addEventListener('keydown',e=>{
-    if(e.key==='Enter'&&(e.metaKey||e.ctrlKey))runOrch();
-  });
-  document.getElementById('vQ').addEventListener('keydown',e=>{
-    if(e.key==='Enter')queryVault();
-  });
-  // Auto run MC on slider change
-  document.querySelectorAll('input[type=range]').forEach(inp=>{
-    if(inp.getAttribute('oninput')&&(inp.getAttribute('oninput').includes("'MC'")||inp.getAttribute('oninput').includes("'MV'")||inp.getAttribute('oninput').includes("'MM'"))){
-      inp.addEventListener('change',()=>{if(mcResults.length)runMonteCarlo()});
-    }
-  });
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+window.addEventListener('DOMContentLoaded', () => {
+  // Restore API key
+  const k = S.get('key');
+  if (k) {
+    document.getElementById('keyInp').value = k;
+    updateBadge(k);
+  }
+  // Restore data
+  renderPort();
+  renderLib();
+  renderNotes();
 });
 </script>
 </body>
