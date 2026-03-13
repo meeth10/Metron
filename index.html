@@ -826,9 +826,9 @@ footer{border-top:1px solid var(--edge);padding:13px 32px;display:flex;align-ite
 // STORAGE HELPERS
 // ═══════════════════════════════════════
 const S = {
-  get: k => { try { return JSON.parse(localStorage.getItem('delphi_'+k)) } catch(e) { return null } },
-  set: (k,v) => { try { localStorage.setItem('delphi_'+k, JSON.stringify(v)) } catch(e) {} },
-  del: k => localStorage.removeItem('delphi_'+k)
+  get: k => { try { return JSON.parse(localStorage.getItem('metron_'+k)) } catch(e) { return null } },
+  set: (k,v) => { try { localStorage.setItem('metron_'+k, JSON.stringify(v)) } catch(e) {} },
+  del: k => localStorage.removeItem('metron_'+k)
 };
 
 // ═══════════════════════════════════════
@@ -962,7 +962,7 @@ async function runBrain() {
 Respond like a senior analyst briefing a partner: lead with the headline finding, use frameworks by name, be specific with numbers, give clear recommendations. No generic filler.${libCtx()}`;
 
   const res = await ask(sys, q, 4096);
-  loading.innerHTML = '<div class="mlbl"><span style="color:var(--moss)">●</span> Delphi</div>' + res;
+  loading.innerHTML = '<div class="mlbl"><span style="color:var(--moss)">●</span> Metron</div>' + res;
   spin('brainSp', false);
 }
 function clearBrain() {
