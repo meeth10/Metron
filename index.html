@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<!-- DEPLOY: Push as index.html → GitHub repo → Settings → Pages → main branch → Save -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Metron</title>
+<title>Metron — Financial Intelligence</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -14,97 +13,56 @@
   --moss:#7da080;--moss2:#5c7a5f;
   --slate:#6e8fa6;--slate2:#4d6d82;
   --terra:#e07840;--terra2:#c46028;
-  --ash:#c2b9ae;
   --r:8px;--rsm:5px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:13.5px;-webkit-text-size-adjust:100%}
-body{
-  font-family:'DM Sans',sans-serif;
-  background:var(--ink);color:var(--tx);
-  min-height:100vh;line-height:1.6;overflow-x:hidden;
-}
-body::before{
-  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 50% 35% at 15% 60%,rgba(122,160,128,.03) 0,transparent 65%),
-    radial-gradient(ellipse 40% 40% at 85% 20%,rgba(110,143,166,.03) 0,transparent 65%);
-}
+body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--tx);min-height:100vh;line-height:1.6;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 50% 35% at 15% 60%,rgba(122,160,128,.03) 0,transparent 65%),
+             radial-gradient(ellipse 40% 40% at 85% 20%,rgba(110,143,166,.03) 0,transparent 65%)}
 
 /* HEADER */
-header{
-  position:sticky;top:0;z-index:100;
-  background:rgba(23,20,15,.97);
-  border-bottom:1px solid var(--edge);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  padding:0 32px;height:52px;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.wm{
-  font-family:'Cormorant Garamond',serif;
-  font-size:20px;font-weight:400;letter-spacing:.12em;color:var(--tx);
-  display:flex;align-items:baseline;gap:12px;
-}
+header{position:sticky;top:0;z-index:100;background:rgba(20,18,14,.97);border-bottom:1px solid var(--edge);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:0 32px;height:52px;
+  display:flex;align-items:center;justify-content:space-between}
+.wm{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;letter-spacing:.12em;
+  display:flex;align-items:baseline;gap:12px}
 .wm em{font-style:italic;font-weight:300;font-size:12px;color:var(--tx3);letter-spacing:.06em}
-.hdr-r{display:flex;align-items:center;gap:10px}
-.ki{
-  -webkit-appearance:none;appearance:none;
-  font-family:'Fira Code',monospace;font-size:11px;
-  background:var(--card);border:1px solid var(--edge);
-  border-radius:var(--rsm);padding:6px 12px;color:var(--tx);
-  width:230px;outline:none;transition:border-color .2s;
-}
-.ki:focus{border-color:var(--moss)}
-.ki::placeholder{color:var(--tx3)}
-.kb{font-family:'Fira Code',monospace;font-size:9px;padding:3px 8px;border-radius:3px;border:1px solid;display:none;letter-spacing:.05em}
-.kb.ok{color:var(--moss);border-color:rgba(125,160,128,.35);background:rgba(125,160,128,.07);display:inline}
-.kb.bad{color:var(--tx3);border-color:var(--edge);display:inline}
-.eye{font-size:13px;color:var(--tx3);cursor:pointer;user-select:none;transition:color .2s;padding:4px}
-.eye:hover{color:var(--tx2)}
+.hdr-badge{font-family:'Fira Code',monospace;font-size:9px;padding:3px 9px;border-radius:3px;
+  border:1px solid rgba(125,160,128,.3);color:var(--moss);background:rgba(125,160,128,.07)}
 
 /* NAV */
-nav{
-  background:rgba(23,20,15,.97);
-  border-bottom:1px solid var(--edge);
-  padding:0 32px;display:flex;
-  overflow-x:auto;-webkit-overflow-scrolling:touch;
-}
+nav{background:rgba(20,18,14,.97);border-bottom:1px solid var(--edge);padding:0 32px;
+  display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
 nav::-webkit-scrollbar{display:none}
-.nb{
-  -webkit-appearance:none;appearance:none;
-  font-family:'DM Sans',sans-serif;
-  font-size:11.5px;font-weight:400;letter-spacing:.09em;text-transform:uppercase;
-  padding:0 22px;height:40px;
-  background:none;border:none;border-bottom:2px solid transparent;
-  color:var(--tx3);cursor:pointer;white-space:nowrap;
-  transition:color .15s,border-color .15s;
-  display:flex;align-items:center;gap:7px;
-}
+.nb{-webkit-appearance:none;appearance:none;font-family:'DM Sans',sans-serif;font-size:11.5px;
+  font-weight:400;letter-spacing:.09em;text-transform:uppercase;padding:0 22px;height:40px;
+  background:none;border:none;border-bottom:2px solid transparent;color:var(--tx3);
+  cursor:pointer;white-space:nowrap;transition:color .15s,border-color .15s;
+  display:flex;align-items:center;gap:7px}
 .nb:hover{color:var(--tx2)}
 .nb.on{color:var(--tx);border-bottom-color:var(--moss)}
 .nn{font-family:'Fira Code',monospace;font-size:9px;color:var(--tx3);opacity:.6}
 
-/* MAIN / PANELS */
+/* MAIN */
 main{position:relative;z-index:1}
-.panel{display:none;max-width:1140px;margin:0 auto;padding:30px 32px}
+.panel{display:none;max-width:1160px;margin:0 auto;padding:28px 32px}
 .panel.on{display:block;animation:rise .22s ease}
-@keyframes rise{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
 /* PAGE HEADING */
-.ph{margin-bottom:26px;padding-bottom:16px;border-bottom:1px solid var(--edge);display:flex;align-items:flex-end;justify-content:space-between}
-.ph h2{font-family:'Cormorant Garamond',serif;font-size:25px;font-weight:400;letter-spacing:.04em}
+.ph{margin-bottom:24px;padding-bottom:15px;border-bottom:1px solid var(--edge);
+  display:flex;align-items:flex-end;justify-content:space-between}
+.ph h2{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;letter-spacing:.04em}
 .ph p{font-family:'Fira Code',monospace;font-size:10.5px;color:var(--tx3);margin-top:3px}
-.ph-r{display:flex;gap:8px}
+.ph-r{display:flex;gap:8px;align-items:center}
 
 /* SUB-TABS */
 .snav{display:flex;gap:0;border-bottom:1px solid var(--edge);margin-bottom:22px}
-.snb{
-  -webkit-appearance:none;appearance:none;
-  font-family:'Fira Code',monospace;font-size:10px;letter-spacing:.08em;
-  padding:8px 18px;background:none;border:none;
-  border-bottom:1px solid transparent;color:var(--tx3);
-  cursor:pointer;margin-bottom:-1px;transition:all .15s;
-}
+.snb{-webkit-appearance:none;appearance:none;font-family:'Fira Code',monospace;font-size:10px;
+  letter-spacing:.08em;padding:8px 18px;background:none;border:none;
+  border-bottom:1px solid transparent;color:var(--tx3);cursor:pointer;margin-bottom:-1px;transition:all .15s}
 .snb:hover{color:var(--tx2)}
 .snb.on{color:var(--tx);border-bottom-color:var(--terra)}
 .sp2{display:none}
@@ -116,1388 +74,1333 @@ main{position:relative;z-index:1}
 .chdt{font-family:'Fira Code',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx2)}
 .cbd{padding:17px}
 
-/* GRID */
+/* GRIDS */
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:15px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px}
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}
 
 /* FORM */
 .field{margin-bottom:13px}
-.field label{display:block;font-family:'Fira Code',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);margin-bottom:5px}
-input[type=text],input[type=number],input[type=password],textarea,select{
+.field label{display:block;font-family:'Fira Code',monospace;font-size:9.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--tx3);margin-bottom:5px}
+input[type=text],input[type=number],textarea,select{
   -webkit-appearance:none;appearance:none;
-  width:100%;background:var(--raised);border:1px solid var(--edge);
-  border-radius:var(--rsm);padding:9px 12px;
-  font-family:'DM Sans',sans-serif;font-size:12.5px;
-  color:var(--tx);outline:none;transition:border-color .2s;
-}
+  width:100%;background:var(--raised);border:1px solid var(--edge);border-radius:var(--rsm);
+  padding:9px 12px;font-family:'DM Sans',sans-serif;font-size:12.5px;color:var(--tx);
+  outline:none;transition:border-color .2s}
 input[type=text]:focus,input[type=number]:focus,textarea:focus{border-color:var(--moss)}
 select:focus{border-color:var(--slate)}
-select{
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%235c5248'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 11px center;
-  padding-right:30px;cursor:pointer;
-}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%235c5248'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 11px center;padding-right:30px;cursor:pointer}
 textarea{resize:vertical;min-height:78px;line-height:1.65}
 ::placeholder{color:var(--tx3)}
 
-/* RANGE — full webkit */
-input[type=range]{
-  -webkit-appearance:none;appearance:none;
-  width:100%;height:2px;background:var(--edge);
-  border-radius:1px;outline:none;cursor:pointer;border:none;padding:0;
-}
-input[type=range]::-webkit-slider-thumb{
-  -webkit-appearance:none;appearance:none;
-  width:13px;height:13px;border-radius:50%;
-  background:var(--moss);cursor:pointer;
-  border:2px solid var(--paper);
-  box-shadow:0 0 0 1px var(--moss2);
-  transition:transform .12s;
-}
+/* RANGE */
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:2px;
+  background:var(--edge);border-radius:1px;outline:none;cursor:pointer;border:none;padding:0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:14px;height:14px;
+  border-radius:50%;background:var(--moss);cursor:pointer;border:2px solid var(--paper);
+  box-shadow:0 0 0 1px var(--moss2);transition:transform .12s}
 input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
-input[type=range]::-moz-range-thumb{
-  width:13px;height:13px;border-radius:50%;
-  background:var(--moss);cursor:pointer;border:2px solid var(--paper);
-}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--moss);
+  cursor:pointer;border:2px solid var(--paper)}
 input[type=range]::-webkit-slider-runnable-track{height:2px;background:var(--edge);border-radius:1px}
 input[type=range]::-moz-range-track{height:2px;background:var(--edge);border-radius:1px}
-
-.rrow{display:grid;grid-template-columns:130px 1fr 56px;align-items:center;gap:13px;margin-bottom:9px}
+.rrow{display:grid;grid-template-columns:130px 1fr 60px;align-items:center;gap:13px;margin-bottom:9px}
 .rlbl{font-family:'Fira Code',monospace;font-size:10px;color:var(--tx2)}
 .rval{font-family:'Fira Code',monospace;font-size:11px;color:var(--moss);text-align:right;font-weight:500}
 
 /* BUTTONS */
-.btn{
-  -webkit-appearance:none;appearance:none;
-  font-family:'Fira Code',monospace;font-size:11px;letter-spacing:.06em;
-  padding:9px 20px;border-radius:var(--rsm);
-  border:1px solid var(--edge2);background:transparent;color:var(--tx2);
-  cursor:pointer;transition:all .15s;
-  display:inline-flex;align-items:center;gap:8px;
-}
+.btn{-webkit-appearance:none;appearance:none;font-family:'Fira Code',monospace;font-size:11px;
+  letter-spacing:.06em;padding:9px 20px;border-radius:var(--rsm);border:1px solid var(--edge2);
+  background:transparent;color:var(--tx2);cursor:pointer;transition:all .15s;
+  display:inline-flex;align-items:center;gap:8px}
 .btn:hover{background:var(--raised);color:var(--tx);border-color:var(--edge2)}
 .btn:active{transform:scale(.98)}
-.btn:disabled{opacity:.3;cursor:not-allowed;transform:none}
 .btn.moss{background:var(--moss);border-color:var(--moss);color:#111;font-weight:500}
 .btn.moss:hover{background:var(--moss2);border-color:var(--moss2)}
 .btn.slate{background:var(--slate);border-color:var(--slate);color:#fff}
-.btn.slate:hover{background:var(--slate2);border-color:var(--slate2)}
+.btn.slate:hover{background:var(--slate2)}
 .btn.terra{background:var(--terra);border-color:var(--terra);color:#fff}
-.btn.terra:hover{background:var(--terra2);border-color:var(--terra2)}
+.btn.terra:hover{background:var(--terra2)}
 .btn.sm{padding:6px 13px;font-size:10px}
-.brow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:4px}
+.brow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:6px}
 
-/* OUTPUT */
-.out{
-  background:var(--ink);border:1px solid var(--edge);border-radius:var(--r);
-  padding:17px 19px;font-family:'Fira Code',monospace;
-  font-size:11.5px;line-height:1.85;color:var(--tx);
-  white-space:pre-wrap;min-height:90px;max-height:580px;
-  overflow-y:auto;margin-top:15px;transition:border-color .3s;
-}
-.out.empty{color:var(--tx3);font-style:italic}
-.out.run{border-color:rgba(125,160,128,.22)}
-.out::-webkit-scrollbar{width:4px}
-.out::-webkit-scrollbar-thumb{background:var(--edge2);border-radius:2px}
-
-/* SPINNER */
-.sp{display:none;width:12px;height:12px;border:1.5px solid var(--edge2);border-top-color:var(--moss);border-radius:50%;animation:spin .65s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
+/* RESULT AREAS */
+.res-box{background:var(--paper);border:1px solid var(--edge);border-radius:var(--r);
+  padding:18px;margin-top:15px;font-family:'Fira Code',monospace;font-size:11.5px;
+  line-height:1.9;color:var(--tx);overflow-x:auto}
+.res-box.empty{color:var(--tx3);font-style:italic}
+.res-box table{width:100%;border-collapse:collapse;font-size:11px}
+.res-box th{font-weight:500;color:var(--tx2);border-bottom:1px solid var(--edge);padding:6px 10px;text-align:right}
+.res-box th:first-child{text-align:left}
+.res-box td{padding:6px 10px;border-bottom:1px solid rgba(51,53,55,.5);text-align:right;color:var(--tx)}
+.res-box td:first-child{text-align:left;color:var(--tx2)}
+.res-box tr:last-child td{border-bottom:none}
+.res-box .sum-row td{color:var(--moss);font-weight:500;border-top:1px solid var(--edge)}
 
 /* METRIC TILES */
-.tile{background:var(--raised);border:1px solid var(--edge);border-radius:var(--r);padding:14px 16px;transition:border-color .2s}
+.tile{background:var(--raised);border:1px solid var(--edge);border-radius:var(--r);
+  padding:14px 16px;transition:border-color .2s}
 .tile:hover{border-color:var(--edge2)}
-.tlbl{font-family:'Fira Code',monospace;font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:7px}
-.tval{font-family:'Cormorant Garamond',serif;font-size:27px;font-weight:500;line-height:1;color:var(--tx)}
+.tlbl{font-family:'Fira Code',monospace;font-size:9px;color:var(--tx3);text-transform:uppercase;
+  letter-spacing:.1em;margin-bottom:7px}
+.tval{font-family:'Cormorant Garamond',serif;font-size:27px;font-weight:500;line-height:1}
 .tsub{font-family:'Fira Code',monospace;font-size:9.5px;color:var(--tx3);margin-top:5px}
 .tval.m{color:var(--moss)}.tval.s{color:var(--slate)}.tval.t{color:var(--terra)}
+.tval.w{color:var(--tx)}
 
 /* TAGS */
-.tag{display:inline-block;font-family:'Fira Code',monospace;font-size:9px;letter-spacing:.05em;padding:3px 8px;border-radius:3px;border:1px solid;vertical-align:middle}
+.tag{display:inline-block;font-family:'Fira Code',monospace;font-size:9px;letter-spacing:.05em;
+  padding:3px 8px;border-radius:3px;border:1px solid;vertical-align:middle}
 .tag.m{color:var(--moss);border-color:rgba(125,160,128,.3);background:rgba(125,160,128,.07)}
 .tag.s{color:var(--slate);border-color:rgba(110,143,166,.3);background:rgba(110,143,166,.07)}
-.tag.t{color:var(--terra);border-color:rgba(176,122,88,.3);background:rgba(176,122,88,.07)}
+.tag.t{color:var(--terra);border-color:rgba(224,120,64,.3);background:rgba(224,120,64,.07)}
 .tag.a{color:var(--tx2);border-color:var(--edge);background:var(--raised)}
 
-/* CHAT */
-.cwrap{display:flex;flex-direction:column;gap:13px}
-.mu{background:rgba(110,143,166,.06);border:1px solid rgba(110,143,166,.13);border-radius:var(--r);padding:14px 16px;font-size:13px;animation:rise .2s ease}
-.ma{background:var(--card);border:1px solid var(--edge);border-radius:var(--r);padding:17px 19px;font-family:'Fira Code',monospace;font-size:11.5px;line-height:1.85;white-space:pre-wrap;animation:rise .2s ease}
-.mlbl{font-family:'Fira Code',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--tx3);margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.mu .mlbl{color:var(--slate)}.ma .mlbl{color:var(--moss2)}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--moss);animation:beat 1.4s ease-in-out infinite}
-@keyframes beat{0%,100%{opacity:1}50%{opacity:.3}}
+/* SENSITIVITY TABLE */
+.sens-wrap{overflow-x:auto;margin-top:15px}
+.sens-table{width:100%;border-collapse:collapse;font-family:'Fira Code',monospace;font-size:11px}
+.sens-table th{background:var(--raised);padding:7px 14px;border:1px solid var(--edge);color:var(--tx2);font-weight:400}
+.sens-table td{padding:7px 14px;border:1px solid var(--edge);text-align:center;transition:background .2s}
+.sens-table .row-lbl{color:var(--tx3);background:var(--raised);font-weight:400}
+.cell-lo{background:rgba(224,120,64,.12);color:#e09060}
+.cell-mid{background:rgba(125,160,128,.12);color:var(--moss)}
+.cell-hi{background:rgba(110,143,166,.12);color:var(--slate)}
 
-/* PORTFOLIO TABLE */
-.phdr,.prow{display:grid;grid-template-columns:1.5fr .9fr .9fr .8fr .7fr 64px;gap:8px;padding:10px 15px;align-items:center;font-size:12px;border-bottom:1px solid var(--edge)}
-.phdr{background:var(--paper);font-family:'Fira Code',monospace;font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em}
-.prow:last-child{border-bottom:none}
-.prow:hover{background:var(--paper)}
-.dbtn{-webkit-appearance:none;appearance:none;background:none;border:none;color:var(--tx3);cursor:pointer;font-size:14px;padding:3px 7px;border-radius:4px;transition:all .15s}
-.dbtn:hover{color:var(--terra);background:rgba(176,122,88,.09)}
-
-/* LIBRARY ENTRIES (Compose) */
-.le{padding:11px 14px;border-bottom:1px solid var(--edge);cursor:pointer;transition:background .15s}
-.le:last-child{border-bottom:none}
-.le:hover{background:var(--paper)}
-.le.sel{background:var(--raised);border-left:2px solid var(--moss)}
-.len{font-size:12.5px;font-weight:500}
-.lem{font-family:'Fira Code',monospace;font-size:9.5px;color:var(--tx3);margin-top:2px}
-
-/* RESEARCH NOTES */
-.nc{background:var(--raised);border:1px solid var(--edge);border-radius:var(--r);padding:14px 16px;margin-bottom:10px;animation:rise .2s ease;transition:border-color .2s}
-.nc:hover{border-color:var(--edge2)}
-.nct{font-size:13px;font-weight:500;margin-bottom:4px}
-.ncm{font-family:'Fira Code',monospace;font-size:9.5px;color:var(--tx3);margin-bottom:7px;display:flex;gap:10px;flex-wrap:wrap}
-.ncb{font-size:12px;color:var(--tx2);line-height:1.7;white-space:pre-wrap}
-.nca{display:flex;gap:8px;margin-top:10px;justify-content:flex-end}
+/* COMPS TABLE */
+.comps-table{width:100%;border-collapse:collapse;font-family:'Fira Code',monospace;font-size:11px;margin-top:4px}
+.comps-table th{background:var(--raised);padding:8px 12px;border:1px solid var(--edge);color:var(--tx3);
+  font-weight:400;letter-spacing:.05em;text-transform:uppercase;font-size:9.5px}
+.comps-table td{padding:8px 12px;border:1px solid var(--edge);text-align:right;color:var(--tx2)}
+.comps-table td:first-child{text-align:left;color:var(--tx);font-weight:500}
+.comps-table .target-row td{background:rgba(125,160,128,.06);color:var(--moss)}
+.comps-table .target-row td:first-child{color:var(--moss)}
+.comps-table .median-row td{color:var(--tx3);font-style:italic;border-top:1px solid var(--edge2)}
 
 /* CANVAS */
-#mcCanvas{width:100%;height:120px;border-radius:var(--rsm);display:block}
+canvas{display:block;border-radius:var(--rsm)}
+
+/* PORTFOLIO TABLE */
+.phdr,.prow{display:grid;grid-template-columns:1.6fr .9fr .9fr .8fr .7fr 60px;
+  gap:8px;padding:10px 15px;align-items:center;font-size:12px;border-bottom:1px solid var(--edge)}
+.phdr{background:var(--paper);font-family:'Fira Code',monospace;font-size:9px;color:var(--tx3);
+  text-transform:uppercase;letter-spacing:.08em}
+.prow:last-child{border-bottom:none}
+.prow:hover{background:var(--paper)}
+.dbtn{-webkit-appearance:none;appearance:none;background:none;border:none;color:var(--tx3);
+  cursor:pointer;font-size:14px;padding:3px 7px;border-radius:4px;transition:all .15s}
+.dbtn:hover{color:var(--terra);background:rgba(224,120,64,.09)}
+
+/* INFO PANELS */
+.info-panel{background:var(--raised);border:1px solid var(--edge);border-radius:var(--r);
+  padding:14px 16px;font-family:'Fira Code',monospace;font-size:10.5px;line-height:2;color:var(--tx2)}
+.info-panel .head{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+
+/* VERDICT BOX */
+.verdict{border-radius:var(--r);padding:14px 16px;margin-top:12px;border:1px solid}
+.verdict.buy{border-color:rgba(125,160,128,.4);background:rgba(125,160,128,.06)}
+.verdict.hold{border-color:rgba(110,143,166,.4);background:rgba(110,143,166,.06)}
+.verdict.sell{border-color:rgba(224,120,64,.4);background:rgba(224,120,64,.06)}
+.verdict-lbl{font-family:'Fira Code',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:4px}
+.verdict-txt{font-size:13px;font-weight:500}
 
 /* SCROLLBAR */
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--edge2);border-radius:3px}
-
-/* MISC */
 hr{border:none;border-top:1px solid var(--edge);margin:15px 0}
 .mt{margin-top:15px}.mb{margin-bottom:15px}
 .muted{color:var(--tx3);font-family:'Fira Code',monospace;font-size:10px}
-.full{width:100%;justify-content:center}
 
-/* FOOTER */
-footer{border-top:1px solid var(--edge);padding:13px 32px;display:flex;align-items:center;justify-content:space-between;font-family:'Fira Code',monospace;font-size:9.5px;color:var(--tx3)}
+footer{border-top:1px solid var(--edge);padding:13px 32px;display:flex;align-items:center;
+  justify-content:space-between;font-family:'Fira Code',monospace;font-size:9.5px;color:var(--tx3)}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="wm">METRON <em>financial intelligence</em></div>
   <div class="hdr-r">
-    <span class="eye" onclick="toggleKey()" id="eyeBtn" title="Show/hide key">&#9673;</span>
-    <input class="ki" type="password" id="keyInp" placeholder="Anthropic API key — saved locally" oninput="saveKey()">
-    <span class="kb" id="keyBadge"></span>
+    <span class="hdr-badge">No API · All local</span>
   </div>
 </header>
 
-<!-- NAV -->
 <nav>
-  <button class="nb on" onclick="go('brain',this)"><span class="nn">01</span>Brain</button>
-  <button class="nb" onclick="go('val',this)"><span class="nn">02</span>Valuation</button>
-  <button class="nb" onclick="go('port',this)"><span class="nn">03</span>Portfolio</button>
-  <button class="nb" onclick="go('compose',this)"><span class="nn">04</span>Compose</button>
-  <button class="nb" onclick="go('research',this)"><span class="nn">05</span>Research</button>
+  <button class="nb on" onclick="go('dcf',this)"><span class="nn">01</span>DCF</button>
+  <button class="nb" onclick="go('mc',this)"><span class="nn">02</span>Monte Carlo</button>
+  <button class="nb" onclick="go('lbo',this)"><span class="nn">03</span>LBO</button>
+  <button class="nb" onclick="go('comps',this)"><span class="nn">04</span>Comps</button>
+  <button class="nb" onclick="go('port',this)"><span class="nn">05</span>Portfolio</button>
+  <button class="nb" onclick="go('macro',this)"><span class="nn">06</span>Macro</button>
 </nav>
 
 <main>
 
-<!-- ══════════════════ 01 BRAIN ══════════════════ -->
-<div id="p-brain" class="panel on">
+<!-- ═══════════════════════════════════════════
+     01  DCF ENGINE
+════════════════════════════════════════════ -->
+<div id="p-dcf" class="panel on">
   <div class="ph">
-    <div><h2>Brain</h2><p>Natural language · Routes across all modules · Context-aware</p></div>
-    <div class="ph-r"><button class="btn sm" onclick="clearBrain()">Clear history</button></div>
+    <div><h2>DCF Engine</h2><p>Free Cash Flow model · Terminal Value · EV → Equity bridge · Sensitivity analysis</p></div>
   </div>
 
-  <div class="card mb">
-    <div class="cbd">
-      <div class="field">
-        <label>Ask anything &nbsp;·&nbsp; &#8984;&#x23CE; or Ctrl+Enter to send</label>
-        <textarea id="brainQ" rows="3" placeholder="e.g. Deep dive HDFC Bank — run comps vs ICICI, build a 5yr DCF at 10% WACC, and give me a verdict&#10;e.g. What framework should I apply to assess whether HDFC Bank's P/B premium is structurally justified?&#10;e.g. Help me structure an IC memo for a PE buyout of Zomato"></textarea>
-      </div>
-      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-        <button class="btn moss" onclick="runBrain()"><span class="sp" id="brainSp"></span>Send</button>
-        <div id="brainTags" style="display:flex;gap:6px;flex-wrap:wrap"></div>
-      </div>
-    </div>
-  </div>
-  <div id="brainMsgs" class="cwrap"></div>
-</div>
-
-<!-- ══════════════════ 02 VALUATION ══════════════════ -->
-<div id="p-val" class="panel">
-  <div class="ph"><div><h2>Valuation</h2><p>Comparables · DCF · Monte Carlo · LBO</p></div></div>
-  <div class="snav">
-    <button class="snb on" onclick="sv('val','comps',this)">Comparables</button>
-    <button class="snb" onclick="sv('val','dcf',this)">DCF + Sensitivity</button>
-    <button class="snb" onclick="sv('val','mc',this)">Monte Carlo</button>
-    <button class="snb" onclick="sv('val','lbo',this)">LBO</button>
-  </div>
-
-  <!-- COMPS -->
-  <div id="val-comps" class="sp2 on">
-    <div class="g2">
-      <div class="card">
-        <div class="chd"><span class="chdt">Target Company</span></div>
-        <div class="cbd">
-          <div class="field"><label>Ticker or Company Name</label><input type="text" id="cTick" placeholder="HDFCBANK.NS · AAPL · Zomato"></div>
-          <div class="field"><label>Sector</label><input type="text" id="cSec" placeholder="Indian Private Banking · US SaaS · FMCG"></div>
-          <div class="field"><label>Geography</label>
-            <select id="cGeo"><option>Global best comparables</option><option>India only</option><option>US only</option><option>India + US cross-border</option></select>
-          </div>
-          <div class="field"><label>Paste Financials (optional)</label><textarea id="cFin" rows="3" placeholder="Revenue, EBITDA, ROE, GNPA, Net Profit, Market Cap..."></textarea></div>
-          <div class="field"><label>Additional Context</label><textarea id="cCtx" rows="2" placeholder="e.g. exclude state-owned banks, focus on growth-stage peers"></textarea></div>
-          <div class="brow">
-            <button class="btn moss" onclick="runComps()"><span class="sp" id="cSp"></span>Run Comps</button>
+  <div class="g2 mb">
+    <div class="card">
+      <div class="chd"><span class="chdt">Company Inputs</span></div>
+      <div class="cbd">
+        <div class="field"><label>Company Name</label><input type="text" id="dCo" placeholder="e.g. HDFC Bank, Tesla, Reliance"></div>
+        <div class="g2">
+          <div class="field"><label>Base Revenue (₹ Cr or $M)</label><input type="number" id="dRev" placeholder="e.g. 210000" value=""></div>
+          <div class="field"><label>Currency</label>
+            <select id="dCurr"><option value="₹">₹ Crore</option><option value="$">$ Million</option><option value="€">€ Million</option></select>
           </div>
         </div>
+        <div class="g2">
+          <div class="field"><label>EBITDA Margin (%)</label><input type="number" id="dEM" placeholder="25" value="25" min="1" max="90"></div>
+          <div class="field"><label>Tax Rate (%)</label><input type="number" id="dTax" placeholder="25" value="25" min="0" max="50"></div>
+        </div>
+        <div class="g2">
+          <div class="field"><label>D&A (% of Revenue)</label><input type="number" id="dDA" placeholder="4" value="4" min="0" max="30"></div>
+          <div class="field"><label>CapEx (% of Revenue)</label><input type="number" id="dCX" placeholder="6" value="6" min="0" max="40"></div>
+        </div>
+        <div class="g2">
+          <div class="field"><label>Change in Working Capital (% Rev)</label><input type="number" id="dWC" placeholder="2" value="2" min="-10" max="20"></div>
+          <div class="field"><label>Net Debt (same unit as Revenue)</label><input type="number" id="dNetDebt" placeholder="0" value="0"></div>
+        </div>
+        <div class="field"><label>Shares Outstanding (Cr / M)</label><input type="number" id="dShares" placeholder="750" value=""></div>
+        <div class="field"><label>Current Market Price (per share)</label><input type="number" id="dMktPrice" placeholder="optional" value=""></div>
       </div>
-      <div class="card">
-        <div class="chd"><span class="chdt">Settings</span></div>
-        <div class="cbd">
-          <div class="field"><label>Primary Multiple</label>
-            <select id="cMult"><option>Auto-select by sector</option><option>EV/EBITDA</option><option>P/E Trailing</option><option>P/E Forward</option><option>EV/Revenue</option><option>Price / Book</option><option>P/FCF</option><option>P/AUM</option></select>
-          </div>
-          <div class="field"><label>Output Format</label>
-            <select id="cFmt"><option>Full analyst report + multiples table</option><option>Quick verdict only</option><option>Bull / Bear framing</option><option>IB pitch deck format</option></select>
-          </div>
-          <hr>
-          <div class="field"><label>Sector Presets</label>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:6px">
-              <button class="btn sm" onclick="setPreset('Indian Private Banking')">IN Banks</button>
-              <button class="btn sm" onclick="setPreset('Indian IT Services')">IN IT</button>
-              <button class="btn sm" onclick="setPreset('US SaaS Growth')">US SaaS</button>
-              <button class="btn sm" onclick="setPreset('Indian Consumer FMCG')">FMCG</button>
-              <button class="btn sm" onclick="setPreset('Indian Pharma')">Pharma</button>
-              <button class="btn sm" onclick="setPreset('EV and Clean Energy')">EV / Energy</button>
+    </div>
+
+    <div class="card">
+      <div class="chd"><span class="chdt">Assumptions</span></div>
+      <div class="cbd">
+        <div class="rrow"><span class="rlbl">Revenue Growth Yr 1–3</span><input type="range" min="0" max="50" value="15" step="0.5" oninput="setR('dRG1',this.value,'%')"><span class="rval" id="dRG1">15%</span></div>
+        <div class="rrow"><span class="rlbl">Revenue Growth Yr 4–5</span><input type="range" min="0" max="40" value="10" step="0.5" oninput="setR('dRG2',this.value,'%')"><span class="rval" id="dRG2">10%</span></div>
+        <div class="rrow"><span class="rlbl">WACC</span><input type="range" min="4" max="22" value="10" step="0.25" oninput="setR('dWACC',this.value,'%')"><span class="rval" id="dWACC">10%</span></div>
+        <div class="rrow"><span class="rlbl">Terminal Growth Rate</span><input type="range" min="1" max="8" value="3" step="0.25" oninput="setR('dTG',this.value,'%')"><span class="rval" id="dTG">3%</span></div>
+        <div class="rrow"><span class="rlbl">Forecast Period</span><input type="range" min="3" max="10" value="5" step="1" oninput="setR('dYR',this.value,' yr')"><span class="rval" id="dYR">5 yr</span></div>
+        <hr>
+        <div style="margin-bottom:10px">
+          <div class="muted" style="margin-bottom:8px">SENSITIVITY — WACC vs Terminal Growth</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <div class="field" style="flex:1;min-width:100px;margin-bottom:0">
+              <label>WACC range ±</label>
+              <select id="sensWRange"><option value="1">±1%</option><option value="1.5" selected>±1.5%</option><option value="2">±2%</option></select>
+            </div>
+            <div class="field" style="flex:1;min-width:100px;margin-bottom:0">
+              <label>TG range ±</label>
+              <select id="sensTRange"><option value="0.5">±0.5%</option><option value="0.75" selected>±0.75%</option><option value="1">±1%</option></select>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="out empty" id="cOut">Comps analysis will appear here...</div>
-  </div>
-
-  <!-- DCF -->
-  <div id="val-dcf" class="sp2">
-    <div class="g2">
-      <div class="card">
-        <div class="chd"><span class="chdt">Company Inputs</span></div>
-        <div class="cbd">
-          <div class="field"><label>Company</label><input type="text" id="dCo" placeholder="HDFC Bank · Tesla · Reliance Industries"></div>
-          <div class="field"><label>Base Revenue / Key Metric</label><input type="text" id="dRev" placeholder="₹2,10,000 Cr NII or $385Bn revenue"></div>
-          <div class="field"><label>Valuation Method</label>
-            <select id="dMeth"><option>DCF — Free Cash Flow to Firm</option><option>DDM — Dividend Discount Model</option><option>Bank Valuation — P/B + RoE/CoE spread</option><option>Sum of Parts</option><option>EV/EBITDA Exit Multiple</option></select>
-          </div>
-          <div class="field"><label>Paste Financials</label><textarea id="dFin" rows="5" placeholder="Revenue, EBITDA, FCF, CapEx, D&A, net debt, shares outstanding, tax rate..."></textarea></div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="chd"><span class="chdt">Assumptions</span></div>
-        <div class="cbd">
-          <div class="rrow"><span class="rlbl">Revenue Growth</span><input type="range" id="dRGr" min="0" max="40" value="12" step="0.5" oninput="setR('dRG',this.value,'%')"><span class="rval" id="dRG">12%</span></div>
-          <div class="rrow"><span class="rlbl">WACC</span><input type="range" id="dWCr" min="4" max="22" value="10" step="0.25" oninput="setR('dWC',this.value,'%')"><span class="rval" id="dWC">10%</span></div>
-          <div class="rrow"><span class="rlbl">Terminal Growth</span><input type="range" id="dTGr" min="1" max="8" value="3" step="0.25" oninput="setR('dTG',this.value,'%')"><span class="rval" id="dTG">3%</span></div>
-          <div class="rrow"><span class="rlbl">EBITDA Margin</span><input type="range" id="dEMr" min="5" max="65" value="25" step="1" oninput="setR('dEM',this.value,'%')"><span class="rval" id="dEM">25%</span></div>
-          <div class="rrow"><span class="rlbl">CapEx % Revenue</span><input type="range" id="dCXr" min="1" max="30" value="6" step="0.5" oninput="setR('dCX',this.value,'%')"><span class="rval" id="dCX">6%</span></div>
-          <div class="rrow"><span class="rlbl">Forecast Years</span><input type="range" id="dYRr" min="3" max="10" value="5" step="1" oninput="setR('dYR',this.value,' yr')"><span class="rval" id="dYR">5 yr</span></div>
-          <hr>
-          <div class="brow">
-            <button class="btn moss" onclick="runDCF()"><span class="sp" id="dSp"></span>Run DCF + Sensitivity</button>
-          </div>
+        <div class="brow">
+          <button class="btn moss" onclick="runDCF()">Calculate DCF</button>
+          <button class="btn sm" onclick="clearDCF()">Clear</button>
         </div>
       </div>
     </div>
-    <div class="out empty" id="dOut">DCF output and sensitivity table will appear here...</div>
   </div>
 
-  <!-- MONTE CARLO -->
-  <div id="val-mc" class="sp2">
-    <div class="g2 mb">
-      <div class="card">
-        <div class="chd"><span class="chdt">Company</span></div>
-        <div class="cbd">
-          <div class="field"><label>Company (for narrative framing)</label><input type="text" id="mcCo" placeholder="e.g. HDFC Bank"></div>
-          <div class="field"><label>Base Revenue / Value Estimate</label><input type="text" id="mcBase" placeholder="e.g. ₹2,10,000 Cr or $385Bn (used for scaling output)"></div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="chd"><span class="chdt">Simulation Settings</span></div>
-        <div class="cbd">
-          <div class="rrow"><span class="rlbl">Simulations</span><input type="range" id="mcNr" min="1000" max="50000" value="10000" step="1000" oninput="setR('mcN',this.value,'')"><span class="rval" id="mcN">10000</span></div>
-          <div class="rrow"><span class="rlbl">Revenue Growth</span><input type="range" id="mcRGr" min="0" max="40" value="12" step="0.5" oninput="setR('mcRG',this.value,'%')"><span class="rval" id="mcRG">12%</span></div>
-          <div class="rrow"><span class="rlbl">Growth Volatility</span><input type="range" id="mcGVr" min="1" max="20" value="5" step="0.5" oninput="setR('mcGV',this.value,'%')"><span class="rval" id="mcGV">5%</span></div>
-          <div class="rrow"><span class="rlbl">WACC</span><input type="range" id="mcWCr" min="4" max="22" value="10" step="0.25" oninput="setR('mcWC',this.value,'%')"><span class="rval" id="mcWC">10%</span></div>
-          <div class="rrow"><span class="rlbl">EBITDA Margin</span><input type="range" id="mcEMr" min="5" max="65" value="25" step="1" oninput="setR('mcEM',this.value,'%')"><span class="rval" id="mcEM">25%</span></div>
-          <div class="rrow"><span class="rlbl">Margin Volatility</span><input type="range" id="mcMVr" min="1" max="15" value="3" step="0.5" oninput="setR('mcMV',this.value,'%')"><span class="rval" id="mcMV">3%</span></div>
-          <div class="rrow"><span class="rlbl">Terminal Growth</span><input type="range" id="mcTGr" min="1" max="8" value="3" step="0.25" oninput="setR('mcTG',this.value,'%')"><span class="rval" id="mcTG">3%</span></div>
-        </div>
-      </div>
+  <!-- DCF OUTPUT -->
+  <div id="dcfOut" style="display:none">
+    <div class="g4 mb" id="dcfTiles"></div>
+
+    <div class="card mb">
+      <div class="chd"><span class="chdt">Projection Table</span><span class="muted" id="dcfCurrLbl"></span></div>
+      <div class="cbd" style="padding:12px;overflow-x:auto"><div id="dcfProjTable"></div></div>
     </div>
 
     <div class="card mb">
-      <div class="chd"><span class="chdt">Distribution of Outcomes</span><span class="muted" id="mcStat"></span></div>
-      <div class="cbd" style="padding:14px">
-        <canvas id="mcCanvas"></canvas>
-        <div class="g4 mt">
-          <div class="tile"><div class="tlbl">P10 Bear</div><div class="tval t" id="mcP10">—</div><div class="tsub">10th percentile</div></div>
-          <div class="tile"><div class="tlbl">P50 Base</div><div class="tval m" id="mcP50">—</div><div class="tsub">median outcome</div></div>
-          <div class="tile"><div class="tlbl">P90 Bull</div><div class="tval s" id="mcP90">—</div><div class="tsub">90th percentile</div></div>
-          <div class="tile"><div class="tlbl">Std Deviation</div><div class="tval" id="mcSd">—</div><div class="tsub">value uncertainty</div></div>
-        </div>
+      <div class="chd"><span class="chdt">Valuation Bridge</span></div>
+      <div class="cbd" style="padding:12px;overflow-x:auto"><div id="dcfBridge"></div></div>
+    </div>
+
+    <div class="card mb">
+      <div class="chd"><span class="chdt">Sensitivity — Intrinsic Value per Share</span></div>
+      <div class="cbd" style="padding:12px">
+        <div class="sens-wrap"><table class="sens-table" id="dcfSens"></table></div>
+        <div style="font-family:'Fira Code',monospace;font-size:9.5px;color:var(--tx3);margin-top:10px">Rows = WACC &nbsp;·&nbsp; Columns = Terminal Growth Rate</div>
       </div>
     </div>
 
-    <div class="brow">
-      <button class="btn moss" onclick="runMC()"><span class="sp" id="mcSp"></span>Run Simulation</button>
-      <button class="btn" onclick="runMCInterpret()"><span class="sp" id="mciSp"></span>Interpret Results</button>
-    </div>
-    <div class="out empty" id="mcOut">Monte Carlo interpretation will appear here after running the simulation...</div>
-  </div>
-
-  <!-- LBO -->
-  <div id="val-lbo" class="sp2">
-    <div class="g2">
-      <div class="card">
-        <div class="chd"><span class="chdt">Deal Parameters</span></div>
-        <div class="cbd">
-          <div class="field"><label>Target Company</label><input type="text" id="lCo" placeholder="e.g. Zomato, HDFC ERGO, D-Mart"></div>
-          <div class="field"><label>Entry EV / Purchase Price</label><input type="text" id="lEV" placeholder="e.g. ₹1,200 Cr or $800M"></div>
-          <div class="field"><label>Entry Multiple Paid</label><input type="text" id="lEntry" placeholder="e.g. 12x EV/EBITDA or 3x EV/Revenue"></div>
-          <div class="field"><label>Financial Data</label><textarea id="lFin" rows="4" placeholder="EBITDA, Revenue, FCF, existing debt, tax rate..."></textarea></div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="chd"><span class="chdt">LBO Assumptions</span></div>
-        <div class="cbd">
-          <div class="rrow"><span class="rlbl">Debt / EBITDA</span><input type="range" id="lDEr" min="1" max="8" value="4" step="0.25" oninput="setR('lDE',this.value,'x')"><span class="rval" id="lDE">4x</span></div>
-          <div class="rrow"><span class="rlbl">Debt Interest Rate</span><input type="range" id="lIRr" min="4" max="18" value="9" step="0.25" oninput="setR('lIR',this.value,'%')"><span class="rval" id="lIR">9%</span></div>
-          <div class="rrow"><span class="rlbl">Revenue Growth</span><input type="range" id="lRGr" min="0" max="30" value="10" step="0.5" oninput="setR('lRG',this.value,'%')"><span class="rval" id="lRG">10%</span></div>
-          <div class="rrow"><span class="rlbl">Margin Improvement</span><input type="range" id="lMIr" min="0" max="10" value="2" step="0.25" oninput="setR('lMI',this.value,'%')"><span class="rval" id="lMI">2%</span></div>
-          <div class="rrow"><span class="rlbl">Hold Period</span><input type="range" id="lHPr" min="3" max="8" value="5" step="1" oninput="setR('lHP',this.value,' yr')"><span class="rval" id="lHP">5 yr</span></div>
-          <div class="rrow"><span class="rlbl">Exit Multiple</span><input type="range" id="lEXr" min="5" max="20" value="10" step="0.5" oninput="setR('lEX',this.value,'x')"><span class="rval" id="lEX">10x</span></div>
-          <hr>
-          <div class="brow">
-            <button class="btn moss" onclick="runLBO()"><span class="sp" id="lSp"></span>Run LBO Analysis</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="out empty" id="lOut">LBO model — IRR, MOIC, debt schedule, exit scenarios will appear here...</div>
+    <div id="dcfVerdict"></div>
   </div>
 </div>
 
-<!-- ══════════════════ 03 PORTFOLIO ══════════════════ -->
-<div id="p-port" class="panel">
-  <div class="ph">
-    <div><h2>Portfolio</h2><p>Position tracker · MOIC / IRR · KPI monitoring · Comparative analysis</p></div>
-    <button class="btn slate" onclick="analyzePort()">Analyze Portfolio</button>
+<!-- ═══════════════════════════════════════════
+     02  MONTE CARLO
+════════════════════════════════════════════ -->
+<div id="p-mc" class="panel">
+  <div class="ph"><div><h2>Monte Carlo</h2><p>Probabilistic valuation · 10,000+ paths · Distribution of outcomes</p></div></div>
+
+  <div class="g2 mb">
+    <div class="card">
+      <div class="chd"><span class="chdt">Base Parameters</span></div>
+      <div class="cbd">
+        <div class="field"><label>Company</label><input type="text" id="mcCo" placeholder="e.g. HDFC Bank"></div>
+        <div class="g2">
+          <div class="field"><label>Base Revenue (₹ Cr or $M)</label><input type="number" id="mcRev" placeholder="210000" value=""></div>
+          <div class="field"><label>Currency / Unit</label>
+            <select id="mcCurr"><option>₹ Cr</option><option>$ M</option><option>€ M</option></select>
+          </div>
+        </div>
+        <div class="rrow"><span class="rlbl">Simulations</span><input type="range" id="mcNr" min="1000" max="50000" value="10000" step="1000" oninput="setR('mcN',this.value,'')"><span class="rval" id="mcN">10000</span></div>
+        <div class="rrow"><span class="rlbl">Forecast Years</span><input type="range" min="3" max="10" value="5" step="1" oninput="setR('mcYR',this.value,' yr')"><span class="rval" id="mcYR">5 yr</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="chd"><span class="chdt">Distribution Assumptions</span></div>
+      <div class="cbd">
+        <div class="muted mb" style="margin-bottom:8px">Mean values (same as DCF base)</div>
+        <div class="rrow"><span class="rlbl">Revenue Growth μ</span><input type="range" min="0" max="40" value="12" step="0.5" oninput="setR('mcRG',this.value,'%')"><span class="rval" id="mcRG">12%</span></div>
+        <div class="rrow"><span class="rlbl">Growth Volatility σ</span><input type="range" min="1" max="20" value="5" step="0.5" oninput="setR('mcGV',this.value,'%')"><span class="rval" id="mcGV">5%</span></div>
+        <div class="rrow"><span class="rlbl">WACC μ</span><input type="range" min="4" max="22" value="10" step="0.25" oninput="setR('mcWC',this.value,'%')"><span class="rval" id="mcWC">10%</span></div>
+        <div class="rrow"><span class="rlbl">WACC Volatility σ</span><input type="range" min="0" max="5" value="1" step="0.25" oninput="setR('mcWV',this.value,'%')"><span class="rval" id="mcWV">1%</span></div>
+        <div class="rrow"><span class="rlbl">EBITDA Margin μ</span><input type="range" min="5" max="65" value="25" step="1" oninput="setR('mcEM',this.value,'%')"><span class="rval" id="mcEM">25%</span></div>
+        <div class="rrow"><span class="rlbl">Margin Volatility σ</span><input type="range" min="0" max="15" value="3" step="0.5" oninput="setR('mcMV',this.value,'%')"><span class="rval" id="mcMV">3%</span></div>
+        <div class="rrow"><span class="rlbl">Terminal Growth μ</span><input type="range" min="1" max="8" value="3" step="0.25" oninput="setR('mcTG',this.value,'%')"><span class="rval" id="mcTG">3%</span></div>
+        <div class="brow"><button class="btn moss" onclick="runMC()">Run Simulation</button></div>
+      </div>
+    </div>
   </div>
 
-  <div class="g3 mb">
-    <div class="tile"><div class="tlbl">Total Positions</div><div class="tval" id="ptTotal">0</div><div class="tsub">tracked investments</div></div>
-    <div class="tile"><div class="tlbl">Avg MOIC (est)</div><div class="tval m" id="ptMoic">—</div><div class="tsub">blended portfolio</div></div>
-    <div class="tile"><div class="tlbl">Top Performer</div><div class="tval t" id="ptTop">—</div><div class="tsub">highest current value</div></div>
+  <div id="mcOut" style="display:none">
+    <div class="g4 mb">
+      <div class="tile"><div class="tlbl">P10 — Bear</div><div class="tval t" id="mcP10">—</div><div class="tsub">10th pct · downside</div></div>
+      <div class="tile"><div class="tlbl">P50 — Base</div><div class="tval m" id="mcP50">—</div><div class="tsub">median outcome</div></div>
+      <div class="tile"><div class="tlbl">P90 — Bull</div><div class="tval s" id="mcP90">—</div><div class="tsub">90th pct · upside</div></div>
+      <div class="tile"><div class="tlbl">Std Deviation</div><div class="tval w" id="mcSd">—</div><div class="tsub">spread of outcomes</div></div>
+    </div>
+    <div class="card mb">
+      <div class="chd"><span class="chdt">Distribution of Outcomes</span><span class="muted" id="mcStat"></span></div>
+      <div class="cbd" style="padding:14px">
+        <canvas id="mcCanvas" style="width:100%;height:160px"></canvas>
+        <div style="display:flex;gap:18px;margin-top:10px;font-family:'Fira Code',monospace;font-size:10px;color:var(--tx3)">
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:2px;background:rgba(224,120,64,.55);display:inline-block"></span>Bear (&lt;P10)</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:2px;background:rgba(125,160,128,.55);display:inline-block"></span>Base (P10–P90)</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:2px;background:rgba(110,143,166,.55);display:inline-block"></span>Bull (&gt;P90)</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="chd"><span class="chdt">Value-at-Risk Summary</span></div>
+      <div class="cbd"><div id="mcTable"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     03  LBO ENGINE
+════════════════════════════════════════════ -->
+<div id="p-lbo" class="panel">
+  <div class="ph"><div><h2>LBO Model</h2><p>Sources & Uses · Debt schedule · IRR / MOIC · Exit scenarios</p></div></div>
+
+  <div class="g2 mb">
+    <div class="card">
+      <div class="chd"><span class="chdt">Deal Parameters</span></div>
+      <div class="cbd">
+        <div class="field"><label>Company Name</label><input type="text" id="lCo" placeholder="e.g. Zomato, D-Mart, HDFC ERGO"></div>
+        <div class="g2">
+          <div class="field"><label>Entry EBITDA (₹ Cr or $M)</label><input type="number" id="lEBITDA" placeholder="500" value=""></div>
+          <div class="field"><label>Entry EV/EBITDA Multiple</label><input type="number" id="lEntryMult" placeholder="12" value="12" step="0.5"></div>
+        </div>
+        <div class="g2">
+          <div class="field"><label>Revenue (same period)</label><input type="number" id="lRev" placeholder="2500" value=""></div>
+          <div class="field"><label>Management Fee (% of EV p.a.)</label><input type="number" id="lMgmtFee" placeholder="0.5" value="0.5" step="0.1"></div>
+        </div>
+        <div class="g2">
+          <div class="field"><label>Currency</label>
+            <select id="lCurr"><option>₹ Cr</option><option>$ M</option><option>€ M</option></select>
+          </div>
+          <div class="field"><label>Transaction Fees (% of EV)</label><input type="number" id="lTxFee" placeholder="2" value="2" step="0.5"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="chd"><span class="chdt">Structure & Assumptions</span></div>
+      <div class="cbd">
+        <div class="rrow"><span class="rlbl">Debt / EBITDA</span><input type="range" min="1" max="8" value="4" step="0.25" oninput="setR('lDE',this.value,'x')"><span class="rval" id="lDE">4x</span></div>
+        <div class="rrow"><span class="rlbl">Debt Rate (% p.a.)</span><input type="range" min="4" max="18" value="9" step="0.25" oninput="setR('lIR',this.value,'%')"><span class="rval" id="lIR">9%</span></div>
+        <div class="rrow"><span class="rlbl">Mandatory Amort (% debt/yr)</span><input type="range" min="0" max="20" value="5" step="1" oninput="setR('lAmort',this.value,'%')"><span class="rval" id="lAmort">5%</span></div>
+        <div class="rrow"><span class="rlbl">Revenue Growth</span><input type="range" min="0" max="30" value="10" step="0.5" oninput="setR('lRG',this.value,'%')"><span class="rval" id="lRG">10%</span></div>
+        <div class="rrow"><span class="rlbl">Margin Expansion (bps/yr)</span><input type="range" min="0" max="300" value="50" step="25" oninput="setR('lMI',this.value,' bps')"><span class="rval" id="lMI">50 bps</span></div>
+        <div class="rrow"><span class="rlbl">Hold Period</span><input type="range" min="3" max="8" value="5" step="1" oninput="setR('lHP',this.value,' yr')"><span class="rval" id="lHP">5 yr</span></div>
+        <div class="rrow"><span class="rlbl">Exit EV/EBITDA Multiple</span><input type="range" min="5" max="25" value="10" step="0.5" oninput="setR('lEX',this.value,'x')"><span class="rval" id="lEX">10x</span></div>
+        <hr>
+        <div class="brow">
+          <button class="btn moss" onclick="runLBO()">Build LBO Model</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="lboOut" style="display:none">
+    <div class="g4 mb" id="lboTiles"></div>
+    <div class="card mb">
+      <div class="chd"><span class="chdt">Sources & Uses</span></div>
+      <div class="cbd" style="padding:12px"><div id="lboSU"></div></div>
+    </div>
+    <div class="card mb">
+      <div class="chd"><span class="chdt">Debt Schedule & Cash Flow</span></div>
+      <div class="cbd" style="padding:12px;overflow-x:auto"><div id="lboDebt"></div></div>
+    </div>
+    <div class="card mb">
+      <div class="chd"><span class="chdt">Exit Scenario Matrix</span></div>
+      <div class="cbd" style="padding:12px"><div class="sens-wrap"><table class="sens-table" id="lboExit"></table></div>
+        <div style="font-family:'Fira Code',monospace;font-size:9.5px;color:var(--tx3);margin-top:8px">Rows = Hold Period &nbsp;·&nbsp; Columns = Exit Multiple</div>
+      </div>
+    </div>
+    <div id="lboVerdict"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     04  COMPS
+════════════════════════════════════════════ -->
+<div id="p-comps" class="panel">
+  <div class="ph">
+    <div><h2>Comps Analysis</h2><p>Enter peer data · auto-calculates medians · positions your target</p></div>
+    <div class="ph-r">
+      <button class="btn sm" onclick="loadSampleComps()">Load Sample</button>
+      <button class="btn sm" onclick="clearComps()">Clear All</button>
+    </div>
+  </div>
+
+  <div class="card mb">
+    <div class="chd"><span class="chdt">Target Company</span></div>
+    <div class="cbd">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr 1fr;gap:10px">
+        <div class="field"><label>Name</label><input type="text" id="tName" placeholder="Target Co."></div>
+        <div class="field"><label>EV (₹ Cr/$M)</label><input type="number" id="tEV" placeholder="e.g. 50000"></div>
+        <div class="field"><label>Revenue</label><input type="number" id="tRev" placeholder="e.g. 10000"></div>
+        <div class="field"><label>EBITDA</label><input type="number" id="tEBITDA" placeholder="e.g. 2000"></div>
+        <div class="field"><label>Net Income</label><input type="number" id="tNI" placeholder="e.g. 1500"></div>
+        <div class="field"><label>Book Value</label><input type="number" id="tBV" placeholder="e.g. 8000"></div>
+        <div class="field"><label>Fwd Rev Growth %</label><input type="number" id="tGrowth" placeholder="e.g. 15"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb">
+    <div class="chd">
+      <span class="chdt">Peer Companies</span>
+      <button class="btn sm" onclick="addPeerRow()">+ Add Peer</button>
+    </div>
+    <div class="cbd" style="padding:12px;overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:12px" id="peerInputTable">
+        <thead>
+          <tr style="font-family:'Fira Code',monospace;font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em">
+            <th style="padding:6px 10px;text-align:left;border-bottom:1px solid var(--edge);font-weight:400">Company</th>
+            <th style="padding:6px 10px;text-align:right;border-bottom:1px solid var(--edge);font-weight:400">EV</th>
+            <th style="padding:6px 10px;text-align:right;border-bottom:1px solid var(--edge);font-weight:400">Revenue</th>
+            <th style="padding:6px 10px;text-align:right;border-bottom:1px solid var(--edge);font-weight:400">EBITDA</th>
+            <th style="padding:6px 10px;text-align:right;border-bottom:1px solid var(--edge);font-weight:400">Net Income</th>
+            <th style="padding:6px 10px;text-align:right;border-bottom:1px solid var(--edge);font-weight:400">Book Value</th>
+            <th style="padding:6px 10px;text-align:right;border-bottom:1px solid var(--edge);font-weight:400">Fwd Growth %</th>
+            <th style="padding:6px 10px;border-bottom:1px solid var(--edge);font-weight:400"></th>
+          </tr>
+        </thead>
+        <tbody id="peerBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="brow mb">
+    <button class="btn moss" onclick="runComps()">Calculate Comps</button>
+  </div>
+
+  <div id="compsOut" style="display:none">
+    <div class="card mb">
+      <div class="chd"><span class="chdt">Trading Multiples</span></div>
+      <div class="cbd" style="padding:12px;overflow-x:auto"><div id="compsTable"></div></div>
+    </div>
+    <div class="card mb">
+      <div class="chd"><span class="chdt">Implied Value Range for Target</span></div>
+      <div class="cbd"><div id="compsImplied"></div></div>
+    </div>
+    <div id="compsVerdict"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     05  PORTFOLIO
+════════════════════════════════════════════ -->
+<div id="p-port" class="panel">
+  <div class="ph">
+    <div><h2>Portfolio Tracker</h2><p>MOIC · IRR (XIRR approximation) · Position monitor</p></div>
+    <button class="btn slate" onclick="calcPortSummary()">Calculate Summary</button>
+  </div>
+
+  <div class="g4 mb">
+    <div class="tile"><div class="tlbl">Total Positions</div><div class="tval w" id="ptCount">0</div></div>
+    <div class="tile"><div class="tlbl">Blended MOIC</div><div class="tval m" id="ptMOIC">—</div></div>
+    <div class="tile"><div class="tlbl">Approx IRR</div><div class="tval s" id="ptIRR">—</div></div>
+    <div class="tile"><div class="tlbl">Total Gain / Loss</div><div class="tval" id="ptGain" style="font-size:22px">—</div></div>
   </div>
 
   <div class="g2 mb">
     <div class="card">
       <div class="chd"><span class="chdt">Add Position</span></div>
       <div class="cbd">
-        <div class="field"><label>Company Name</label><input type="text" id="pCo" placeholder="e.g. Razorpay, HDFC Bank, Tesla"></div>
+        <div class="field"><label>Company</label><input type="text" id="pCo" placeholder="e.g. Razorpay, HDFC Bank"></div>
         <div class="g2">
-          <div class="field"><label>Entry Cost</label><input type="text" id="pEnt" placeholder="₹100 Cr or $2M"></div>
-          <div class="field"><label>Current Value (est)</label><input type="text" id="pCur" placeholder="₹180 Cr or $4.2M"></div>
+          <div class="field"><label>Entry Cost (₹ Cr / $M)</label><input type="number" id="pEnt" placeholder="100"></div>
+          <div class="field"><label>Current Value</label><input type="number" id="pCur" placeholder="180"></div>
         </div>
         <div class="g2">
-          <div class="field"><label>Investment Date</label><input type="text" id="pDate" placeholder="Jan 2023"></div>
+          <div class="field"><label>Entry Date</label><input type="text" id="pDate" placeholder="MM/YYYY e.g. 01/2022"></div>
           <div class="field"><label>Stage</label>
-            <select id="pStage"><option>Seed</option><option>Series A</option><option>Series B</option><option>Growth PE</option><option>Buyout</option><option>Public Equity</option><option>Debt / Credit</option></select>
+            <select id="pStage"><option>Seed</option><option>Series A</option><option>Series B</option>
+              <option>Growth PE</option><option>Buyout</option><option>Public Equity</option><option>Debt</option></select>
           </div>
         </div>
-        <div class="field"><label>KPIs / Latest Update</label><textarea id="pKPI" rows="3" placeholder="Revenue: ₹220 Cr (+35% YoY) · EBITDA: ₹28 Cr · ARR: $8M · Churn: 4% · NPS: 62..."></textarea></div>
+        <div class="field"><label>Notes / KPIs</label><textarea id="pKPI" rows="2" placeholder="Revenue ₹220 Cr (+35%) · EBITDA ₹28 Cr · ARR $8M..."></textarea></div>
         <button class="btn moss" onclick="addPos()">Add Position</button>
       </div>
     </div>
     <div class="card">
       <div class="chd"><span class="chdt">Positions</span><span class="muted" id="posCount">0 entries</span></div>
       <div id="portList" style="max-height:340px;overflow-y:auto">
-        <div style="padding:32px;text-align:center;font-family:'Fira Code',monospace;font-size:11px;color:var(--tx3)">No positions yet.</div>
+        <div style="padding:30px;text-align:center;font-family:'Fira Code',monospace;font-size:11px;color:var(--tx3)">No positions yet.</div>
       </div>
     </div>
   </div>
-  <div class="out empty" id="portOut">Portfolio analysis will appear here...</div>
-</div>
 
-<!-- ══════════════════ 04 COMPOSE ══════════════════ -->
-<div id="p-compose" class="panel">
-  <div class="ph"><div><h2>Compose</h2><p>Framework application · Writing in your voice · Persistent knowledge library</p></div></div>
-  <div class="snav">
-    <button class="snb on" onclick="sv('compose','fw',this)">Frameworks</button>
-    <button class="snb" onclick="sv('compose','write',this)">Writing</button>
-    <button class="snb" onclick="sv('compose','lib',this)">Library</button>
-  </div>
-
-  <!-- FRAMEWORKS -->
-  <div id="compose-fw" class="sp2 on">
-    <div class="g2">
-      <div class="card">
-        <div class="chd"><span class="chdt">Problem or Situation</span></div>
-        <div class="cbd">
-          <div class="field"><label>Describe the Problem / Situation</label><textarea id="fwProb" rows="4" placeholder="e.g. HDFC Bank's NIM is compressing 15bps while credit costs improve. Is this a structural shift or cyclical?&#10;&#10;e.g. A B2B SaaS has 125% NRR but new logo growth fell from 40 to 18. What's the core strategic issue?"></textarea></div>
-          <div class="field"><label>Framework to Apply</label>
-            <select id="fwFr">
-              <option>Auto-select best framework</option>
-              <option>Porter's Five Forces</option>
-              <option>Hamilton Helmer — 7 Powers</option>
-              <option>McKinsey 7-S Framework</option>
-              <option>MECE Issue Tree</option>
-              <option>Hypothesis Tree</option>
-              <option>Roger Martin — Strategy Cascade</option>
-              <option>First Principles Decomposition</option>
-              <option>Value Chain Analysis</option>
-              <option>Jobs-to-be-Done</option>
-              <option>BCG Growth-Share Matrix</option>
-              <option>Platform Business Model Analysis</option>
-              <option>SWOT + Strategic Priorities</option>
-            </select>
-          </div>
-          <div class="field"><label>Output Format</label>
-            <select id="fwFmt">
-              <option>Full structured analysis with sub-issues</option>
-              <option>Consulting slide narrative (pyramid principle)</option>
-              <option>Hypothesis tree with diagnostic tests</option>
-              <option>Executive summary only</option>
-            </select>
-          </div>
-          <div class="brow">
-            <button class="btn moss" onclick="runFW()"><span class="sp" id="fwSp"></span>Apply Framework</button>
-            <button class="btn sm" onclick="saveToLib('framework')">Save to Library</button>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="chd"><span class="chdt">Quick Tools</span></div>
-        <div class="cbd">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
-            <button class="btn sm" style="justify-content:center" onclick="qt('Exit scenarios — model M&A, IPO, strategic sale exits at multiple ranges')">Exit Scenarios</button>
-            <button class="btn sm" style="justify-content:center" onclick="qt('Analyze this term sheet clause by clause — identify investor-friendly vs founder-friendly terms')">Term Sheet</button>
-            <button class="btn sm" style="justify-content:center" onclick="qt('Calculate cap table dilution across funding rounds, show ownership % pre and post each round')">Cap Table</button>
-            <button class="btn sm" style="justify-content:center" onclick="qt('Calculate runway, burn rate, months to zero, and fundraising timeline recommendations')">Runway Calc</button>
-            <button class="btn sm" style="justify-content:center" onclick="qt('Map the competitive landscape — direct, indirect, potential entrants, substitutes')">Competitor Map</button>
-            <button class="btn sm" style="justify-content:center" onclick="qt('Draft a structured IC / investment committee memo with Executive Summary, Opportunity, Risks, Financials, Recommendation')">IC Memo Draft</button>
-            <button class="btn sm" style="justify-content:center" onclick="qt('Draft a board-ready memo — KPI dashboard, operational update, key decisions required, risks')">Board Memo</button>
-            <button class="btn sm" style="justify-content:center" onclick="qt('Write a credit memo — borrower profile, financial analysis, collateral, key covenants, credit rating, recommendation')">Credit Memo</button>
-          </div>
-          <div class="field"><label>Input for selected tool</label><textarea id="qtInp" rows="4" placeholder="Paste relevant data for the quick tool above..."></textarea></div>
-        </div>
-      </div>
-    </div>
-    <div class="out empty" id="fwOut">Framework analysis appears here...</div>
-  </div>
-
-  <!-- WRITING -->
-  <div id="compose-write" class="sp2">
-    <div class="g2">
-      <div class="card">
-        <div class="chd"><span class="chdt">Writing Brief</span></div>
-        <div class="cbd">
-          <div class="field"><label>Topic or Title</label><input type="text" id="wTopic" placeholder="e.g. Why HDFC Bank's P/B premium is structurally justified"></div>
-          <div class="g2">
-            <div class="field"><label>Document Type</label>
-              <select id="wType">
-                <option>Investment Memo (IC format)</option><option>Research Note</option>
-                <option>Deal Brief (PE/VC)</option><option>Sector Analysis</option>
-                <option>VC Thesis / LP Update</option><option>LinkedIn Post</option>
-                <option>Whitepaper Section</option><option>Consulting Narrative</option>
-              </select>
-            </div>
-            <div class="field"><label>Tone</label>
-              <select id="wTone">
-                <option>Sharp and direct</option><option>Formal (IC committee)</option>
-                <option>Engaging (public readership)</option><option>Academic</option>
-              </select>
-            </div>
-          </div>
-          <div class="field"><label>Key Arguments to Make</label><textarea id="wPts" rows="3" placeholder="- Lead with the ROE vs COE spread argument&#10;- Address NIM compression risk directly&#10;- Close with a relative valuation case"></textarea></div>
-          <div class="field"><label>Source Material</label><textarea id="wSrc" rows="3" placeholder="Paste data, earnings, research notes to draw from..."></textarea></div>
-          <div class="brow">
-            <button class="btn moss" onclick="runWrite()"><span class="sp" id="wSp"></span>Draft</button>
-            <button class="btn sm" onclick="saveToLib('writing')">Save Draft to Library</button>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="chd"><span class="chdt">Your Style Profile</span></div>
-        <div class="cbd">
-          <div class="field"><label>Paste 1–3 samples of your writing</label><textarea id="wStyle" rows="11" placeholder="The model learns your rhythm, vocabulary, how you open, your analogy style, framework preferences.&#10;&#10;Example:&#10;'The HDFC Bank thesis is simple: when a bank's ROE consistently exceeds its cost of equity by 600bps over a decade, the P/B premium isn't overvaluation — it's measuring franchise value that a DCF can't fully capture...'"></textarea></div>
-          <div style="background:var(--paper);border-radius:var(--rsm);padding:11px;font-family:'Fira Code',monospace;font-size:10px;color:var(--tx3);line-height:1.7">
-            Style is remembered in your browser. The more samples you add, the better the match.
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="out empty" id="wOut">Your draft appears here...</div>
-  </div>
-
-  <!-- LIBRARY -->
-  <div id="compose-lib" class="sp2">
-    <div class="g2">
-      <div class="card">
-        <div class="chd"><span class="chdt">Add to Library</span></div>
-        <div class="cbd">
-          <div class="field"><label>Title</label><input type="text" id="libTitle" placeholder="e.g. Helmer 7 Powers, Damodaran WACC Notes, HDFC Thesis 2024"></div>
-          <div class="g2">
-            <div class="field"><label>Category</label>
-              <select id="libCat">
-                <option>Strategy Framework</option><option>Valuation Method</option>
-                <option>Mental Model</option><option>Sector Notes</option>
-                <option>Macro Framework</option><option>Investment Thesis</option>
-                <option>Deal Learning</option><option>Writing Sample</option><option>Other</option>
-              </select>
-            </div>
-            <div class="field"><label>Priority</label>
-              <select id="libPri"><option>High</option><option>Medium</option><option>Low</option></select>
-            </div>
-          </div>
-          <div class="field"><label>Content</label><textarea id="libCont" rows="7" placeholder="Paste frameworks, notes, mental models, writing samples, research...&#10;&#10;Everything in the library is available to Brain and Framework modules automatically."></textarea></div>
-          <button class="btn moss" onclick="addLib()">Save to Library</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="chd"><span class="chdt">Saved Entries</span><span class="muted" id="libCount">0 entries</span></div>
-        <div id="libList" style="max-height:380px;overflow-y:auto">
-          <div style="padding:32px;text-align:center;font-family:'Fira Code',monospace;font-size:11px;color:var(--tx3)">Library is empty. Add your frameworks above.</div>
-        </div>
-      </div>
+  <div id="portSummary" style="display:none">
+    <div class="card">
+      <div class="chd"><span class="chdt">Portfolio Breakdown</span></div>
+      <div class="cbd" style="padding:12px;overflow-x:auto"><div id="portTable"></div></div>
     </div>
     <div class="card mt">
-      <div class="chd"><span class="chdt">Query Library</span></div>
-      <div class="cbd">
-        <div style="display:flex;gap:10px">
-          <input type="text" id="libQ" placeholder="Which frameworks apply to evaluating a bank with improving asset quality but compressing NIMs?" style="flex:1">
-          <button class="btn moss" onclick="queryLib()"><span class="sp" id="libQSp"></span>Retrieve</button>
-        </div>
-        <div class="out empty" id="libQOut" style="margin-top:12px">Relevant entries surface here...</div>
-      </div>
+      <div class="chd"><span class="chdt">Stage Allocation</span></div>
+      <div class="cbd" style="padding:14px"><canvas id="portChart" style="max-height:200px"></canvas></div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════ 05 RESEARCH ══════════════════ -->
-<div id="p-research" class="panel">
-  <div class="ph"><div><h2>Research</h2><p>Market sizing · Macro analysis · Saved articles · Research notes</p></div></div>
-  <div class="snav">
-    <button class="snb on" onclick="sv('research','mkt',this)">Market Sizing</button>
-    <button class="snb" onclick="sv('research','macro',this)">Macro</button>
-    <button class="snb" onclick="sv('research','notes',this)">Research Notes</button>
-  </div>
+<!-- ═══════════════════════════════════════════
+     06  MACRO REFERENCE
+════════════════════════════════════════════ -->
+<div id="p-macro" class="panel">
+  <div class="ph"><div><h2>Macro Reference</h2><p>Rate cycle framework · Sector rotation · Key relationships · Current data tracker</p></div></div>
 
-  <!-- MARKET SIZING -->
-  <div id="research-mkt" class="sp2 on">
-    <div class="g2">
-      <div class="card">
-        <div class="chd"><span class="chdt">Market Analysis</span></div>
-        <div class="cbd">
-          <div class="field"><label>Market / Industry</label><input type="text" id="mktInd" placeholder="e.g. Indian Digital Lending, EV Battery Supply Chain, B2B SaaS for Indian SMEs"></div>
-          <div class="field"><label>Analysis Type</label>
-            <select id="mktType">
-              <option>Full analysis — TAM/SAM/SOM + competitive landscape + thesis</option>
-              <option>TAM sizing only — top-down and bottom-up</option>
-              <option>Competitive landscape mapping</option>
-              <option>Porter's Five Forces</option>
-              <option>Industry value chain breakdown</option>
-              <option>Disruption risk assessment</option>
-            </select>
-          </div>
-          <div class="field"><label>Investment Lens</label>
-            <select id="mktLens">
-              <option>VC — finding the best startup bets</option>
-              <option>PE — identifying platform acquisitions</option>
-              <option>IB — M&A advisory context</option>
-              <option>Public markets — sector allocation</option>
-              <option>Strategic — expansion planning</option>
-            </select>
-          </div>
-          <div class="field"><label>Paste Available Data</label><textarea id="mktData" rows="3" placeholder="Market reports, company data, news, numbers you already have..."></textarea></div>
-          <div class="brow">
-            <button class="btn moss" onclick="runMkt()"><span class="sp" id="mktSp"></span>Analyze Market</button>
-            <button class="btn sm" onclick="saveMktToNotes()">Save to Notes</button>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="chd"><span class="chdt">Thesis Builder</span></div>
-        <div class="cbd">
-          <div class="field"><label>Thesis Topic</label><input type="text" id="thTopic" placeholder="e.g. India's digital credit boom, EV battery localization, AI in B2B SaaS"></div>
-          <div class="g2">
-            <div class="field"><label>Time Horizon</label>
-              <select id="thH"><option>3–6 months</option><option>1–2 years</option><option>3–5 years</option><option>10+ years</option></select>
-            </div>
-            <div class="field"><label>Format for</label>
-              <select id="thFmt"><option>LP presentation</option><option>IC memo</option><option>Research note</option><option>Strategy paper</option></select>
-            </div>
-          </div>
-          <button class="btn terra" onclick="runThesis()"><span class="sp" id="thSp"></span>Build Thesis</button>
-        </div>
-      </div>
-    </div>
-    <div class="out empty" id="mktOut">Market analysis and thesis will appear here...</div>
-  </div>
-
-  <!-- MACRO -->
-  <div id="research-macro" class="sp2">
-    <div class="g2">
-      <div class="card">
-        <div class="chd"><span class="chdt">Macro Query</span></div>
-        <div class="cbd">
-          <div class="field"><label>Sector / Asset Class</label><input type="text" id="macSec" placeholder="e.g. Indian banks, US technology, INR FX, Indian real estate"></div>
-          <div class="g2">
-            <div class="field"><label>Time Horizon</label>
-              <select id="macH"><option>3–6 months</option><option>12–18 months</option><option>3–5 years</option></select>
-            </div>
-            <div class="field"><label>Focus</label>
-              <select id="macFoc">
-                <option>Full macro regime assessment</option>
-                <option>Rate cycle impact</option>
-                <option>Currency / FX impact</option>
-                <option>Inflation and margin pressure</option>
-                <option>Sector rotation signals</option>
-              </select>
-            </div>
-          </div>
-          <div class="field"><label>Paste Current Data</label><textarea id="macData" rows="5" placeholder="India CPI: 4.9% · RBI Repo: 6.25% · GDP: 7.2% FY25E · 10Y G-Sec: 6.78%&#10;USD/INR: 84.2 · Credit Growth: 14% YoY · PMI Mfg: 57.5&#10;Oil: $82/bbl · US Fed Funds: 4.50% · VIX: 18..."></textarea></div>
-          <div class="field"><label>Specific Question</label><textarea id="macQ" rows="2" placeholder="e.g. If RBI cuts 50bps in 2026, which bank sub-segments benefit most?"></textarea></div>
-          <div class="brow">
-            <button class="btn moss" onclick="runMacro()"><span class="sp" id="macSp"></span>Run Macro Analysis</button>
-            <button class="btn sm" onclick="saveMacroToNotes()">Save to Notes</button>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="chd"><span class="chdt">Key Macro Relationships</span></div>
-        <div class="cbd" style="font-family:'Fira Code',monospace;font-size:10.5px;line-height:2">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-            <div style="background:var(--paper);border-radius:var(--rsm);padding:12px">
-              <div style="font-size:9px;color:var(--tx3);letter-spacing:.1em;margin-bottom:8px;text-transform:uppercase">India</div>
-              <div><span class="tag m">Repo ↓</span> → NIM squeeze</div>
-              <div style="margin-top:5px"><span class="tag m">Credit growth</span> → NBFC / banks</div>
-              <div style="margin-top:5px"><span class="tag t">INR weak</span> → IT outperforms</div>
-              <div style="margin-top:5px"><span class="tag s">GDP 7%+</span> → consumption</div>
-            </div>
-            <div style="background:var(--paper);border-radius:var(--rsm);padding:12px">
-              <div style="font-size:9px;color:var(--tx3);letter-spacing:.1em;margin-bottom:8px;text-transform:uppercase">Global</div>
-              <div><span class="tag t">Fed hike</span> → EM outflows</div>
-              <div style="margin-top:5px"><span class="tag t">Oil spike</span> → current account</div>
-              <div style="margin-top:5px"><span class="tag s">UST 10Y ↑</span> → multiple compression</div>
-              <div style="margin-top:5px"><span class="tag a">VIX</span> → risk-on / off</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="out empty" id="macOut">Macro analysis appears here...</div>
-  </div>
-
-  <!-- RESEARCH NOTES -->
-  <div id="research-notes" class="sp2">
-    <div class="card mb">
-      <div class="chd"><span class="chdt">Add Research Note</span></div>
+  <div class="g2 mb">
+    <div class="card">
+      <div class="chd"><span class="chdt">Current Macro Dashboard</span></div>
       <div class="cbd">
-        <div class="g2">
-          <div class="field"><label>Title</label><input type="text" id="nTitle" placeholder="e.g. Q3 2025 India Banking Outlook, BofA India Digital Lending Report"></div>
-          <div class="field"><label>Category</label>
-            <select id="nCat"><option>Market Research</option><option>Macro Note</option><option>Sector Analysis</option><option>Company Analysis</option><option>News Article</option><option>Data Point</option><option>Other</option></select>
-          </div>
+        <div style="font-family:'Fira Code',monospace;font-size:9.5px;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">India</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
+          <div class="field"><label>RBI Repo Rate (%)</label><input type="number" id="mRepo" placeholder="6.25" step="0.25"></div>
+          <div class="field"><label>CPI Inflation (%)</label><input type="number" id="mCPI" placeholder="4.9" step="0.1"></div>
+          <div class="field"><label>GDP Growth (%)</label><input type="number" id="mGDP" placeholder="7.2" step="0.1"></div>
+          <div class="field"><label>10Y G-Sec (%)</label><input type="number" id="mGsec" placeholder="6.78" step="0.01"></div>
+          <div class="field"><label>Credit Growth YoY (%)</label><input type="number" id="mCredit" placeholder="14" step="0.5"></div>
+          <div class="field"><label>USD/INR</label><input type="number" id="mINR" placeholder="84.2" step="0.1"></div>
         </div>
-        <div class="field"><label>Content / Summary</label><textarea id="nBody" rows="4" placeholder="Paste article, research, key data points, your own notes..."></textarea></div>
-        <div class="brow">
-          <button class="btn moss" onclick="addNote()">Save Note</button>
-          <button class="btn sm" onclick="searchNotes()"><span class="sp" id="nSrchSp"></span>Synthesize Saved Notes</button>
+        <div style="font-family:'Fira Code',monospace;font-size:9.5px;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">Global</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div class="field"><label>US Fed Funds (%)</label><input type="number" id="mFed" placeholder="4.50" step="0.25"></div>
+          <div class="field"><label>Brent Oil ($/bbl)</label><input type="number" id="mOil" placeholder="82" step="1"></div>
+          <div class="field"><label>US 10Y Treasury (%)</label><input type="number" id="mUST" placeholder="4.20" step="0.01"></div>
+          <div class="field"><label>VIX</label><input type="number" id="mVIX" placeholder="18" step="1"></div>
+        </div>
+        <div class="brow"><button class="btn moss" onclick="runMacro()">Analyse Regime</button></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="info-panel">
+        <div class="head">India Rate Cycle → Sector Implications</div>
+        <div><span class="tag m" style="font-size:9px">Repo ↓</span>&nbsp; NIMs compress → Bank NII pressure short-term</div>
+        <div style="margin-top:5px"><span class="tag m" style="font-size:9px">Credit growth ↑</span>&nbsp; NBFC, retail banks outperform</div>
+        <div style="margin-top:5px"><span class="tag t" style="font-size:9px">INR weak</span>&nbsp; IT exports benefit (revenue in USD)</div>
+        <div style="margin-top:5px"><span class="tag s" style="font-size:9px">GDP 7%+</span>&nbsp; Consumer discretionary, capex cycle</div>
+        <div style="margin-top:5px"><span class="tag m" style="font-size:9px">Rates ↓ + growth</span>&nbsp; Realty, infra, capital goods</div>
+      </div>
+      <div class="info-panel">
+        <div class="head">Global → India Transmission</div>
+        <div><span class="tag t" style="font-size:9px">Fed hike</span>&nbsp; FII outflows → INR depreciation → RBI hike</div>
+        <div style="margin-top:5px"><span class="tag t" style="font-size:9px">Oil spike $10</span>&nbsp; CAD widens ~$15Bn → INR pressure</div>
+        <div style="margin-top:5px"><span class="tag s" style="font-size:9px">UST 10Y ↑</span>&nbsp; EM multiple compression → P/E de-rates</div>
+        <div style="margin-top:5px"><span class="tag a" style="font-size:9px">VIX &gt; 25</span>&nbsp; Risk-off → EM outflows, defensives outperform</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="macroOut" style="display:none">
+    <div class="card mb">
+      <div class="chd"><span class="chdt">Regime Assessment</span></div>
+      <div class="cbd"><div id="macroRegime"></div></div>
+    </div>
+    <div class="card">
+      <div class="chd"><span class="chdt">Sector Scorecard</span></div>
+      <div class="cbd" style="padding:12px;overflow-x:auto"><div id="macroSectors"></div></div>
+    </div>
+  </div>
+
+  <!-- Reference frameworks always visible -->
+  <div class="g2 mt">
+    <div class="card">
+      <div class="chd"><span class="chdt">India Bank NIM Framework</span></div>
+      <div class="cbd" style="padding:14px">
+        <div class="info-panel" style="background:none;border:none;padding:0;font-size:10.5px">
+          <div><strong style="color:var(--tx2)">NIM = Yield on Advances − Cost of Funds</strong></div>
+          <div style="color:var(--tx3);margin-top:8px">NIM drivers: MCLR repricing lag · CASA ratio · CD ratio · Repo pass-through</div>
+          <div style="margin-top:8px"><span class="tag m">CASA &gt; 45%</span>&nbsp; Low-cost deposit base, NIM resilient</div>
+          <div style="margin-top:5px"><span class="tag s">CD ratio &gt; 85%</span>&nbsp; Fully deployed, NIM high but liquidity risk</div>
+          <div style="margin-top:5px"><span class="tag t">GNPA &gt; 3%</span>&nbsp; Credit cost headwind, watch PCR trend</div>
+          <div style="margin-top:8px;color:var(--tx3)">P/B fair value ≈ ROE / COE → justify premium when sustained ROE &gt; COE by &gt;400bps</div>
         </div>
       </div>
     </div>
-    <div id="notesList"></div>
-    <div style="padding:24px;text-align:center;font-family:'Fira Code',monospace;font-size:11px;color:var(--tx3)" id="notesEmpty">No research notes saved yet.</div>
+    <div class="card">
+      <div class="chd"><span class="chdt">WACC Quick Reference</span></div>
+      <div class="cbd" style="padding:14px">
+        <div class="info-panel" style="background:none;border:none;padding:0;font-size:10.5px">
+          <div><strong style="color:var(--tx2)">WACC = Ke × E/V + Kd × (1-t) × D/V</strong></div>
+          <div style="color:var(--tx3);margin-top:8px">Ke = Rf + β × ERP&nbsp;&nbsp;|&nbsp;&nbsp;Typical India ERP: 5.5–7%</div>
+          <div style="margin-top:8px">
+            <table style="font-family:'Fira Code',monospace;font-size:10px;width:100%;border-collapse:collapse">
+              <tr style="color:var(--tx3)"><td style="padding:4px 0">Large-cap India bank</td><td style="text-align:right">WACC 10–12%</td></tr>
+              <tr style="color:var(--tx3)"><td style="padding:4px 0">Mid-cap India NBFC</td><td style="text-align:right">WACC 12–15%</td></tr>
+              <tr style="color:var(--tx3)"><td style="padding:4px 0">India IT Services</td><td style="text-align:right">WACC 11–13%</td></tr>
+              <tr style="color:var(--tx3)"><td style="padding:4px 0">India Consumer FMCG</td><td style="text-align:right">WACC 10–12%</td></tr>
+              <tr style="color:var(--tx3)"><td style="padding:4px 0">US large-cap tech</td><td style="text-align:right">WACC 8–10%</td></tr>
+              <tr style="color:var(--tx3)"><td style="padding:4px 0">US growth SaaS</td><td style="text-align:right">WACC 10–14%</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
 </main>
 
 <footer>
-  <span>Metron · personal financial intelligence</span>
-  <span>Data stored locally in your browser · <a href="https://github.com" target="_blank" style="color:var(--slate);text-decoration:none">Deploy to GitHub Pages</a> · API key never leaves your device</span>
+  <span>Metron · financial intelligence</span>
+  <span>All calculations run locally in your browser · No data leaves your device · <a href="https://docs.github.com/en/pages" target="_blank" style="color:var(--slate);text-decoration:none">Deploy to GitHub Pages →</a></span>
 </footer>
 
 <script>
-// ═══════════════════════════════════════
-// STORAGE HELPERS
-// ═══════════════════════════════════════
-const S = {
-  get: k => { try { return JSON.parse(localStorage.getItem('metron_'+k)) } catch(e) { return null } },
-  set: (k,v) => { try { localStorage.setItem('metron_'+k, JSON.stringify(v)) } catch(e) {} },
-  del: k => localStorage.removeItem('metron_'+k)
-};
-
-// ═══════════════════════════════════════
-// API KEY
-// ═══════════════════════════════════════
-function saveKey() {
-  const v = document.getElementById('keyInp').value.trim();
-  if (v) { S.set('key', v); updateBadge(v); }
-  else { S.del('key'); updateBadge(''); }
-}
-function updateBadge(k) {
-  const b = document.getElementById('keyBadge');
-  if (k.startsWith('sk-ant')) { b.className = 'kb ok'; b.textContent = 'SAVED'; }
-  else if (k.length > 0) { b.className = 'kb bad'; b.textContent = 'INVALID'; }
-  else { b.className = 'kb'; b.style.display = 'none'; }
-}
-function toggleKey() {
-  const el = document.getElementById('keyInp');
-  const eye = document.getElementById('eyeBtn');
-  if (el.type === 'password') { el.type = 'text'; eye.textContent = '⊙'; }
-  else { el.type = 'password'; eye.textContent = '⊙'; }
-}
-function getKey() {
-  return document.getElementById('keyInp').value.trim() || S.get('key') || '';
-}
-
-// ═══════════════════════════════════════
-// NAVIGATION
-// ═══════════════════════════════════════
-const panelTitles = { brain:'Brain', val:'Valuation', port:'Portfolio', compose:'Compose', research:'Research' };
+// ═══════════════════════════════
+// HELPERS
+// ═══════════════════════════════
+const S = { get: k => { try { return JSON.parse(localStorage.getItem('metron_'+k)) } catch(e) { return null } }, set: (k,v) => { try { localStorage.setItem('metron_'+k, JSON.stringify(v)) } catch(e) {} } };
+function setR(id, val, unit) { document.getElementById(id).textContent = val + unit; }
+function getRng(id) { return parseFloat(document.getElementById(id).value); }
+function getNum(id) { return parseFloat(document.getElementById(id).value) || 0; }
+function fmt(n, dec=1) { if (isNaN(n)||!isFinite(n)) return '—'; return n.toLocaleString('en-IN', {maximumFractionDigits:dec}); }
+function fmtPct(n) { if (isNaN(n)||!isFinite(n)) return '—'; return n.toFixed(1)+'%'; }
+function fmtX(n) { if (isNaN(n)||!isFinite(n)) return '—'; return n.toFixed(2)+'×'; }
 function go(id, btn) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
   document.querySelectorAll('.nb').forEach(b => b.classList.remove('on'));
   document.getElementById('p-'+id).classList.add('on');
   btn.classList.add('on');
-  document.title = 'METRON — ' + panelTitles[id];
 }
-function sv(section, sub, btn) {
-  const prefix = section + '-';
-  document.querySelectorAll('[id^="'+prefix+'"]').forEach(p => p.classList.remove('on'));
-  btn.parentElement.querySelectorAll('.snb').forEach(b => b.classList.remove('on'));
-  document.getElementById(prefix+sub).classList.add('on');
-  btn.classList.add('on');
-}
-
-// ═══════════════════════════════════════
-// RANGE VALUES
-// ═══════════════════════════════════════
-function setR(id, val, unit) { document.getElementById(id).textContent = val + unit; }
-function getRng(elId) { return parseFloat(document.getElementById(elId).value); }
-
-// ═══════════════════════════════════════
-// OUTPUT HELPERS
-// ═══════════════════════════════════════
-function setOut(id, txt, cls='done') {
-  const el = document.getElementById(id);
-  el.textContent = txt;
-  el.className = 'out ' + cls;
-}
-function startOut(id) { setOut(id, 'Working...', 'empty run'); }
-function spin(id, on) { const el = document.getElementById(id); if(el) el.style.display = on ? 'inline-block' : 'none'; }
-
-// ═══════════════════════════════════════
-// CLAUDE API
-// ═══════════════════════════════════════
-async function ask(sys, msg, tokens=4000) {
-  const key = getKey();
-  if (!key) return '⚠  Please enter your Anthropic API key in the header above. It saves locally and stays on your device.';
-  try {
-    const r = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: tokens,
-        system: sys,
-        messages: [{ role: 'user', content: msg }]
-      })
-    });
-    const d = await r.json();
-    if (d.error) return 'API Error: ' + d.error.message;
-    return d.content[0].text;
-  } catch(e) { return 'Network error: ' + e.message; }
-}
-
-function libCtx() {
-  const lib = S.get('library') || [];
-  if (!lib.length) return '';
-  return '\n\n━━ PERSONAL KNOWLEDGE LIBRARY ━━\n' +
-    lib.map(e => '['+e.cat+'] '+e.title+':\n'+e.content).join('\n\n---\n\n');
-}
-function styleCtx() {
-  const style = document.getElementById('wStyle')?.value?.trim();
-  return style ? '\n\nYOUR WRITING STYLE EXAMPLES:\n' + style + '\n\nWrite in exactly this voice — internalize the sentence length, vocabulary, opening style, analogy use, confidence level. Sound like this person, not an AI.' : '';
-}
-
-// ═══════════════════════════════════════
-// 01 BRAIN
-// ═══════════════════════════════════════
-async function runBrain() {
-  const q = document.getElementById('brainQ').value.trim();
-  if (!q) return;
-  spin('brainSp', true);
-  const msgs = document.getElementById('brainMsgs');
-
-  const uDiv = document.createElement('div');
-  uDiv.className = 'mu';
-  uDiv.innerHTML = '<div class="mlbl">You</div>' + q;
-  msgs.appendChild(uDiv);
-  document.getElementById('brainQ').value = '';
-
-  // Route tags
-  const tags = [];
-  if (/comps|peer|multiple|comparable/i.test(q)) tags.push({l:'Comps',c:'s'});
-  if (/dcf|valuation|wacc|terminal|intrinsic/i.test(q)) tags.push({l:'DCF',c:'m'});
-  if (/lbo|buyout|irr|moic|leverage/i.test(q)) tags.push({l:'LBO',c:'t'});
-  if (/macro|rate|rbi|fed|inflation|cycle/i.test(q)) tags.push({l:'Macro',c:'s'});
-  if (/write|draft|memo|linkedin|note/i.test(q)) tags.push({l:'Write',c:'m'});
-  if (/framework|porter|7 powers|issue tree|hypothesis/i.test(q)) tags.push({l:'Framework',c:'t'});
-  if (!tags.length) tags.push({l:'Research',c:'a'});
-  document.getElementById('brainTags').innerHTML = tags.map(t=>`<span class="tag ${t.c}">${t.l}</span>`).join('');
-
-  const loading = document.createElement('div');
-  loading.className = 'ma';
-  loading.innerHTML = '<div class="mlbl"><span class="dot"></span>Thinking</div>';
-  msgs.appendChild(loading);
-  loading.scrollIntoView({ behavior: 'smooth' });
-
-  const sys = `You are METRON — a senior financial analyst and research partner. Your user is Thakur, a final-year engineering student targeting MFE programs (CMU, UChicago, Columbia) with internship experience at ICICI Bank and EY Strategy. He is analytical, framework-driven, and wants sharp, direct insights — not hedging.
-
-Respond like a senior analyst briefing a partner: lead with the headline finding, use frameworks by name, be specific with numbers, give clear recommendations. No generic filler.${libCtx()}`;
-
-  const res = await ask(sys, q, 4096);
-  loading.innerHTML = '<div class="mlbl"><span style="color:var(--moss)">●</span> Metron</div>' + res;
-  spin('brainSp', false);
-}
-function clearBrain() {
-  document.getElementById('brainMsgs').innerHTML = '';
-  document.getElementById('brainTags').innerHTML = '';
-}
-
-// ═══════════════════════════════════════
-// 02 COMPS
-// ═══════════════════════════════════════
-async function runComps() {
-  const t = document.getElementById('cTick').value.trim(); if (!t) return;
-  spin('cSp', true); startOut('cOut');
-  const sys = `You are a senior equity research analyst. Produce rigorous, specific comparable company analyses.${libCtx()}`;
-  const msg = `Target: ${t}
-Sector: ${document.getElementById('cSec').value} | Geography: ${document.getElementById('cGeo').value}
-Primary multiple: ${document.getElementById('cMult').value}
-${document.getElementById('cFin').value ? 'Financial data:\n'+document.getElementById('cFin').value : ''}
-${document.getElementById('cCtx').value ? 'Context: '+document.getElementById('cCtx').value : ''}
-Format: ${document.getElementById('cFmt').value}
-
-Deliver:
-1. PEER SELECTION — 5-7 companies, 1-line rationale each
-2. MULTIPLES TABLE — P/E TTM | P/E Fwd | EV/EBITDA | EV/Rev | P/B | Rev Growth | Gross Margin (use your knowledge of approximate current multiples; note these are estimates)
-3. TARGET POSITIONING — where does ${t} sit vs peer medians?
-4. PREMIUM / DISCOUNT DRIVERS — specific reasons for any delta
-5. IMPLIED VALUE RANGE — applying peer medians to ${t}
-6. VERDICT — Cheap / Fair / Expensive + conviction rationale`;
-  const r = await ask(sys, msg, 3500);
-  setOut('cOut', r); spin('cSp', false);
-}
-function setPreset(sec) { document.getElementById('cSec').value = sec; }
-
-// ═══════════════════════════════════════
-// 02 DCF
-// ═══════════════════════════════════════
-async function runDCF() {
-  const co = document.getElementById('dCo').value.trim(); if (!co) return;
-  spin('dSp', true); startOut('dOut');
-  const rg = getRng('dRGr'), wacc = getRng('dWCr'), tg = getRng('dTGr'),
-        em = getRng('dEMr'), cx = getRng('dCXr'), yr = getRng('dYRr');
-  const sys = `You are an expert valuation analyst trained in Damodaran's frameworks and IB deal structuring.${libCtx()}`;
-  const msg = `Run a ${document.getElementById('dMeth').value} for ${co}.
-Base: ${document.getElementById('dRev').value || 'estimate from general knowledge'}
-Assumptions: Rev Growth ${rg}% · WACC ${wacc}% · Terminal Growth ${tg}% · EBITDA Margin ${em}% · CapEx ${cx}% · ${yr}-yr forecast
-${document.getElementById('dFin').value ? 'Financials:\n'+document.getElementById('dFin').value : ''}
-
-Deliver:
-1. PROJECTION TABLE — revenue, EBITDA, FCF per year (clean tabular format)
-2. TERMINAL VALUE — show the calculation explicitly
-3. EV → EQUITY BRIDGE — subtract net debt
-4. INTRINSIC VALUE (total + per share if data permits)
-5. SENSITIVITY TABLE — 3×3 grid: WACC ±1.5% vs Terminal Growth ±0.75%
-6. KEY LEVERAGE POINT — which assumption moves value most?
-7. VERDICT vs current market price (if known)`;
-  const r = await ask(sys, msg, 4000);
-  setOut('dOut', r); spin('dSp', false);
-}
-
-// ═══════════════════════════════════════
-// 02 MONTE CARLO
-// ═══════════════════════════════════════
-function runMC() {
-  spin('mcSp', true);
-  const n    = getRng('mcNr');
-  const rg   = getRng('mcRGr') / 100;
-  const gVol = getRng('mcGVr') / 100;
-  const wacc = getRng('mcWCr') / 100;
-  const em   = getRng('mcEMr') / 100;
-  const mVol = getRng('mcMVr') / 100;
-  const tg   = getRng('mcTGr') / 100;
-
-  const results = [];
-  for (let i = 0; i < n; i++) {
-    let rev = 1000, pv = 0;
-    for (let y = 1; y <= 5; y++) {
-      const g = rg + gVol * boxMuller();
-      const m = Math.max(0.01, em + mVol * boxMuller());
-      rev *= (1 + g);
-      const fcf = rev * m * 0.7;
-      pv += fcf / Math.pow(1 + wacc, y);
-    }
-    const tv = (rev * em * 0.7 * (1 + tg)) / Math.max(0.001, wacc - tg);
-    results.push((pv + tv / Math.pow(1 + wacc, 5)) / 1000);
-  }
-  results.sort((a, b) => a - b);
-
-  const p10 = results[Math.floor(n * 0.1)];
-  const p50 = results[Math.floor(n * 0.5)];
-  const p90 = results[Math.floor(n * 0.9)];
-  const mean = results.reduce((s, v) => s + v, 0) / n;
-  const std  = Math.sqrt(results.reduce((s, v) => s + (v - mean) ** 2, 0) / n);
-
-  document.getElementById('mcP10').textContent = p10.toFixed(2) + '×';
-  document.getElementById('mcP50').textContent = p50.toFixed(2) + '×';
-  document.getElementById('mcP90').textContent = p90.toFixed(2) + '×';
-  document.getElementById('mcSd').textContent  = '±' + std.toFixed(2);
-  document.getElementById('mcStat').textContent = n.toLocaleString() + ' paths · mean ' + mean.toFixed(2) + '×';
-
-  drawHist(results, p10, p50, p90);
-  window._mcResults = { results, p10, p50, p90, mean, std };
-  spin('mcSp', false);
-}
-
 function boxMuller() {
-  let u = 0, v = 0;
-  while (u === 0) u = Math.random();
-  while (v === 0) v = Math.random();
-  return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+  let u=0,v=0;
+  while(u===0) u=Math.random(); while(v===0) v=Math.random();
+  return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);
+}
+function median(arr) {
+  const s=[...arr].sort((a,b)=>a-b); const m=Math.floor(s.length/2);
+  return s.length%2===0?(s[m-1]+s[m])/2:s[m];
+}
+function percentile(arr,p) { const s=[...arr].sort((a,b)=>a-b); return s[Math.floor(s.length*p/100)]; }
+function colorCell(val, low, high) {
+  if(val<low) return 'cell-lo'; if(val>high) return 'cell-hi'; return 'cell-mid';
 }
 
-function drawHist(data, p10, p50, p90) {
-  const canvas = document.getElementById('mcCanvas');
-  const dpr = window.devicePixelRatio || 1;
-  const W = canvas.parentElement.clientWidth - 34;
-  const H = 120;
-  canvas.width  = W * dpr;
-  canvas.height = H * dpr;
-  canvas.style.width  = W + 'px';
-  canvas.style.height = H + 'px';
-  const ctx = canvas.getContext('2d');
-  ctx.scale(dpr, dpr);
+// ═══════════════════════════════
+// TILE BUILDER
+// ═══════════════════════════════
+function buildTiles(data) {
+  return data.map(t=>`<div class="tile"><div class="tlbl">${t.lbl}</div><div class="tval ${t.cls||'w'}">${t.val}</div><div class="tsub">${t.sub||''}</div></div>`).join('');
+}
 
-  const bins = 55, min = data[0], max = data[data.length - 1];
-  const bw = (max - min) / bins;
-  const counts = new Array(bins).fill(0);
-  data.forEach(v => { const b = Math.min(Math.floor((v - min) / bw), bins - 1); counts[b]++; });
-  const maxC = Math.max(...counts);
-  const barW = W / bins;
+// ═══════════════════════════════
+// 01  DCF ENGINE
+// ═══════════════════════════════
+function getSliderByLabel(id) { const el=document.getElementById(id); return el?parseFloat(el.textContent):0; }
 
-  counts.forEach((c, i) => {
-    const x = i * barW;
-    const bh = (c / maxC) * (H - 22);
-    const val = min + i * bw;
-    if (val < p10)      ctx.fillStyle = 'rgba(176,122,88,.55)';
-    else if (val < p90) ctx.fillStyle = 'rgba(125,160,128,.55)';
-    else                ctx.fillStyle = 'rgba(110,143,166,.55)';
-    ctx.fillRect(x + 0.5, H - bh - 10, barW - 1, bh);
+function runDCF() {
+  const co  = document.getElementById('dCo').value||'Company';
+  const rev = getNum('dRev'); if(!rev) { alert('Enter base revenue'); return; }
+  const curr = document.getElementById('dCurr').value;
+  const em   = getNum('dEM')/100;
+  const tax  = getNum('dTax')/100;
+  const da   = getNum('dDA')/100;
+  const capex= getNum('dCX')/100;
+  const dwc  = getNum('dWC')/100;
+  const netDebt = getNum('dNetDebt');
+  const shares  = getNum('dShares');
+  const mktPrice = getNum('dMktPrice');
+
+  const rg1  = parseFloat(document.getElementById('dRG1').textContent)/100;
+  const rg2  = parseFloat(document.getElementById('dRG2').textContent)/100;
+  const wacc = parseFloat(document.getElementById('dWACC').textContent)/100;
+  const tg   = parseFloat(document.getElementById('dTG').textContent)/100;
+  const yrs  = parseInt(document.getElementById('dYR').textContent);
+
+  // Project FCFs
+  const rows=[];
+  let r=rev;
+  let totalPV=0;
+  for(let y=1;y<=yrs;y++){
+    const g = y<=3 ? rg1 : rg2;
+    r = r*(1+g);
+    const ebitda=r*em;
+    const ebit=ebitda-r*da;
+    const nopat=ebit*(1-tax);
+    const fcf=nopat+r*da-r*capex-r*dwc;
+    const df=Math.pow(1+wacc,y);
+    const pv=fcf/df;
+    totalPV+=pv;
+    rows.push({y,rev:r,ebitda,ebit,nopat,fcf,pv});
+  }
+
+  // Terminal value (Gordon Growth)
+  const lastFCF=rows[rows.length-1].fcf;
+  const tv=(lastFCF*(1+tg))/(wacc-tg);
+  const tvPV=tv/Math.pow(1+wacc,yrs);
+  const ev=totalPV+tvPV;
+  const equity=ev-netDebt;
+  const perShare=shares?equity/shares:null;
+
+  // ── Projection table
+  const c=curr;
+  let html=`<table class="comps-table"><thead><tr>
+    <th>Year</th><th>Revenue (${c})</th><th>EBITDA</th><th>EBIT</th><th>NOPAT</th><th>FCF</th><th>PV of FCF</th></tr></thead><tbody>`;
+  rows.forEach(rw=>{
+    html+=`<tr><td>Y${rw.y}</td><td>${fmt(rw.rev)}</td><td>${fmt(rw.ebitda)}</td><td>${fmt(rw.ebit)}</td><td>${fmt(rw.nopat)}</td><td>${fmt(rw.fcf)}</td><td>${fmt(rw.pv)}</td></tr>`;
+  });
+  html+='</tbody></table>';
+  document.getElementById('dcfProjTable').innerHTML=html;
+  document.getElementById('dcfCurrLbl').textContent=curr;
+
+  // ── Bridge
+  const tvPct=tvPV/ev*100;
+  document.getElementById('dcfBridge').innerHTML=`
+    <table class="comps-table"><tbody>
+      <tr><td>PV of Explicit FCFs (${yrs} yr)</td><td>${fmt(totalPV)} ${c}</td></tr>
+      <tr><td>PV of Terminal Value</td><td>${fmt(tvPV)} ${c} &nbsp;<span class="tag a" style="font-size:9px">${tvPct.toFixed(0)}% of EV</span></td></tr>
+      <tr class="sum-row"><td>Enterprise Value</td><td>${fmt(ev)} ${c}</td></tr>
+      <tr><td>Less: Net Debt</td><td>(${fmt(netDebt)}) ${c}</td></tr>
+      <tr class="sum-row"><td>Equity Value</td><td>${fmt(equity)} ${c}</td></tr>
+      ${perShare?`<tr><td>Intrinsic Value per Share</td><td><strong style="color:var(--moss)">${fmt(perShare,2)} ${c.includes('₹')?'₹':'$'}</strong></td></tr>`:''}
+      ${(mktPrice&&perShare)?`<tr><td>Upside / Downside vs Market</td><td>${coloredPct((perShare-mktPrice)/mktPrice*100)}</td></tr>`:''}
+    </tbody></table>`;
+
+  // ── Sensitivity
+  const wRange=parseFloat(document.getElementById('sensWRange').value);
+  const tRange=parseFloat(document.getElementById('sensTRange').value);
+  const waccSteps=[-wRange,-wRange/2,0,wRange/2,wRange].map(d=>(wacc*100+d).toFixed(2));
+  const tgSteps=[-tRange,-tRange/2,0,tRange/2,tRange].map(d=>(tg*100+d).toFixed(2));
+
+  let sensHtml=`<table class="sens-table"><thead><tr><th>WACC \\ TG</th>${tgSteps.map(t=>`<th>${t}%</th>`).join('')}</tr></thead><tbody>`;
+  waccSteps.forEach(w=>{
+    sensHtml+=`<tr><td class="row-lbl">${w}%</td>`;
+    tgSteps.forEach(t=>{
+      const W=parseFloat(w)/100, T=parseFloat(t)/100;
+      let tpv=0, rv2=rev;
+      for(let y=1;y<=yrs;y++){
+        const g=y<=3?rg1:rg2; rv2=rv2*(1+g);
+        const fcf2=(rv2*em-rv2*da)*(1-tax)+rv2*da-rv2*capex-rv2*dwc;
+        tpv+=fcf2/Math.pow(1+W,y);
+      }
+      const lastF=rows[rows.length-1].fcf;
+      const tv2=(lastF*(1+T))/(W-T);
+      const tv2pv=tv2/Math.pow(1+W,yrs);
+      const eq=(tpv+tv2pv)-netDebt;
+      const ps=perShare?(eq/equity)*perShare:null;
+      const val=ps?fmt(ps,2):(fmt(eq));
+      const cls=ps?(ps>perShare*1.15?'cell-hi':ps<perShare*0.85?'cell-lo':'cell-mid'):'cell-mid';
+      sensHtml+=`<td class="${cls}">${val}</td>`;
+    });
+    sensHtml+='</tr>';
+  });
+  sensHtml+='</tbody></table>';
+  document.getElementById('dcfSens').outerHTML=`<table class="sens-table" id="dcfSens">${sensHtml.replace('<table class="sens-table">','').replace('</table>','')}`;
+  document.getElementById('dcfSens').innerHTML=sensHtml.replace('<table class="sens-table">','').replace('</table>','');
+
+  // ── Tiles
+  document.getElementById('dcfTiles').innerHTML=buildTiles([
+    {lbl:'Enterprise Value',val:`${fmt(ev)} ${curr}`,cls:'w'},
+    {lbl:'Equity Value',val:`${fmt(equity)} ${curr}`,cls:'m'},
+    {lbl:'TV as % of EV',val:fmtPct(tvPct),cls:'s',sub:'terminal value weight'},
+    {lbl:perShare?'Intrinsic / Share':'WACC',val:perShare?`${fmt(perShare,2)}`:`${(wacc*100).toFixed(2)}%`,cls:perShare&&mktPrice&&perShare>mktPrice?'m':'t'},
+  ]);
+
+  // ── Verdict
+  let vClass='hold',vLabel='FAIRLY VALUED',vText='';
+  if(perShare&&mktPrice){
+    const upside=(perShare-mktPrice)/mktPrice;
+    if(upside>0.15){vClass='buy';vLabel='BUY / ACCUMULATE';}
+    else if(upside<-0.15){vClass='sell';vLabel='REDUCE / AVOID';}
+    vText=`Intrinsic value ${fmt(perShare,2)} vs market ${fmt(mktPrice,2)} → ${upside>0?'+':''}${fmtPct(upside*100)} margin of safety.`;
+  } else {
+    vText=`Terminal value represents ${tvPct.toFixed(0)}% of total EV. ${tvPct>70?'High TV dependency — be cautious of terminal assumptions.':'Reasonable TV weight — explicit period does meaningful work.'}`;
+  }
+  document.getElementById('dcfVerdict').innerHTML=`<div class="verdict ${vClass}"><div class="verdict-lbl">${vLabel}</div><div class="verdict-txt">${vText}</div></div>`;
+
+  document.getElementById('dcfOut').style.display='block';
+}
+
+function coloredPct(p) {
+  const c=p>0?'color:var(--moss)':'color:var(--terra)';
+  return `<span style="${c}">${p>0?'+':''}${p.toFixed(1)}%</span>`;
+}
+function clearDCF() { document.getElementById('dcfOut').style.display='none'; }
+
+// ═══════════════════════════════
+// 02  MONTE CARLO
+// ═══════════════════════════════
+function runMC() {
+  const rev  = getNum('mcRev');
+  const n    = getRng('mcNr');
+  const yrs  = parseInt(document.getElementById('mcYR').textContent);
+  const rg   = getRng('mcRG')/100;
+  const gVol = getRng('mcGV')/100;
+  const wacc = getRng('mcWC')/100;
+  const wVol = getRng('mcWV')/100;
+  const em   = getRng('mcEM')/100;
+  const mVol = getRng('mcMV')/100;
+  const tg   = getRng('mcTG')/100;
+
+  const results=[];
+  for(let i=0;i<n;i++){
+    let r=rev||1000, pv=0;
+    const w=Math.max(0.04, wacc+wVol*boxMuller());
+    for(let y=1;y<=yrs;y++){
+      const g=Math.max(-0.3, rg+gVol*boxMuller());
+      const m=Math.max(0.01, em+mVol*boxMuller());
+      r*=(1+g);
+      const fcf=r*m*0.7;
+      pv+=fcf/Math.pow(1+w,y);
+    }
+    const lastRev=r;
+    const tv=(lastRev*em*0.7*(1+tg))/Math.max(0.001,w-tg);
+    const evMult=(pv+tv/Math.pow(1+w,yrs))/(rev||1000);
+    results.push(evMult);
+  }
+  results.sort((a,b)=>a-b);
+
+  const p10=percentile(results,10), p25=percentile(results,25);
+  const p50=percentile(results,50), p75=percentile(results,75), p90=percentile(results,90);
+  const mean=results.reduce((s,v)=>s+v,0)/n;
+  const std=Math.sqrt(results.reduce((s,v)=>s+(v-mean)**2,0)/n);
+
+  document.getElementById('mcP10').textContent=fmtX(p10);
+  document.getElementById('mcP50').textContent=fmtX(p50);
+  document.getElementById('mcP90').textContent=fmtX(p90);
+  document.getElementById('mcSd').textContent='±'+std.toFixed(2);
+  document.getElementById('mcStat').textContent=n.toLocaleString()+' paths · mean '+mean.toFixed(2)+'×';
+
+  drawMCHist(results,p10,p90,n);
+
+  // VaR table
+  const co=document.getElementById('mcCo').value||'Asset';
+  const baseVal=rev||1000;
+  const curr=document.getElementById('mcCurr').value;
+  document.getElementById('mcTable').innerHTML=`
+    <table class="comps-table"><thead><tr><th>Percentile</th><th>EV Multiple</th><th>Implied EV (${curr})</th><th>Interpretation</th></tr></thead><tbody>
+      <tr><td>P5  (Worst case)</td><td>${fmtX(percentile(results,5))}</td><td>${fmt(baseVal*percentile(results,5))}</td><td>Tail risk / stress scenario</td></tr>
+      <tr><td>P10 (Bear)</td><td>${fmtX(p10)}</td><td>${fmt(baseVal*p10)}</td><td>Downside scenario</td></tr>
+      <tr><td>P25 (Below base)</td><td>${fmtX(p25)}</td><td>${fmt(baseVal*p25)}</td><td>Conservative case</td></tr>
+      <tr class="sum-row"><td>P50 (Base case)</td><td>${fmtX(p50)}</td><td>${fmt(baseVal*p50)}</td><td>Most likely outcome</td></tr>
+      <tr><td>P75 (Above base)</td><td>${fmtX(p75)}</td><td>${fmt(baseVal*p75)}</td><td>Optimistic case</td></tr>
+      <tr><td>P90 (Bull)</td><td>${fmtX(p90)}</td><td>${fmt(baseVal*p90)}</td><td>Upside scenario</td></tr>
+      <tr><td>P95 (Best case)</td><td>${fmtX(percentile(results,95))}</td><td>${fmt(baseVal*percentile(results,95))}</td><td>Tail upside</td></tr>
+      <tr><td colspan="4" style="color:var(--tx3);font-size:10px;padding:10px 12px">Mean: ${mean.toFixed(2)}× &nbsp;|&nbsp; Std Dev: ${std.toFixed(2)} &nbsp;|&nbsp; Interquartile range: ${(p25).toFixed(2)}–${(p75).toFixed(2)}× &nbsp;|&nbsp; Skew: ${(mean-p50).toFixed(3)}</td></tr>
+    </tbody></table>`;
+
+  document.getElementById('mcOut').style.display='block';
+}
+
+function drawMCHist(data, p10, p90, n) {
+  const canvas=document.getElementById('mcCanvas');
+  const dpr=window.devicePixelRatio||1;
+  const W=canvas.parentElement.clientWidth-34, H=160;
+  canvas.width=W*dpr; canvas.height=H*dpr;
+  canvas.style.width=W+'px'; canvas.style.height=H+'px';
+  const ctx=canvas.getContext('2d');
+  ctx.scale(dpr,dpr);
+
+  const bins=60, min=data[0], max=data[data.length-1];
+  const bw=(max-min)/bins;
+  const counts=new Array(bins).fill(0);
+  data.forEach(v=>{const b=Math.min(Math.floor((v-min)/bw),bins-1);counts[b]++;});
+  const maxC=Math.max(...counts);
+  const barW=W/bins;
+
+  counts.forEach((c,i)=>{
+    const x=i*barW, bh=(c/maxC)*(H-24), y=H-bh-12;
+    const val=min+i*bw;
+    if(val<p10) ctx.fillStyle='rgba(224,120,64,.55)';
+    else if(val<p90) ctx.fillStyle='rgba(125,160,128,.55)';
+    else ctx.fillStyle='rgba(110,143,166,.55)';
+    ctx.fillRect(x+.5,y,barW-1,bh);
   });
 
-  // P50 line
-  const px50 = ((p50 - min) / bw) * barW;
-  ctx.strokeStyle = 'rgba(125,160,128,.8)';
-  ctx.lineWidth = 1.5;
-  ctx.setLineDash([4, 3]);
-  ctx.beginPath(); ctx.moveTo(px50, 8); ctx.lineTo(px50, H - 10); ctx.stroke();
-  ctx.setLineDash([]);
-  ctx.fillStyle = 'rgba(125,160,128,.9)';
-  ctx.font = '10px Fira Code, monospace';
-  ctx.fillText('P50', px50 + 4, 18);
+  // P10, P50, P90 lines
+  [[p10,'rgba(224,120,64,.8)','P10'],[percentile(data,50),'rgba(125,160,128,.9)','P50'],[p90,'rgba(110,143,166,.8)','P90']].forEach(([pv,clr,lbl])=>{
+    const px=((pv-min)/bw)*barW;
+    ctx.strokeStyle=clr; ctx.lineWidth=1.5; ctx.setLineDash([4,3]);
+    ctx.beginPath(); ctx.moveTo(px,8); ctx.lineTo(px,H-12); ctx.stroke();
+    ctx.setLineDash([]); ctx.fillStyle=clr;
+    ctx.font=`10px "Fira Code",monospace`; ctx.fillText(lbl,px+3,18);
+  });
 }
 
-async function runMCInterpret() {
-  const mc = window._mcResults;
-  if (!mc) { setOut('mcOut', 'Run the simulation first, then click Interpret.', 'empty'); return; }
-  spin('mciSp', true); startOut('mcOut');
-  const co = document.getElementById('mcCo').value || 'this company';
-  const sys = `You are a valuation expert explaining Monte Carlo simulation results to a sophisticated analyst.`;
-  const msg = `Interpret Monte Carlo valuation results for ${co}:
-P10 (Bear): ${mc.p10.toFixed(2)}× base value
-P50 (Base): ${mc.p50.toFixed(2)}× base value  
-P90 (Bull): ${mc.p90.toFixed(2)}× base value
-Mean: ${mc.mean.toFixed(2)}× | Std Dev: ${mc.std.toFixed(2)}
+// ═══════════════════════════════
+// 03  LBO ENGINE
+// ═══════════════════════════════
+function runLBO() {
+  const co   = document.getElementById('lCo').value||'Target';
+  const ebitda= getNum('lEBITDA'); if(!ebitda){alert('Enter EBITDA');return;}
+  const entMult= getNum('lEntryMult');
+  const rev  = getNum('lRev')||ebitda/0.2;
+  const curr = document.getElementById('lCurr').value;
+  const mgmt = getNum('lMgmtFee')/100;
+  const txFee= getNum('lTxFee')/100;
+  const deDE = getRng('lDEr');
+  const ir   = getRng('lIRr')/100;
+  const amort= getRng('lAmort')/100;
+  const rg   = getRng('lRG')/100;
+  const mi   = getRng('lMI')/100/100; // bps → pct
+  const hp   = parseInt(document.getElementById('lHP').textContent);
+  const exMult=getRng('lEXr');
 
-Explain: what this distribution means for the investment decision, what drives the spread between bear and bull, and what this implies for position sizing and risk management.`;
-  const r = await ask(sys, msg, 1500);
-  setOut('mcOut', r); spin('mciSp', false);
+  const entEV   = ebitda*entMult;
+  const debt    = ebitda*deDE;
+  const fees    = entEV*txFee;
+  const equity  = entEV+fees-debt;
+  const ebitdaMargin = rev?ebitda/rev:0.2;
+
+  // Debt schedule
+  const sched=[];
+  let debtBal=debt;
+  let r2=rev, eb=ebitda;
+  for(let y=1;y<=hp;y++){
+    r2*=(1+rg); eb=r2*(ebitdaMargin+mi*y);
+    const interest=debtBal*ir;
+    const principal=Math.min(debt*amort, debtBal);
+    debtBal=Math.max(0,debtBal-principal);
+    const mgmtFee=entEV*mgmt;
+    const fcf=eb-interest-principal-mgmtFee;
+    sched.push({y,rev:r2,ebitda:eb,interest,principal,mgmtFee,fcf,debtBal});
+  }
+
+  const exitEB=sched[hp-1].ebitda;
+  const exitEV=exitEB*exMult;
+  const exitEquity=exitEV-sched[hp-1].debtBal;
+  const moic=exitEquity/equity;
+
+  // IRR via Newton's method
+  function npv(rate){ let s=-equity; sched.forEach((r,i)=>{ s+=r.fcf/Math.pow(1+rate,i+1); }); s+=exitEquity/Math.pow(1+rate,hp); return s; }
+  let irr=0.20;
+  for(let i=0;i<200;i++){
+    const f=npv(irr), h=1e-6;
+    const df=(npv(irr+h)-f)/h;
+    const step=f/df;
+    irr-=step;
+    if(Math.abs(step)<1e-8) break;
+  }
+  if(!isFinite(irr)||irr<-0.5||irr>5) irr=null;
+
+  // Tiles
+  document.getElementById('lboTiles').innerHTML=buildTiles([
+    {lbl:'Entry EV',val:`${fmt(entEV)} ${curr}`,cls:'w',sub:`${entMult}× EBITDA`},
+    {lbl:'Equity Check',val:`${fmt(equity)} ${curr}`,cls:'s',sub:`${(equity/entEV*100).toFixed(0)}% of EV`},
+    {lbl:'Exit Equity',val:`${fmt(exitEquity)} ${curr}`,cls:'m',sub:`at ${exMult}× exit`},
+    {lbl:irr?'IRR':'MOIC',val:irr?fmtPct(irr*100):fmtX(moic),cls:irr?(irr>.25?'m':irr>.15?'s':'t'):'m'},
+  ]);
+
+  // S&U
+  document.getElementById('lboSU').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <table class="comps-table"><thead><tr><th colspan="2">Sources</th></tr></thead><tbody>
+        <tr><td>Sponsor Equity</td><td>${fmt(equity)} ${curr}</td></tr>
+        <tr><td>Senior Debt</td><td>${fmt(debt)} ${curr}</td></tr>
+        <tr class="sum-row"><td>Total Sources</td><td>${fmt(equity+debt)} ${curr}</td></tr>
+      </tbody></table>
+      <table class="comps-table"><thead><tr><th colspan="2">Uses</th></tr></thead><tbody>
+        <tr><td>Purchase Price (EV)</td><td>${fmt(entEV)} ${curr}</td></tr>
+        <tr><td>Transaction Fees</td><td>${fmt(fees)} ${curr}</td></tr>
+        <tr class="sum-row"><td>Total Uses</td><td>${fmt(entEV+fees)} ${curr}</td></tr>
+      </tbody></table>
+    </div>`;
+
+  // Debt schedule table
+  let dsHtml=`<table class="comps-table"><thead><tr><th>Year</th><th>Revenue</th><th>EBITDA</th><th>Interest</th><th>Amortization</th><th>Mgmt Fee</th><th>FCF</th><th>Debt Balance</th></tr></thead><tbody>`;
+  sched.forEach(r=>{
+    dsHtml+=`<tr><td>Y${r.y}</td><td>${fmt(r.rev)}</td><td>${fmt(r.ebitda)}</td><td>(${fmt(r.interest)})</td><td>(${fmt(r.principal)})</td><td>(${fmt(r.mgmtFee)})</td><td>${fmt(r.fcf)}</td><td>${fmt(r.debtBal)}</td></tr>`;
+  });
+  dsHtml+=`</tbody></table>`;
+  document.getElementById('lboDebt').innerHTML=dsHtml;
+
+  // Exit matrix
+  const holdPeriods=[hp-1,hp,hp+1].filter(h=>h>=2&&h<=10);
+  const exitMults=[exMult-3,exMult-1.5,exMult,exMult+1.5,exMult+3].filter(m=>m>0);
+  let eHtml=`<thead><tr><th>Hold \\ Exit</th>${exitMults.map(m=>`<th>${m}×</th>`).join('')}</tr></thead><tbody>`;
+  holdPeriods.forEach(h=>{
+    eHtml+=`<tr><td class="row-lbl">${h} yr</td>`;
+    exitMults.forEach(em2=>{
+      // quick IRR for this scenario
+      const eb2=sched[Math.min(h,sched.length)-1]?.ebitda||exitEB;
+      const ev2=eb2*em2;
+      const debtEnd=sched[Math.min(h,sched.length)-1]?.debtBal||0;
+      const exitEq2=ev2-debtEnd;
+      const m2=exitEq2/equity;
+      const cls=m2>2.5?'cell-hi':m2>1.5?'cell-mid':'cell-lo';
+      eHtml+=`<td class="${cls}">${fmtX(m2)}</td>`;
+    });
+    eHtml+='</tr>';
+  });
+  eHtml+='</tbody>';
+  document.getElementById('lboExit').innerHTML=eHtml;
+
+  // Verdict
+  const irrOk=irr&&irr>0.20, moicOk=moic>2;
+  const vClass=irrOk&&moicOk?'buy':irr&&irr>0.15?'hold':'sell';
+  const vLabel=irrOk&&moicOk?'STRONG DEAL':'MARGINAL / WEAK DEAL';
+  document.getElementById('lboVerdict').innerHTML=`<div class="verdict ${vClass}"><div class="verdict-lbl">${vLabel}</div><div class="verdict-txt">MOIC ${fmtX(moic)} · IRR ${irr?fmtPct(irr*100):'n/a'} · Debt/EBITDA entry ${deDE}× · Exit at ${exMult}× after ${hp} years. ${moic>3?'Returns well above 3× — solid deal at these assumptions.':moic>2?'Returns in acceptable range — check leverage and covenant headroom.':'Sub-2× MOIC flags poor return profile — reconsider entry price or capital structure.'}</div></div>`;
+  document.getElementById('lboOut').style.display='block';
 }
 
-// ═══════════════════════════════════════
-// 02 LBO
-// ═══════════════════════════════════════
-async function runLBO() {
-  const co = document.getElementById('lCo').value.trim(); if (!co) return;
-  spin('lSp', true); startOut('lOut');
-  const sys = `You are a senior PE analyst and LBO modeling expert trained in Rosenbaum & Pearl methodology.${libCtx()}`;
-  const msg = `LBO analysis for ${co}:
-Entry EV: ${document.getElementById('lEV').value}
-Entry Multiple: ${document.getElementById('lEntry').value}
-Debt/EBITDA: ${getRng('lDEr')}x · Interest Rate: ${getRng('lIRr')}% · Revenue Growth: ${getRng('lRGr')}%
-Margin Improvement: ${getRng('lMIr')}% · Hold Period: ${getRng('lHPr')} yrs · Exit Multiple: ${getRng('lEXr')}x
-${document.getElementById('lFin').value ? 'Financials:\n'+document.getElementById('lFin').value : ''}
+// ═══════════════════════════════
+// 04  COMPS
+// ═══════════════════════════════
+let peers=[];
+let peerCount=0;
 
-Deliver:
-1. SOURCES & USES TABLE — debt vs equity split, fees
-2. DEBT SCHEDULE — year-by-year principal paydown  
-3. EXIT ANALYSIS — EV at exit, debt remaining, equity proceeds
-4. RETURNS — IRR and MOIC at base case
-5. SENSITIVITY — IRR at exit multiples 8x/10x/12x vs hold periods 4/5/6 yrs
-6. KEY VALUE DRIVER — what creates the most return in this deal?
-7. CREDIT METRICS — peak leverage, minimum DSCR, covenant headroom`;
-  const r = await ask(sys, msg, 3500);
-  setOut('lOut', r); spin('lSp', false);
+function addPeerRow(data={}) {
+  peerCount++;
+  const id='p'+peerCount;
+  const tr=document.createElement('tr');
+  tr.id='prow-'+id;
+  tr.innerHTML=`
+    <td style="padding:4px 6px"><input type="text" style="background:var(--raised);border:1px solid var(--edge);border-radius:4px;padding:6px 9px;font-size:12px;color:var(--tx);width:130px" placeholder="Peer name" value="${data.name||''}" id="${id}-name"></td>
+    <td style="padding:4px 6px"><input type="number" style="background:var(--raised);border:1px solid var(--edge);border-radius:4px;padding:6px 9px;font-size:12px;color:var(--tx);width:100px" placeholder="EV" value="${data.ev||''}" id="${id}-ev"></td>
+    <td style="padding:4px 6px"><input type="number" style="background:var(--raised);border:1px solid var(--edge);border-radius:4px;padding:6px 9px;font-size:12px;color:var(--tx);width:100px" placeholder="Revenue" value="${data.rev||''}" id="${id}-rev"></td>
+    <td style="padding:4px 6px"><input type="number" style="background:var(--raised);border:1px solid var(--edge);border-radius:4px;padding:6px 9px;font-size:12px;color:var(--tx);width:100px" placeholder="EBITDA" value="${data.ebitda||''}" id="${id}-ebitda"></td>
+    <td style="padding:4px 6px"><input type="number" style="background:var(--raised);border:1px solid var(--edge);border-radius:4px;padding:6px 9px;font-size:12px;color:var(--tx);width:100px" placeholder="Net Income" value="${data.ni||''}" id="${id}-ni"></td>
+    <td style="padding:4px 6px"><input type="number" style="background:var(--raised);border:1px solid var(--edge);border-radius:4px;padding:6px 9px;font-size:12px;color:var(--tx);width:100px" placeholder="Book Value" value="${data.bv||''}" id="${id}-bv"></td>
+    <td style="padding:4px 6px"><input type="number" style="background:var(--raised);border:1px solid var(--edge);border-radius:4px;padding:6px 9px;font-size:12px;color:var(--tx);width:80px" placeholder="%" value="${data.growth||''}" id="${id}-growth"></td>
+    <td style="padding:4px 6px"><button class="dbtn" onclick="this.closest('tr').remove()">×</button></td>`;
+  document.getElementById('peerBody').appendChild(tr);
 }
 
-// ═══════════════════════════════════════
-// 03 PORTFOLIO
-// ═══════════════════════════════════════
+function getPeers() {
+  const rows=document.querySelectorAll('#peerBody tr');
+  const out=[];
+  rows.forEach(r=>{
+    const id=r.id.replace('prow-','');
+    const name=document.getElementById(id+'-name')?.value?.trim();
+    if(!name) return;
+    const ev=parseFloat(document.getElementById(id+'-ev').value)||null;
+    const rev=parseFloat(document.getElementById(id+'-rev').value)||null;
+    const ebitda=parseFloat(document.getElementById(id+'-ebitda').value)||null;
+    const ni=parseFloat(document.getElementById(id+'-ni').value)||null;
+    const bv=parseFloat(document.getElementById(id+'-bv').value)||null;
+    const growth=parseFloat(document.getElementById(id+'-growth').value)||null;
+    out.push({name,ev,rev,ebitda,ni,bv,growth,
+      evRev:ev&&rev?ev/rev:null, evEBITDA:ev&&ebitda?ev/ebitda:null,
+      pe:ev&&ni?ev/ni:null, pb:ev&&bv?ev/bv:null});
+  });
+  return out;
+}
+
+function runComps() {
+  const peers=getPeers();
+  if(peers.length<2){alert('Add at least 2 peers');return;}
+
+  const tEV=getNum('tEV'), tRev=getNum('tRev'), tEBITDA=getNum('tEBITDA');
+  const tNI=getNum('tNI'), tBV=getNum('tBV'), tGrowth=getNum('tGrowth');
+  const tName=document.getElementById('tName').value||'Target';
+
+  const calcTarget={name:tName,ev:tEV,rev:tRev,ebitda:tEBITDA,ni:tNI,bv:tBV,growth:tGrowth,
+    evRev:tEV&&tRev?tEV/tRev:null, evEBITDA:tEV&&tEBITDA?tEV/tEBITDA:null,
+    pe:tEV&&tNI?tEV/tNI:null, pb:tEV&&tBV?tEV/tBV:null};
+
+  const allRows=[calcTarget,...peers];
+  const colDefs=[
+    {key:'evRev',lbl:'EV/Rev'},
+    {key:'evEBITDA',lbl:'EV/EBITDA'},
+    {key:'pe',lbl:'P/E'},
+    {key:'pb',lbl:'P/B'},
+    {key:'growth',lbl:'Fwd Growth%'},
+  ];
+
+  // Build multiples table
+  let tHtml=`<table class="comps-table"><thead><tr><th>Company</th>${colDefs.map(c=>`<th>${c.lbl}</th>`).join('')}</tr></thead><tbody>`;
+  allRows.forEach((p,i)=>{
+    const isTgt=i===0;
+    tHtml+=`<tr class="${isTgt?'target-row':''}"><td>${p.name}${isTgt?' <span class="tag m" style="font-size:8px">TARGET</span>':''}</td>`;
+    colDefs.forEach(c=>{
+      const v=p[c.key];
+      tHtml+=`<td>${v!=null?v.toFixed(2):'—'}</td>`;
+    });
+    tHtml+='</tr>';
+  });
+
+  // Medians from peers only
+  const medians={};
+  colDefs.forEach(c=>{
+    const vals=peers.map(p=>p[c.key]).filter(v=>v!=null&&isFinite(v));
+    medians[c.key]=vals.length?median(vals):null;
+  });
+  tHtml+=`<tr class="median-row"><td>Peer Median</td>`;
+  colDefs.forEach(c=>{ tHtml+=`<td>${medians[c.key]!=null?medians[c.key].toFixed(2):'—'}</td>`; });
+  tHtml+='</tr></tbody></table>';
+  document.getElementById('compsTable').innerHTML=tHtml;
+
+  // Implied value
+  const implieds=[];
+  if(medians.evRev&&tRev)  implieds.push({method:'EV/Revenue',implied:medians.evRev*tRev,note:`${medians.evRev.toFixed(2)}× × ${fmt(tRev)}`});
+  if(medians.evEBITDA&&tEBITDA) implieds.push({method:'EV/EBITDA',implied:medians.evEBITDA*tEBITDA,note:`${medians.evEBITDA.toFixed(2)}× × ${fmt(tEBITDA)}`});
+  if(medians.pe&&tNI) implieds.push({method:'P/E',implied:medians.pe*tNI,note:`${medians.pe.toFixed(2)}× × ${fmt(tNI)}`});
+  if(medians.pb&&tBV) implieds.push({method:'P/B',implied:medians.pb*tBV,note:`${medians.pb.toFixed(2)}× × ${fmt(tBV)}`});
+
+  let iHtml='<table class="comps-table"><thead><tr><th>Method</th><th>Implied EV</th><th>vs Current EV</th><th>Upside/Downside</th><th>Basis</th></tr></thead><tbody>';
+  implieds.forEach(imp=>{
+    const diff=tEV?((imp.implied-tEV)/tEV*100):null;
+    const cls=diff?(diff>15?'cell-hi':diff<-15?'cell-lo':'cell-mid'):'';
+    iHtml+=`<tr><td>${imp.method}</td><td>${fmt(imp.implied)}</td><td class="${cls}">${diff!=null?coloredPct(diff):'—'}</td><td class="${cls}">${diff!=null?(diff>0?'Undervalued':'Overvalued'):'—'}</td><td style="color:var(--tx3);font-size:10px">${imp.note}</td></tr>`;
+  });
+  if(implieds.length){
+    const avgImpl=implieds.reduce((s,i)=>s+i.implied,0)/implieds.length;
+    const avgDiff=tEV?((avgImpl-tEV)/tEV*100):null;
+    iHtml+=`<tr class="sum-row"><td>Average Implied EV</td><td>${fmt(avgImpl)}</td><td>${avgDiff!=null?coloredPct(avgDiff):'—'}</td><td>${avgDiff!=null?(avgDiff>0?'Undervalued vs peers':'Overvalued vs peers'):'—'}</td><td></td></tr>`;
+  }
+  iHtml+='</tbody></table>';
+  document.getElementById('compsImplied').innerHTML=iHtml;
+
+  // Verdict
+  if(implieds.length&&tEV){
+    const avgImpl=implieds.reduce((s,i)=>s+i.implied,0)/implieds.length;
+    const diff=(avgImpl-tEV)/tEV*100;
+    const vClass=diff>15?'buy':diff<-15?'sell':'hold';
+    const vLabel=diff>15?'UNDERVALUED vs PEERS':diff<-15?'OVERVALUED vs PEERS':'FAIRLY VALUED vs PEERS';
+    document.getElementById('compsVerdict').innerHTML=`<div class="verdict ${vClass}"><div class="verdict-lbl">${vLabel}</div><div class="verdict-txt">${tName} average implied EV ${fmt(avgImpl)} vs current ${fmt(tEV)} → ${coloredPct(diff)} vs peer group median multiples.</div></div>`;
+  }
+  document.getElementById('compsOut').style.display='block';
+}
+
+function loadSampleComps() {
+  document.getElementById('tName').value='HDFC Bank';
+  document.getElementById('tEV').value=1250000;
+  document.getElementById('tRev').value=210000;
+  document.getElementById('tEBITDA').value=56000;
+  document.getElementById('tNI').value=44000;
+  document.getElementById('tBV').value=265000;
+  document.getElementById('tGrowth').value=16;
+  document.getElementById('peerBody').innerHTML='';
+  peerCount=0;
+  [
+    {name:'ICICI Bank',ev:880000,rev:185000,ebitda:46000,ni:36000,bv:220000,growth:18},
+    {name:'Axis Bank',ev:480000,rev:130000,ebitda:32000,ni:24000,bv:158000,growth:15},
+    {name:'Kotak Mahindra',ev:400000,rev:95000,ebitda:28000,ni:22000,bv:130000,growth:14},
+    {name:'IndusInd Bank',ev:120000,rev:55000,ebitda:16000,ni:8500,bv:72000,growth:12},
+    {name:'Yes Bank',ev:62000,rev:28000,ebitda:7000,ni:2000,bv:42000,growth:10},
+  ].forEach(d=>addPeerRow(d));
+}
+function clearComps() {
+  document.getElementById('peerBody').innerHTML='';
+  document.getElementById('compsOut').style.display='none';
+  peerCount=0;
+  ['tName','tEV','tRev','tEBITDA','tNI','tBV','tGrowth'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.value='';
+  });
+}
+
+// ═══════════════════════════════
+// 05  PORTFOLIO
+// ═══════════════════════════════
 function addPos() {
-  const co = document.getElementById('pCo').value.trim(); if (!co) return;
-  const port = S.get('portfolio') || [];
-  port.push({
-    co, ent: document.getElementById('pEnt').value,
-    cur: document.getElementById('pCur').value,
-    date: document.getElementById('pDate').value,
-    stage: document.getElementById('pStage').value,
-    kpi: document.getElementById('pKPI').value,
-    id: Date.now()
-  });
-  S.set('portfolio', port);
-  document.getElementById('pCo').value = '';
-  document.getElementById('pEnt').value = '';
-  document.getElementById('pCur').value = '';
-  document.getElementById('pKPI').value = '';
+  const co=document.getElementById('pCo').value.trim(); if(!co) return;
+  const port=S.get('portfolio')||[];
+  port.push({ co, ent:getNum('pEnt'), cur:getNum('pCur'), date:document.getElementById('pDate').value,
+    stage:document.getElementById('pStage').value, kpi:document.getElementById('pKPI').value, id:Date.now() });
+  S.set('portfolio',port);
+  ['pCo','pDate','pKPI'].forEach(id=>document.getElementById(id).value='');
+  ['pEnt','pCur'].forEach(id=>document.getElementById(id).value='');
   renderPort();
 }
-function delPos(id) {
-  const port = (S.get('portfolio') || []).filter(p => p.id !== id);
-  S.set('portfolio', port); renderPort();
-}
+function delPos(id){ S.set('portfolio',(S.get('portfolio')||[]).filter(p=>p.id!==id)); renderPort(); }
+
 function renderPort() {
-  const port = S.get('portfolio') || [];
-  document.getElementById('posCount').textContent = port.length + ' entries';
-  document.getElementById('ptTotal').textContent = port.length;
-
-  // Naive top performer
-  let top = '—';
-  if (port.length) {
-    const sorted = [...port].filter(p => p.co).sort((a, b) => (b.cur||'').localeCompare(a.cur||''));
-    if (sorted.length) top = sorted[0].co;
-  }
-  document.getElementById('ptTop').textContent = top;
-
-  const list = document.getElementById('portList');
-  if (!port.length) {
-    list.innerHTML = '<div style="padding:28px;text-align:center;font-family:\'Fira Code\',monospace;font-size:11px;color:var(--tx3)">No positions yet.</div>';
-    document.getElementById('ptMoic').textContent = '—';
-    return;
-  }
-
-  // Rough MOIC estimate
-  let moicSum = 0, moicCount = 0;
-  port.forEach(p => {
-    const e = parseFloat((p.ent||'').replace(/[^0-9.]/g,''));
-    const c = parseFloat((p.cur||'').replace(/[^0-9.]/g,''));
-    if (e > 0 && c > 0) { moicSum += c/e; moicCount++; }
-  });
-  document.getElementById('ptMoic').textContent = moicCount ? (moicSum/moicCount).toFixed(2)+'×' : '—';
-
-  list.innerHTML =
-    '<div class="phdr"><span>Company</span><span>Entry</span><span>Current</span><span>Stage</span><span>Date</span><span></span></div>' +
-    port.map(p => `<div class="prow">
+  const port=S.get('portfolio')||[];
+  document.getElementById('ptCount').textContent=port.length;
+  document.getElementById('posCount').textContent=port.length+' entries';
+  const el=document.getElementById('portList');
+  if(!port.length){ el.innerHTML='<div style="padding:28px;text-align:center;font-family:\'Fira Code\',monospace;font-size:11px;color:var(--tx3)">No positions yet.</div>'; return; }
+  el.innerHTML='<div class="phdr"><span>Company</span><span>Entry</span><span>Current</span><span>Stage</span><span>Date</span><span></span></div>'+
+    port.map(p=>`<div class="prow">
       <span style="font-weight:500">${p.co}</span>
-      <span style="font-family:'Fira Code',monospace;font-size:11px;color:var(--tx2)">${p.ent||'—'}</span>
-      <span style="font-family:'Fira Code',monospace;font-size:11px;color:var(--moss)">${p.cur||'—'}</span>
+      <span style="font-family:'Fira Code',monospace;font-size:11px;color:var(--tx2)">${p.ent?fmt(p.ent):'—'}</span>
+      <span style="font-family:'Fira Code',monospace;font-size:11px;color:var(--moss)">${p.cur?fmt(p.cur):'—'}</span>
       <span><span class="tag s" style="font-size:9px">${p.stage}</span></span>
       <span style="font-family:'Fira Code',monospace;font-size:10px;color:var(--tx3)">${p.date||'—'}</span>
       <button class="dbtn" onclick="delPos(${p.id})">×</button>
     </div>`).join('');
 }
-async function analyzePort() {
-  const port = S.get('portfolio') || [];
-  if (!port.length) { setOut('portOut', 'Add some positions first.', 'empty'); return; }
-  startOut('portOut');
-  const sys = `You are a portfolio monitoring analyst at a PE/VC firm. Be specific and direct about what needs attention.`;
-  const data = port.map(p => `${p.co} (${p.stage}) — Entry: ${p.ent||'?'}, Current: ${p.cur||'?'}, KPIs: ${p.kpi||'none'}`).join('\n');
-  const r = await ask(sys, `Analyze this portfolio:\n${data}\n\nDeliver: Portfolio health summary, stars vs laggards, intervention alerts, estimated MOIC/IRR where calculable, concentration risks, recommended next actions per company.`, 2500);
-  setOut('portOut', r);
+
+function calcPortSummary() {
+  const port=S.get('portfolio')||[];
+  if(!port.length) return;
+
+  const valid=port.filter(p=>p.ent>0&&p.cur>0);
+  const totalEnt=valid.reduce((s,p)=>s+p.ent,0);
+  const totalCur=valid.reduce((s,p)=>s+p.cur,0);
+  const moic=totalEnt?totalCur/totalEnt:null;
+  const gain=totalCur-totalEnt;
+
+  document.getElementById('ptMOIC').textContent=moic?fmtX(moic):'—';
+  document.getElementById('ptGain').textContent=gain?(gain>0?'+':'')+fmt(gain):'—';
+  document.getElementById('ptGain').style.color=gain>0?'var(--moss)':'var(--terra)';
+
+  // Approximate IRR from average holding
+  const irrEst=valid.map(p=>{
+    if(!p.ent||!p.cur||!p.date) return null;
+    const [mm,yy]=p.date.split('/').map(Number);
+    if(!mm||!yy) return null;
+    const entDate=new Date(yy,mm-1,1);
+    const yrsHeld=(Date.now()-entDate)/(365.25*24*3600*1000);
+    if(yrsHeld<0.1) return null;
+    return Math.pow(p.cur/p.ent,1/yrsHeld)-1;
+  }).filter(v=>v!=null&&isFinite(v));
+  const avgIRR=irrEst.length?irrEst.reduce((s,v)=>s+v,0)/irrEst.length:null;
+  document.getElementById('ptIRR').textContent=avgIRR?fmtPct(avgIRR*100):'—';
+
+  // Table
+  let tHtml=`<table class="comps-table"><thead><tr><th>Company</th><th>Stage</th><th>Entry Cost</th><th>Current Value</th><th>MOIC</th><th>Gain / Loss</th><th>% Return</th></tr></thead><tbody>`;
+  port.forEach(p=>{
+    const m=p.ent&&p.cur?p.cur/p.ent:null;
+    const g=p.ent&&p.cur?p.cur-p.ent:null;
+    const pct=g&&p.ent?g/p.ent*100:null;
+    tHtml+=`<tr><td>${p.co}</td><td><span class="tag s" style="font-size:9px">${p.stage}</span></td>
+      <td>${p.ent?fmt(p.ent):'—'}</td><td>${p.cur?fmt(p.cur):'—'}</td>
+      <td style="color:${m&&m>1?'var(--moss)':'var(--terra)'}">${m?fmtX(m):'—'}</td>
+      <td>${g!=null?coloredPct(0):'—'}</td>
+      <td>${pct!=null?coloredPct(pct):'—'}</td></tr>`;
+  });
+  tHtml+=`<tr class="sum-row"><td>Total Portfolio</td><td></td><td>${fmt(totalEnt)}</td><td>${fmt(totalCur)}</td><td style="color:var(--moss)">${moic?fmtX(moic):'—'}</td><td>${coloredPct((totalCur-totalEnt)/totalEnt*100)}</td><td></td></tr>`;
+  tHtml+='</tbody></table>';
+  document.getElementById('portTable').innerHTML=tHtml;
+
+  // Stage allocation donut-ish bar chart
+  const stages={};
+  valid.forEach(p=>{ stages[p.stage]=(stages[p.stage]||0)+p.cur; });
+  const canvas=document.getElementById('portChart');
+  const dpr=window.devicePixelRatio||1;
+  const W=canvas.parentElement.clientWidth-32, H=180;
+  canvas.width=W*dpr; canvas.height=H*dpr;
+  canvas.style.width=W+'px'; canvas.style.height=H+'px';
+  const ctx=canvas.getContext('2d');
+  ctx.scale(dpr,dpr);
+  const colors=['rgba(125,160,128,.7)','rgba(110,143,166,.7)','rgba(224,120,64,.7)','rgba(200,170,100,.7)','rgba(160,130,100,.7)','rgba(100,140,130,.7)','rgba(130,110,160,.7)'];
+  const total2=Object.values(stages).reduce((s,v)=>s+v,0);
+  let x=0;
+  Object.entries(stages).forEach(([s,v],i)=>{
+    const w=v/total2*W;
+    ctx.fillStyle=colors[i%colors.length];
+    ctx.fillRect(x,0,w-2,H/2-10);
+    ctx.fillStyle='rgba(220,216,208,.6)';
+    ctx.font=`10px "Fira Code",monospace`;
+    if(w>50) ctx.fillText(s,x+6,H/2-18);
+    if(w>50) ctx.fillText(fmtPct(v/total2*100),x+6,H/2-5);
+    x+=w;
+  });
+  document.getElementById('portSummary').style.display='block';
 }
 
-// ═══════════════════════════════════════
-// 04 COMPOSE — FRAMEWORK
-// ═══════════════════════════════════════
-async function runFW() {
-  const prob = document.getElementById('fwProb').value.trim(); if (!prob) return;
-  spin('fwSp', true); startOut('fwOut');
-  const sys = `You are a McKinsey/BCG senior consultant. Apply frameworks with surgical precision. Be specific to this exact situation — not generic.${libCtx()}`;
-  const msg = `Problem: ${prob}
-Framework: ${document.getElementById('fwFr').value}
-Format: ${document.getElementById('fwFmt').value}
+// ═══════════════════════════════
+// 06  MACRO REGIME ENGINE
+// ═══════════════════════════════
+function runMacro() {
+  const repo  = getNum('mRepo')||6.25;
+  const cpi   = getNum('mCPI')||4.9;
+  const gdp   = getNum('mGDP')||7.2;
+  const gsec  = getNum('mGsec')||6.78;
+  const credit= getNum('mCredit')||14;
+  const inr   = getNum('mINR')||84.2;
+  const fed   = getNum('mFed')||4.5;
+  const oil   = getNum('mOil')||82;
+  const ust   = getNum('mUST')||4.2;
+  const vix   = getNum('mVIX')||18;
 
-Apply the framework precisely and specifically to this situation. Make it look like a real consulting deliverable — not a textbook summary.`;
-  const r = await ask(sys, msg, 3500);
-  setOut('fwOut', r); spin('fwSp', false);
-}
-async function qt(instruction) {
-  const inp = document.getElementById('qtInp').value.trim();
-  spin('fwSp', true); startOut('fwOut');
-  const sys = `You are a senior IB/PE analyst. Deliver professional-grade output.${libCtx()}`;
-  const r = await ask(sys, instruction + '\n\nInput: ' + (inp || '(generate a comprehensive template/example)'), 2500);
-  setOut('fwOut', r); spin('fwSp', false);
-}
+  // Regime detection
+  const realRate=repo-cpi;
+  const spread10Y=gsec-repo;
+  const usSpreadsig=ust-fed;
 
-// ═══════════════════════════════════════
-// 04 COMPOSE — WRITING
-// ═══════════════════════════════════════
-async function runWrite() {
-  const topic = document.getElementById('wTopic').value.trim(); if (!topic) return;
-  spin('wSp', true); startOut('wOut');
-  const sys = `You are a ghostwriter who has studied this person's writing deeply. Write in their exact voice — not AI output.${styleCtx()}${libCtx()}
-Do NOT sound like an AI. No "In conclusion", no "It is worth noting". Sound like the author.`;
-  const msg = `Write a ${document.getElementById('wType').value} with tone: ${document.getElementById('wTone').value}
-Topic: ${topic}
-Key points: ${document.getElementById('wPts').value || 'structure as you see fit'}
-${document.getElementById('wSrc').value ? 'Source material:\n'+document.getElementById('wSrc').value : ''}`;
-  const r = await ask(sys, msg, 3000);
-  setOut('wOut', r); spin('wSp', false);
-}
+  let regime='', regimeColor='var(--tx2)';
+  if(cpi<4&&gdp>6&&realRate>1.5){ regime='Goldilocks — Low inflation, strong growth, positive real rates. Best equity environment.'; regimeColor='var(--moss)'; }
+  else if(cpi>6&&gdp<5){ regime='Stagflationary pressure — High inflation with weak growth. Worst for equities, favour commodities & short duration.'; regimeColor='var(--terra)'; }
+  else if(cpi>6&&gdp>6){ regime='Overheating — Strong growth but inflation above target. RBI likely hawkish. Banks, IT (INR weak) outperform.'; regimeColor='var(--terra)'; }
+  else if(cpi<4&&gdp<5){ regime='Deflationary slowdown — Low inflation + low growth. Rate cuts ahead. Duration, quality defensives favoured.'; regimeColor='var(--slate)'; }
+  else{ regime='Transition phase — Inflation moderating, growth holding. Selective sector opportunities; watch RBI guidance closely.'; regimeColor='var(--tx2)'; }
 
-// ═══════════════════════════════════════
-// 04 COMPOSE — LIBRARY
-// ═══════════════════════════════════════
-function addLib() {
-  const title = document.getElementById('libTitle').value.trim();
-  const cont  = document.getElementById('libCont').value.trim();
-  if (!title || !cont) return;
-  const lib = S.get('library') || [];
-  lib.push({ title, cat: document.getElementById('libCat').value, pri: document.getElementById('libPri').value, content: cont, id: Date.now() });
-  S.set('library', lib);
-  document.getElementById('libTitle').value = '';
-  document.getElementById('libCont').value = '';
-  renderLib();
-}
-function delLib(id) {
-  S.set('library', (S.get('library') || []).filter(e => e.id !== id));
-  renderLib();
-}
-function renderLib() {
-  const lib = S.get('library') || [];
-  document.getElementById('libCount').textContent = lib.length + ' entries';
-  const el = document.getElementById('libList');
-  if (!lib.length) {
-    el.innerHTML = '<div style="padding:28px;text-align:center;font-family:\'Fira Code\',monospace;font-size:11px;color:var(--tx3)">Library is empty.</div>';
-    return;
-  }
-  el.innerHTML = lib.map(e => `<div class="le">
-    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
-      <div>
-        <div class="len">${e.title}</div>
-        <div class="lem"><span class="tag a" style="font-size:8.5px">${e.cat}</span> <span class="tag m" style="font-size:8.5px">${e.pri}</span> · ${e.content.length} chars</div>
-      </div>
-      <button class="dbtn" onclick="delLib(${e.id})">×</button>
-    </div>
-  </div>`).join('');
-}
-async function queryLib() {
-  const q = document.getElementById('libQ').value.trim(); if (!q) return;
-  const lib = S.get('library') || [];
-  if (!lib.length) { setOut('libQOut', 'Library is empty. Add entries first.', 'empty'); return; }
-  spin('libQSp', true);
-  document.getElementById('libQOut').textContent = 'Searching...';
-  document.getElementById('libQOut').className = 'out empty run';
-  const vaultText = lib.map(e => '['+e.cat+'] '+e.title+':\n'+e.content).join('\n\n---\n\n');
-  const sys = `You surface relevant frameworks from a knowledge library. Explain HOW they apply to the specific situation — don't just summarize the framework.`;
-  const r = await ask(sys, `Query: ${q}\n\nLibrary:\n${vaultText}\n\nWhich entries are most relevant and HOW do they apply specifically?`, 2000);
-  setOut('libQOut', r); spin('libQSp', false);
-}
-function saveToLib(type) {
-  let title, content, cat;
-  if (type === 'framework') {
-    title = document.getElementById('fwProb').value.trim().substring(0, 60);
-    content = document.getElementById('fwOut').textContent;
-    cat = 'Strategy Framework';
-  } else {
-    title = document.getElementById('wTopic').value.trim().substring(0, 60);
-    content = document.getElementById('wOut').textContent;
-    cat = 'Writing Sample';
-  }
-  if (!title || !content || content.includes('appears here')) return;
-  const lib = S.get('library') || [];
-  lib.push({ title: title + ' (saved)', cat, pri: 'Medium', content, id: Date.now() });
-  S.set('library', lib);
-  renderLib();
-  alert('Saved to library.');
+  document.getElementById('macroRegime').innerHTML=`
+    <div style="padding:4px 0;font-size:13.5px;font-weight:500;color:${regimeColor};margin-bottom:12px">${regime}</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+      <div class="tile"><div class="tlbl">Real Policy Rate</div><div class="tval ${realRate>1?'m':'t'}" style="font-size:20px">${(realRate).toFixed(2)}%</div><div class="tsub">Repo ${repo}% − CPI ${cpi}%</div></div>
+      <div class="tile"><div class="tlbl">Yield Curve Slope</div><div class="tval ${spread10Y>0.5?'m':'t'}" style="font-size:20px">${(spread10Y).toFixed(2)}%</div><div class="tsub">10Y−Repo spread</div></div>
+      <div class="tile"><div class="tlbl">Credit Impulse</div><div class="tval ${credit>12?'m':'s'}" style="font-size:20px">${credit}%</div><div class="tsub">YoY credit growth</div></div>
+      <div class="tile"><div class="tlbl">Risk Sentiment</div><div class="tval ${vix<20?'m':vix<28?'s':'t'}" style="font-size:20px">${vix<20?'RISK-ON':vix<28?'CAUTIOUS':'RISK-OFF'}</div><div class="tsub">VIX ${vix}</div></div>
+    </div>`;
+
+  // Sector scorecard
+  const sectors = [
+    { name:'Private Banks (IN)',
+      score: calcScore([
+        [credit>12,2],[cpi<5,1],[repo<=6.5,1],[realRate>0,1],[gdp>6,1]]),
+      max:6, rationale:`Credit growth ${credit>12?'strong ✓':'weak ✗'} · NIM ${repo<=6.25?'stable':'under pressure'} · CASA premium justified` },
+    { name:'IT Services (IN)',
+      score: calcScore([[inr>83,2],[ust<5,1],[gdp>5,1],[vix<25,1]]),
+      max:5, rationale:`INR ${inr>83?'weak = revenue tailwind ✓':'strong = headwind ✗'} · USD demand ${ust<5?'stable':'slowing'}` },
+    { name:'Consumer Discretionary',
+      score: calcScore([[gdp>6.5,2],[cpi<5,2],[realRate>0.5,1]]),
+      max:5, rationale:`Real income ${gdp>6.5&&cpi<5?'growing ✓':'squeezed ✗'} · Urban spend correlated with credit growth` },
+    { name:'Capital Goods / Infra',
+      score: calcScore([[gdp>6,2],[credit>12,1],[repo<7,1],[cpi<6,1]]),
+      max:5, rationale:`Capex cycle ${gdp>6&&credit>12?'active ✓':'early stage ✗'} · Order book visibility critical` },
+    { name:'FMCG / Staples',
+      score: calcScore([[cpi<4,2],[vix>25,2],[gdp<5,-1]]),
+      max:4, rationale:`Defensive in ${vix>25?'high-VIX ✓':'low-VIX — less compelling ✗'} regime · Rural recovery watch` },
+    { name:'Real Estate',
+      score: calcScore([[repo<=6.5,2],[cpi<5,1],[credit>12,1],[gdp>6,1]]),
+      max:5, rationale:`Rate sensitivity high · ${repo<=6.5?'Accommodative RBI ✓':'Tight rates headwind ✗'}` },
+    { name:'Pharmaceuticals',
+      score: calcScore([[inr>83,1],[vix>20,1],[gdp>5,1],[cpi<5,1]]),
+      max:4, rationale:`Defensive + export play · INR ${inr>83?'weak = export boost ✓':'strong = margin pressure ✗'}` },
+  ];
+
+  function calcScore(conditions){ return conditions.reduce((s,[cond,pts])=>cond?s+pts:s,0); }
+
+  let sHtml=`<table class="comps-table"><thead><tr><th>Sector</th><th>Score</th><th>Outlook</th><th>Rationale</th></tr></thead><tbody>`;
+  sectors.sort((a,b)=>b.score/b.max-a.score/a.max).forEach(s=>{
+    const pct=s.score/s.max;
+    const [cls,lbl]=pct>0.7?['cell-hi','Overweight']:pct>0.45?['cell-mid','Neutral']:['cell-lo','Underweight'];
+    sHtml+=`<tr><td>${s.name}</td><td class="${cls}">${s.score}/${s.max}</td><td class="${cls}">${lbl}</td><td style="color:var(--tx3);font-size:11px">${s.rationale}</td></tr>`;
+  });
+  sHtml+='</tbody></table>';
+  document.getElementById('macroSectors').innerHTML=sHtml;
+  document.getElementById('macroOut').style.display='block';
 }
 
-// ═══════════════════════════════════════
-// 05 RESEARCH — MARKET
-// ═══════════════════════════════════════
-async function runMkt() {
-  const ind = document.getElementById('mktInd').value.trim(); if (!ind) return;
-  spin('mktSp', true); startOut('mktOut');
-  const sys = `You are a top-tier market research analyst. Be specific with numbers and market data.${libCtx()}`;
-  const msg = `Market: ${ind}
-Analysis: ${document.getElementById('mktType').value}
-Lens: ${document.getElementById('mktLens').value}
-${document.getElementById('mktData').value ? 'Data:\n'+document.getElementById('mktData').value : ''}
-
-Deliver:
-1. TAM / SAM / SOM — size using BOTH top-down and bottom-up approaches
-2. GROWTH DRIVERS — 3-5 structural tailwinds, quantified
-3. COMPETITIVE LANDSCAPE — incumbents, challengers, potential disruptors
-4. PORTER'S FIVE FORCES — concise assessment of each force
-5. VALUE CHAIN — who captures value and why?
-6. ENTRY BARRIERS — what makes this hard to crack?
-7. INVESTMENT OPPORTUNITIES — best risk/reward by segment
-8. HEADLINE THESIS — 2-sentence investment narrative`;
-  const r = await ask(sys, msg, 4000);
-  setOut('mktOut', r); spin('mktSp', false);
-}
-async function runThesis() {
-  const topic = document.getElementById('thTopic').value.trim(); if (!topic) return;
-  spin('thSp', true); startOut('mktOut');
-  const sys = `You are an investment thesis writer. Build conviction narratives that are bold, specific, and defensible.${libCtx()}`;
-  const r = await ask(sys, `Build an investment thesis on: ${topic}\nHorizon: ${document.getElementById('thH').value}\nFormat: ${document.getElementById('thFmt').value}\n\nStructure: Compelling hook → Market setup → The specific bet → Why now → Key risks → Conviction statement`, 3000);
-  setOut('mktOut', r); spin('thSp', false);
-}
-function saveMktToNotes() {
-  const out = document.getElementById('mktOut').textContent;
-  if (!out || out.includes('appear here')) return;
-  const notes = S.get('notes') || [];
-  notes.unshift({ title: (document.getElementById('mktInd').value || document.getElementById('thTopic').value || 'Market Analysis').substring(0,60), cat: 'Market Research', body: out, date: new Date().toLocaleDateString(), id: Date.now() });
-  S.set('notes', notes); renderNotes();
-  sv('research', 'notes', document.querySelector('[onclick*="research\',\'notes\'"]'));
-}
-
-// ═══════════════════════════════════════
-// 05 RESEARCH — MACRO
-// ═══════════════════════════════════════
-async function runMacro() {
-  const sec = document.getElementById('macSec').value.trim(); if (!sec) return;
-  spin('macSp', true); startOut('macOut');
-  const sys = `You are a macro research analyst with deep expertise in India and global markets.${libCtx()}`;
-  const msg = `Sector: ${sec} · Horizon: ${document.getElementById('macH').value} · Focus: ${document.getElementById('macFoc').value}
-${document.getElementById('macData').value ? 'Macro data:\n'+document.getElementById('macData').value : ''}
-${document.getElementById('macQ').value ? 'Question: '+document.getElementById('macQ').value : ''}
-
-Deliver:
-1. MACRO REGIME — where are we in the cycle for this sector?
-2. KEY PARAMETERS — 3-4 variables that dominate; current readings and direction
-3. SECTOR IMPLICATIONS — earnings/valuation impact of current setup
-4. HISTORICAL PARALLELS — when has this macro setup appeared? What followed?
-5. TAIL RISKS — macro scenarios that break the thesis
-6. POSITIONING — which sub-segments benefit most?
-7. 12-MONTH BASE CASE — trajectory and key inflection points`;
-  const r = await ask(sys, msg, 3500);
-  setOut('macOut', r); spin('macSp', false);
-}
-function saveMacroToNotes() {
-  const out = document.getElementById('macOut').textContent;
-  if (!out || out.includes('appear here')) return;
-  const notes = S.get('notes') || [];
-  notes.unshift({ title: 'Macro: ' + (document.getElementById('macSec').value||'Analysis'), cat: 'Macro Note', body: out, date: new Date().toLocaleDateString(), id: Date.now() });
-  S.set('notes', notes); renderNotes();
-}
-
-// ═══════════════════════════════════════
-// 05 RESEARCH — NOTES
-// ═══════════════════════════════════════
-function addNote() {
-  const t = document.getElementById('nTitle').value.trim();
-  const b = document.getElementById('nBody').value.trim();
-  if (!t || !b) return;
-  const notes = S.get('notes') || [];
-  notes.unshift({ title: t, cat: document.getElementById('nCat').value, body: b, date: new Date().toLocaleDateString(), id: Date.now() });
-  S.set('notes', notes);
-  document.getElementById('nTitle').value = '';
-  document.getElementById('nBody').value = '';
-  renderNotes();
-}
-function delNote(id) {
-  S.set('notes', (S.get('notes') || []).filter(n => n.id !== id));
-  renderNotes();
-}
-function renderNotes() {
-  const notes = S.get('notes') || [];
-  const list = document.getElementById('notesList');
-  const empty = document.getElementById('notesEmpty');
-  if (!notes.length) { list.innerHTML = ''; empty.style.display = 'block'; return; }
-  empty.style.display = 'none';
-  list.innerHTML = notes.map(n => `<div class="nc">
-    <div class="nct">${n.title}</div>
-    <div class="ncm"><span class="tag a" style="font-size:8.5px">${n.cat}</span><span>${n.date}</span></div>
-    <div class="ncb">${n.body.substring(0, 320)}${n.body.length > 320 ? '...' : ''}</div>
-    <div class="nca"><button class="btn sm" onclick="expandNote(${n.id})">Read full</button><button class="btn sm" style="color:var(--terra)" onclick="delNote(${n.id})">Delete</button></div>
-  </div>`).join('');
-}
-function expandNote(id) {
-  const notes = S.get('notes') || [];
-  const n = notes.find(x => x.id === id);
-  if (!n) return;
-  // Scroll to a temporary full view
-  const el = document.createElement('div');
-  el.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:999;overflow-y:auto;padding:40px;display:flex;justify-content:center;';
-  el.innerHTML = `<div style="max-width:760px;width:100%;background:var(--card);border:1px solid var(--edge);border-radius:var(--r);padding:28px">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px">
-      <div>
-        <div style="font-size:16px;font-weight:500;margin-bottom:4px">${n.title}</div>
-        <div style="font-family:'Fira Code',monospace;font-size:9.5px;color:var(--tx3)">${n.cat} · ${n.date}</div>
-      </div>
-      <button class="btn sm" onclick="this.closest('[style*=fixed]').remove()">Close</button>
-    </div>
-    <div style="font-family:'Fira Code',monospace;font-size:11.5px;line-height:1.85;color:var(--tx);white-space:pre-wrap">${n.body}</div>
-  </div>`;
-  document.body.appendChild(el);
-}
-async function searchNotes() {
-  const notes = S.get('notes') || [];
-  if (!notes.length) return;
-  spin('nSrchSp', true);
-  const sys = `You synthesize a collection of research notes into a coherent picture.`;
-  const noteText = notes.map(n => `[${n.cat}] ${n.title}:\n${n.body}`).join('\n\n---\n\n');
-  const r = await ask(sys, `Synthesize these research notes into a coherent market narrative. Identify recurring themes, key data points, and what the collective picture suggests about investment opportunities.\n\nNotes:\n${noteText}`, 3000);
-  // Show in a note card
-  const notes2 = S.get('notes') || [];
-  notes2.unshift({ title: 'Synthesis — ' + new Date().toLocaleDateString(), cat: 'Synthesis', body: r, date: new Date().toLocaleDateString(), id: Date.now() });
-  S.set('notes', notes2); renderNotes();
-  spin('nSrchSp', false);
-}
-
-// ═══════════════════════════════════════
-// KEYBOARD SHORTCUTS
-// ═══════════════════════════════════════
-document.addEventListener('keydown', e => {
-  if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
-    const active = document.querySelector('.panel.on');
-    if (!active) return;
-    if (active.id === 'p-brain') runBrain();
-  }
-});
-
-// ═══════════════════════════════════════
+// ═══════════════════════════════
 // INIT
-// ═══════════════════════════════════════
-window.addEventListener('DOMContentLoaded', () => {
-  // Restore API key
-  const k = S.get('key');
-  if (k) {
-    document.getElementById('keyInp').value = k;
-    updateBadge(k);
-  }
-  // Restore data
+// ═══════════════════════════════
+window.addEventListener('DOMContentLoaded',()=>{
   renderPort();
-  renderLib();
-  renderNotes();
+  // Add initial peer rows for comps
+  for(let i=0;i<4;i++) addPeerRow();
 });
 </script>
 </body>
